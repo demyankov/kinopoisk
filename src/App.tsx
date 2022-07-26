@@ -1,34 +1,20 @@
-import React from 'react';
-import { getMovies } from './api/getMovies';
+import React from "react";
 
-import './App.css';
+import "./App.css";
+import { getMovies } from "./api/getMovies";
+import { Card } from "./components/card/card";
+import { MainLayout } from "./components/mainLayout/mainLayout";
+import { MoviesPage } from "./pages/movies/moviesPage";
+import { Global } from "@emotion/react";
+import { getRebootCSS } from "./components/styles/reboot";
 
-async function www (){
-  const moviesResponse = await getMovies ({s:"big",y:"2021",page:10})
-  const movies = moviesResponse['Search']
-  console.log(movies)
-}
-
-www ()
-
-function App() {
-
+function App(): JSX.Element {
   return (
     <div className="App">
-      <header className="App-header">
- 
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Global styles={getRebootCSS()} />
+      <MainLayout>
+        <MoviesPage />
+      </MainLayout>
     </div>
   );
 }

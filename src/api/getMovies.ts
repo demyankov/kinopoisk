@@ -4,30 +4,37 @@ import { querrySearchParamsType } from "../types/querrySearchParamsType";
 
 export const apiPath = `${process.env.REACT_APP_API_PATH}`;
 
-export async function getMovies ({...params}:querrySearchParamsType):Promise<getMoviesResponseType> {
+export async function getMovies({
+  abortController,
+  ...params
+}: {
+  abortController?: AbortController;
+} & querrySearchParamsType): Promise<getMoviesResponseType> {
+  const querryParams = (Object.keys(params) as (keyof typeof params)[])
+    .reduce((acc, key) => {
+      if (typeof params[key] !== "undefined") {
+        acc.append(String(key), `${params[key]}`);
+      }
+      return acc;
+    }, new URLSearchParams())
+    .toString();
 
-    const querryParams = (Object.keys(params)  as (keyof typeof params)[]).reduce(
-        (acc, key)=>{
-            if (typeof params[key] !== "undefined") {
-                acc.append(`${key}`, `${params[key]}`)            
-            }    
-            return acc
-        }, 
-    new URLSearchParams())
-   
-    const response = await fetch(`${apiPath}/?apikey=${ApiKey.key}&${querryParams}`)
-
-    if (response.status === 200) {   
-        return await response.json()
+  const response = await fetch(
+    `${apiPath}/?apikey=${ApiKey.key}&${querryParams}`,
+    {
+      signal: abortController?.signal,
     }
+  );
 
-    return Promise.reject (
-        {
-            status: response.status,
-            errors: {
-                global: response.statusText
-            }
-        }
-    )
- 
+  if (response.status === 200) {
+    console.log(response);
+    return (await response.json()) as getMoviesResponseType;
+  }
+
+  return Promise.reject({
+    status: response.status,
+    errors: {
+      global: response.statusText,
+    },
+  });
 }
