@@ -1,5 +1,10 @@
 import { movieType } from "../../types/movieType";
-import { CardWrapper, ImageWrapper, MovieName } from "./cardStyles";
+import {
+  CardWrapper,
+  ImageWrapper,
+  MovieName,
+  MovieRaiting,
+} from "./cardStyles";
 
 export function Card({ movie }: { movie: movieType }): JSX.Element {
   return (
@@ -14,6 +19,7 @@ export function Card({ movie }: { movie: movieType }): JSX.Element {
           alt={movie.Title}
         />
       </ImageWrapper>
+      <MovieRaiting>9.4</MovieRaiting>
       <MovieName>{movie.Title}</MovieName>
     </CardWrapper>
   );

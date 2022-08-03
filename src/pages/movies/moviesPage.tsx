@@ -27,8 +27,6 @@ export function MoviesPage(): JSX.Element {
     };
   }, []);
 
-  console.log(movies);
-
   return (
     <>
       {movies.map((movie) => {

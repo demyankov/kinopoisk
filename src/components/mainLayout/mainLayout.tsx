@@ -1,17 +1,18 @@
+import { MoviesPage } from "../../pages/movies/moviesPage";
 import { Header } from "../header/header";
 import { SideBar } from "../sideBar/sideBar";
-import { Main, Wrapper } from "./mainLayoutStyles";
+import { Container, Main, Wrapper } from "./mainLayoutStyles";
 
-export function MainLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}): JSX.Element {
+export function MainLayout(): JSX.Element {
   return (
     <Wrapper>
-      <SideBar></SideBar>
-      <Header></Header>
-      <Main>{children}</Main>
+      <Container>
+        <SideBar></SideBar>
+        <Header></Header>
+        <Main>
+          <MoviesPage />
+        </Main>
+      </Container>
     </Wrapper>
   );
 }

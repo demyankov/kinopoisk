@@ -12,9 +12,7 @@ function App(): JSX.Element {
   return (
     <div className="App">
       <Global styles={getRebootCSS()} />
-      <MainLayout>
-        <MoviesPage />
-      </MainLayout>
+      <MainLayout></MainLayout>
     </div>
   );
 }

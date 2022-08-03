@@ -1,10 +1,11 @@
-import { HeaderWrapper } from "./headerStyles";
+import { Input } from "../input/input";
+import { HeaderWrapper, UserName } from "./headerStyles";
 
 export function Header(): JSX.Element {
   return (
     <HeaderWrapper>
-      {" "}
-      <h1>header</h1>
+      <Input id="mainInput" placeholder="Search" />
+      <UserName>Demyankov</UserName>
     </HeaderWrapper>
   );
 }

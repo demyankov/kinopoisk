@@ -10,6 +10,12 @@ export const getRebootCSS = () => css`
       "Noto Color Emoji";
     --bs-font-monospace: SFMono-Regular, Menlo, Monaco, Consolas,
       "Liberation Mono", "Courier New", monospace;
+    --max-width: ${Breakpoints.Desktop};
+    --font-color-base: #fff;
+    --background-color-second: #323537;
+    --background-raiting: #00a340;
+    --placeholder-color: #80858b;
+
     --body-font-family: var(--bs-font-sans-serif);
     --body-font-size: ${TYPOGRAPHY.mobile.body.fontSize};
     --body-line-height: ${TYPOGRAPHY.mobile.body.lineHeight};
@@ -161,7 +167,14 @@ export const getRebootCSS = () => css`
       font-size: var(--boby-font-size);
       font-weight: var(--boby-font-weight);
       line-height: var(--boby-line-height);
+      color: var(--font-color-base);
     }
+
+    input {
+      margin: 0;
+      border: 0;
+    }
+
     abbr[title],
     abbr[data-bs-original-title] {
       -webkit-text-decoration: underline dotted;
@@ -177,20 +190,14 @@ export const getRebootCSS = () => css`
     }
     ol,
     ul {
-      padding-left: 2rem;
+      padding: 0;
     }
     ol,
     ul,
     dl {
-      margin-top: 0;
-      margin-bottom: 1rem;
+      margin-left: 0;
     }
-    ol ol,
-    ul ul,
-    ol ul,
-    ul ol {
-      margin-bottom: 0;
-    }
+
     dd {
       margin-bottom: 0.5rem;
       margin-left: 0;
@@ -307,7 +314,7 @@ export const getRebootCSS = () => css`
     }
     input,
     button {
-      border-radius: 2px;
+      border-radius: var(--spacing-8);
     }
     button:focus:not(:focus-visible) {
       outline: 0;
