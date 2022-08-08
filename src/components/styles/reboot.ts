@@ -12,17 +12,23 @@ export const getRebootCSS = () => css`
       "Liberation Mono", "Courier New", monospace;
     --max-width: ${Breakpoints.Desktop};
     --font-color-base: #fff;
+    --font-color-second: #80858b;
+    --font-color-active: #7b61ff;
+    --font-color-error: #ee204d;
+    --background-color-medium: #242426;
     --background-color-second: #323537;
     --background-raiting: #00a340;
-    --placeholder-color: #80858b;
 
     --body-font-family: var(--bs-font-sans-serif);
     --body-font-size: ${TYPOGRAPHY.mobile.body.fontSize};
     --body-line-height: ${TYPOGRAPHY.mobile.body.lineHeight};
     --body-font-weight: ${TYPOGRAPHY.mobile.body.fontWeight};
-    --headline-font-size: ${TYPOGRAPHY.mobile.headline.fontSize};
-    --headline-line-height: ${TYPOGRAPHY.mobile.headline.lineHeight};
-    --headline-font-weight: ${TYPOGRAPHY.mobile.headline.fontWeight};
+    --headline-1-font-size: ${TYPOGRAPHY.mobile.headline1.fontSize};
+    --headline-1-line-height: ${TYPOGRAPHY.mobile.headline1.lineHeight};
+    --headline-1-font-weight: ${TYPOGRAPHY.mobile.headline1.fontWeight};
+    --headline-2-font-size: ${TYPOGRAPHY.mobile.headline2.fontSize};
+    --headline-2-line-height: ${TYPOGRAPHY.mobile.headline2.lineHeight};
+    --headline-2-font-weight: ${TYPOGRAPHY.mobile.headline2.fontWeight};
     --subHeadline-1-font-size: ${TYPOGRAPHY.mobile.subHeadline1.fontSize};
     --subHeadline-1-line-height: ${TYPOGRAPHY.mobile.subHeadline1.lineHeight};
     --subHeadline-1-font-weight: ${TYPOGRAPHY.mobile.subHeadline1.fontWeight};
@@ -46,9 +52,12 @@ export const getRebootCSS = () => css`
       --body-font-size: ${TYPOGRAPHY.tablet.body.fontSize};
       --body-line-height: ${TYPOGRAPHY.tablet.body.lineHeight};
       --body-font-weight: ${TYPOGRAPHY.tablet.body.fontWeight};
-      --headline-font-size: ${TYPOGRAPHY.tablet.headline.fontSize};
-      --headline-line-height: ${TYPOGRAPHY.tablet.headline.lineHeight};
-      --headline-font-weight: ${TYPOGRAPHY.tablet.headline.fontWeight};
+      --headline-1-font-size: ${TYPOGRAPHY.tablet.headline1.fontSize};
+      --headline-1-line-height: ${TYPOGRAPHY.tablet.headline1.lineHeight};
+      --headline-1-font-weight: ${TYPOGRAPHY.tablet.headline1.fontWeight};
+      --headline-2-font-size: ${TYPOGRAPHY.tablet.headline2.fontSize};
+      --headline-2-line-height: ${TYPOGRAPHY.tablet.headline2.lineHeight};
+      --headline-2-font-weight: ${TYPOGRAPHY.tablet.headline2.fontWeight};
       --subHeadline-1-font-size: ${TYPOGRAPHY.tablet.subHeadline1.fontSize};
       --subHeadline-1-line-height: ${TYPOGRAPHY.tablet.subHeadline1.lineHeight};
       --subHeadline-1-font-weight: ${TYPOGRAPHY.tablet.subHeadline1.fontWeight};
@@ -73,9 +82,12 @@ export const getRebootCSS = () => css`
       --body-font-size: ${TYPOGRAPHY.desktop.body.fontSize};
       --body-line-height: ${TYPOGRAPHY.desktop.body.lineHeight};
       --body-font-weight: ${TYPOGRAPHY.desktop.body.fontWeight};
-      --headline-font-size: ${TYPOGRAPHY.desktop.headline.fontSize};
-      --headline-line-height: ${TYPOGRAPHY.desktop.headline.lineHeight};
-      --headline-font-weight: ${TYPOGRAPHY.desktop.headline.fontWeight};
+      --headline-1-font-size: ${TYPOGRAPHY.desktop.headline1.fontSize};
+      --headline-1-line-height: ${TYPOGRAPHY.desktop.headline1.lineHeight};
+      --headline-1-font-weight: ${TYPOGRAPHY.desktop.headline1.fontWeight};
+      --headline-2-font-size: ${TYPOGRAPHY.desktop.headline2.fontSize};
+      --headline-2-line-height: ${TYPOGRAPHY.desktop.headline2.lineHeight};
+      --headline-2-font-weight: ${TYPOGRAPHY.desktop.headline2.fontWeight};
       --subHeadline-1-font-size: ${TYPOGRAPHY.desktop.subHeadline1.fontSize};
       --subHeadline-1-line-height: ${TYPOGRAPHY.desktop.subHeadline1
         .lineHeight};
@@ -144,29 +156,48 @@ export const getRebootCSS = () => css`
       font-size: var(--subheadline-3-font-size);
       font-weight: var(--subheadline-3-font-weight);
       line-height: var(--subheadline-3-line-height);
+      color: var(--font-color-base);
     }
     h1 {
-      font-size: var(--headline-font-size);
-      font-weight: var(--headline-font-weight);
-      line-height: var(--headline-line-height);
+      font-size: var(--headline-1-font-size);
+      font-weight: var(--headline-1-font-weight);
+      line-height: var(--headline-1-line-height);
     }
     h2 {
+      font-size: var(--headline-1-font-size);
+      font-weight: var(--headline-1-font-weight);
+      line-height: var(--headline-1-line-height);
+    }
+
+    h3 {
+      font-size: var(--headline-2-font-size);
+      font-weight: var(--headline-2-font-weight);
+      line-height: var(--headline-2-line-height);
+    }
+
+    h4 {
       font-size: var(--subheadline-1-font-size);
       font-weight: var(--subheadline-1-font-weight);
       line-height: var(--subheadline-1-line-height);
     }
 
-    h3 {
+    h5 {
       font-size: var(--subheadline-2-font-size);
       font-weight: var(--subheadline-2-font-weight);
       line-height: var(--subheadline-2-line-height);
     }
 
     p {
-      margin-top: 0;
-      font-size: var(--boby-font-size);
-      font-weight: var(--boby-font-weight);
-      line-height: var(--boby-line-height);
+      margin: 0;
+      font-size: var(--body-font-size);
+      font-weight: var(--body-font-weight);
+      line-height: var(--body-line-height);
+      color: var(--font-color-base);
+    }
+
+    p,
+    label,
+    input {
       color: var(--font-color-base);
     }
 

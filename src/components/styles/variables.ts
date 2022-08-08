@@ -2,7 +2,12 @@ import { FontWeight } from "../../enums/fontWeight";
 
 export const TYPOGRAPHY = {
   desktop: {
-    headline: {
+    headline1: {
+      fontSize: "2rem",
+      fontWeight: FontWeight.Semibold,
+      lineHeight: "3rem",
+    },
+    headline2: {
       fontSize: "1.5rem",
       fontWeight: FontWeight.Semibold,
       lineHeight: "2.25rem",
@@ -30,7 +35,12 @@ export const TYPOGRAPHY = {
   },
 
   tablet: {
-    headline: {
+    headline1: {
+      fontSize: "2rem",
+      fontWeight: FontWeight.Semibold,
+      lineHeight: "3rem",
+    },
+    headline2: {
       fontSize: "1.5rem",
       fontWeight: FontWeight.Semibold,
       lineHeight: "2.25rem",
@@ -58,7 +68,12 @@ export const TYPOGRAPHY = {
   },
 
   mobile: {
-    headline: {
+    headline1: {
+      fontSize: "1.75rem",
+      fontWeight: FontWeight.Semibold,
+      lineHeight: "2.625rem",
+    },
+    headline2: {
       fontSize: "1.25rem",
       fontWeight: FontWeight.Semibold,
       lineHeight: "2rem",

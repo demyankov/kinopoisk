@@ -2,9 +2,8 @@ import styled from "@emotion/styled";
 
 export const CardWrapper = styled.div`
   position: relative;
-  flex-basis: 18%;
+  flex-basis: calc(17%);
   min-width: 200px;
-  flex: 1;
 `;
 
 export const ImageWrapper = styled.div`
@@ -12,7 +11,7 @@ export const ImageWrapper = styled.div`
   height: 300px;
   border-radius: 1rem;
   overflow: hidden;
-  /* width: 100%; */
+  margin-bottom: var(--spacing-6);
 
   img {
     object-fit: cover;

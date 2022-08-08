@@ -11,16 +11,11 @@ export const Container = styled.div`
     "SideBar Main";
   grid-column-gap: var(--spacing-5);
   grid-row-gap: var(--spacing-2);
-
+  grid-template-rows: auto 1fr;
+  grid-template-columns: auto 1fr;
   max-width: var(--max-width);
-  padding: var(--spacing-9);
+  padding: var(--spacing-4) var(--spacing-9);
   margin: 0 auto;
 `;
 
-export const Main = styled.main`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: var(--spacing-9);
-`;
+export const Main = styled.main``;

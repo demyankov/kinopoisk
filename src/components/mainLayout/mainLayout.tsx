@@ -1,16 +1,17 @@
-import { MoviesPage } from "../../pages/movies/moviesPage";
+import { Outlet } from "react-router-dom";
 import { Header } from "../header/header";
+import { sideBar } from "../images/iconComponents";
 import { SideBar } from "../sideBar/sideBar";
 import { Container, Main, Wrapper } from "./mainLayoutStyles";
 
-export function MainLayout(): JSX.Element {
+export function MainLayout() {
   return (
     <Wrapper>
       <Container>
-        <SideBar></SideBar>
+        <SideBar links={sideBar}></SideBar>
         <Header></Header>
         <Main>
-          <MoviesPage />
+          <Outlet />
         </Main>
       </Container>
     </Wrapper>
