@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 
 export const Wrapper = styled.div`
-  background-color: #000;
+  background-color: var(--background-color);
 `;
 
 export const Container = styled.div`
@@ -17,5 +17,3 @@ export const Container = styled.div`
   padding: var(--spacing-4) var(--spacing-9);
   margin: 0 auto;
 `;
-
-export const Main = styled.main``;

@@ -30,6 +30,6 @@ export const MovieRaiting = styled.div`
   top: var(--spacing-7);
   left: var(--spacing-7);
   border-radius: var(--spacing-9);
-  background-color: var(--background-raiting);
+  background-color: var(--background-color-bright);
   color: var(--font-color-base);
 `;

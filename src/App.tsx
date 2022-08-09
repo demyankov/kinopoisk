@@ -1,7 +1,7 @@
 import React from "react";
 
 import "./App.css";
-import { MainLayout } from "./components/mainLayout/mainLayout";
+import { MainLayout } from "./mainLayout/mainLayout";
 import { Global } from "@emotion/react";
 import { getRebootCSS } from "./components/styles/reboot";
 import { BrowserRouter, Route, Routes } from "react-router-dom";

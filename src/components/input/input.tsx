@@ -1,10 +1,6 @@
 import React from "react";
 import { Error, InputWrapper, Label, StyledInput } from "./inputStyles";
-
-export interface InputType extends React.InputHTMLAttributes<HTMLInputElement> {
-  label?: string;
-  error?: string;
-}
+import { InputType } from "./inputType";
 
 export function Input({
   label,

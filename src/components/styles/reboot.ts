@@ -12,12 +12,17 @@ export const getRebootCSS = () => css`
       "Liberation Mono", "Courier New", monospace;
     --max-width: ${Breakpoints.Desktop};
     --font-color-base: #fff;
+    --font-color-invert: #000;
     --font-color-second: #80858b;
     --font-color-active: #7b61ff;
     --font-color-error: #ee204d;
+    --background-color: #000;
+    --background-color-invert: #e5e5e5;
     --background-color-medium: #242426;
     --background-color-second: #323537;
-    --background-raiting: #00a340;
+    --background-color-bright: #7b61ff;
+    --background-color-button: #80858b;
+    --background-color-disabled: #242426;
 
     --body-font-family: var(--bs-font-sans-serif);
     --body-font-size: ${TYPOGRAPHY.mobile.body.fontSize};
@@ -197,7 +202,8 @@ export const getRebootCSS = () => css`
 
     p,
     label,
-    input {
+    input,
+    button {
       color: var(--font-color-base);
     }
 
@@ -346,6 +352,7 @@ export const getRebootCSS = () => css`
     input,
     button {
       border-radius: var(--spacing-8);
+      font-size: var();
     }
     button:focus:not(:focus-visible) {
       outline: 0;
@@ -354,6 +361,7 @@ export const getRebootCSS = () => css`
     select {
       text-transform: none;
     }
+
     [role="button"] {
       cursor: pointer;
     }
