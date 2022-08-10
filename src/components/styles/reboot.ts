@@ -4,6 +4,8 @@ import { SPACING, TYPOGRAPHY } from "./variables";
 
 export const getRebootCSS = () => css`
   :root {
+    --theme-switcher-width: 4rem;
+
     --bs-font-sans-serif: "Inter", system-ui, -apple-system, "Segoe UI", Roboto,
       "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif,
       "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
@@ -21,9 +23,8 @@ export const getRebootCSS = () => css`
     --background-color-medium: #242426;
     --background-color-second: #323537;
     --background-color-bright: #7b61ff;
-    --background-color-button: #80858b;
-    --background-color-disabled: #242426;
-
+    --background-color-button-hover: #664af0;
+    --background-color-disabled: #80858b;
     --body-font-family: var(--bs-font-sans-serif);
     --body-font-size: ${TYPOGRAPHY.mobile.body.fontSize};
     --body-line-height: ${TYPOGRAPHY.mobile.body.lineHeight};

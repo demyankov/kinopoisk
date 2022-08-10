@@ -1,4 +1,4 @@
-export interface movieDetailsType {
+export interface MovieDetailsType {
   Actors: string;
   Awards: string;
   BoxOffice: string;

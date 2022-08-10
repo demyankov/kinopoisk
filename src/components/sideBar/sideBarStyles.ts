@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 export const SideBarWrapper = styled.nav`
   grid-area: SideBar;
   min-height: 100vh;
-  padding: var(--spacing-2);
+  padding: var(--spacing-5) var(--spacing-2);
 `;
 
 export const SideBarLink = styled(NavLink)`

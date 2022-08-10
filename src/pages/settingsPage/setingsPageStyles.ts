@@ -38,26 +38,72 @@ export const ThemeSwitcher = styled.div`
 
   label {
     position: relative;
-    width: 4.6rem;
-    height: 2rem;
-    border-radius: 1rem;
+    width: var(--theme-switcher-width);
+    height: calc(var(--theme-switcher-width) * 0.5);
+    border-radius: 9999px;
     background-color: var(--background-color-invert);
+  }
+
+  @keyframes moveRight {
+    10% {
+      transform: scale(0.97);
+    }
+    20% {
+      transform: scale(1.03);
+    }
+    30% {
+      transform: scale(0.97);
+    }
+    40% {
+      transform: scale(1.03);
+    }
+    50% {
+      transform: scale(0.97);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+
+  @keyframes moveLeft {
+    10% {
+      transform: scale(0.97);
+    }
+    20% {
+      transform: scale(1.03);
+    }
+    30% {
+      transform: scale(0.97);
+    }
+    40% {
+      transform: scale(1.03);
+    }
+    50% {
+      transform: scale(0.97);
+    }
+    100% {
+      transform: scale(1);
+    }
   }
 
   label::after {
     content: "";
     position: absolute;
-    height: 1.6rem;
-    width: 1.6rem;
+    height: calc(var(--theme-switcher-width) * 0.4);
+    width: calc(var(--theme-switcher-width) * 0.4);
     border-radius: 50%;
-    left: 0.2rem;
-    top: 0.2rem;
+    top: 10%;
+    left: 5%;
     background-color: var(--background-color-medium);
-    transition: all 0.3s ease-in;
+    transition: left 0.5s ease-in;
+    animation: moveLeft 0.5s infinite ease-in-out;
+    animation-iteration-count: 1;
   }
 
   input:checked + label::after {
-    left: 2.8rem;
+    left: calc(var(--theme-switcher-width) * 0.55);
+    animation: moveRight 0.5s infinite ease-in-out;
+    animation-iteration-count: 1;
   }
 `;
 

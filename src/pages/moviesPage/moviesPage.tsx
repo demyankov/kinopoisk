@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { getMovies } from "../../api/getMovies";
 import { Card } from "../../components/card/card";
-import { movieType } from "../../types/movieType";
+import { MovieType } from "../../types/movieType";
 import { Wrapper } from "./moviePageStyles";
 
 export function MoviesPage(): JSX.Element {
-  const [movies, setMovie] = useState<movieType[]>([
+  const [movies, setMovie] = useState<MovieType[]>([
     {
       Title: " ",
       Year: " ",
@@ -15,14 +15,15 @@ export function MoviesPage(): JSX.Element {
     },
   ]);
 
+  const [errors, setErrors] = useState();
+
   useEffect(() => {
     const abortController = new AbortController();
-
     getMovies({ abortController, s: "matrix", r: "json", page: "1" })
       .then((response) => {
         setMovie(response["Search"]);
       })
-      .catch((errors) => console.log(errors));
+      .catch((errors) => setErrors(errors));
     return () => {
       abortController.abort();
     };

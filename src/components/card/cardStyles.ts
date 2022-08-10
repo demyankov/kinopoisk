@@ -20,9 +20,21 @@ export const ImageWrapper = styled.div`
   }
 `;
 
-export const MovieName = styled.p``;
+export const MovieName = styled.h5``;
 
-export const MovieGenre = styled.p``;
+export const MovieGenre = styled.ul`
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: var(--spacing-4);
+  margin: 0;
+
+  li {
+    color: var(--font-color-second);
+  }
+  li:first-of-type {
+    list-style-type: none;
+  }
+`;
 
 export const MovieRaiting = styled.div`
   padding: var(--spacing-9);

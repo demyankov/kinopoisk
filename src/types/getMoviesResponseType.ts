@@ -1,7 +1,7 @@
-import { movieType } from "./movieType";
+import { MovieType } from "./movieType";
 
 export interface getMoviesResponseType {
   Response: string;
-  Search: Array<movieType>;
+  Search: Array<MovieType>;
   totalResults: number;
 }

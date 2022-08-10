@@ -6,11 +6,11 @@ export const ButtonWrapper = styled.button<{ width: string }>`
   font-size: var(--subheadline-3-font-size);
   font-weight: var(--subheadline-3-font-weight);
   line-height: var(--subheadline-3-line-height);
-  background-color: var(--background-color-button);
+  background-color: var(--background-color-bright);
 
   &:hover {
-    background-color: var(--background-color-bright);
-    border: 2px solid var(--background-color-bright);
+    background-color: var(--background-color-button-hover);
+    border: 2px solid var(--background-color-button-hover);
   }
 
   &:active {
@@ -18,7 +18,6 @@ export const ButtonWrapper = styled.button<{ width: string }>`
   }
 
   &:disabled {
-    color: var(--font-color-second);
     border: none;
     background-color: var(--background-color-disabled);
   }

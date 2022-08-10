@@ -2,7 +2,7 @@ import { Outlet } from "react-router-dom";
 import { Header } from "../components/header/header";
 import { sideBar } from "../components/images/iconComponents";
 import { SideBar } from "../components/sideBar/sideBar";
-import { Container, Wrapper } from "./mainLayoutStyles";
+import { Container, Footer, Main, Wrapper } from "./mainLayoutStyles";
 
 export function MainLayout() {
   return (
@@ -10,9 +10,12 @@ export function MainLayout() {
       <Container>
         <SideBar links={sideBar}></SideBar>
         <Header></Header>
-        <main>
+        <Main>
           <Outlet />
-        </main>
+        </Main>
+        <Footer>
+          <p>© All Rights Reserved</p>
+        </Footer>
       </Container>
     </Wrapper>
   );
