@@ -27,7 +27,7 @@ export function Card({ movie }: { movie: MovieType }): JSX.Element {
           setErrors(error);
         }
       });
-  }, []);
+  });
 
   return movieDetails ? (
     <CardWrapper>
@@ -41,9 +41,11 @@ export function Card({ movie }: { movie: MovieType }): JSX.Element {
           alt={movieDetails.Title}
         />
       </ImageWrapper>
-      <MovieRaiting>{movieDetails.imdbRating || <MutatingDots />}</MovieRaiting>
+      <MovieRaiting>
+        {movieDetails.imdbRating || <MutatingDots color="red" radius="15%" />}
+      </MovieRaiting>
       <MovieName>
-        {movieDetails.Title || <MutatingDots radius="0.2rem" color="#fff" />}
+        {movieDetails.Title || <MutatingDots color="red" radius="15%" />}
       </MovieName>
       <MovieGenre>
         {movieDetails?.Genre?.split(",").map((genre, key) => (

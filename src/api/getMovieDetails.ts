@@ -8,7 +8,7 @@ export async function getMovieDetails(
   movieId: MovieType["imdbID"]
 ): Promise<AxiosResponse> {
   const querryParams = new URLSearchParams();
-  querryParams.append("e", movieId);
+  querryParams.append("i", movieId);
 
   return await axios.get(`${apiPath}/?apikey=${ApiKey.key}&${querryParams}`);
 }
