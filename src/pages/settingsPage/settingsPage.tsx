@@ -26,16 +26,23 @@ export function SettingsPage(): JSX.Element {
             id="password"
             label="Password"
             placeholder="Your password"
+            autoComplete="off"
+            type="password"
           ></Input>
           <SettingsSubItem>
             <Input
               id="newPassword"
               label="New password"
               placeholder="New password"
+              autoComplete="off"
+              type="password"
             ></Input>
             <Input
+              id="confirmPassword"
               label="Confirm password"
               placeholder="Confirm password"
+              autoComplete="off"
+              type="password"
             ></Input>
           </SettingsSubItem>
         </SettingsItem>

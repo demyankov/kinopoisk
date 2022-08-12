@@ -16,6 +16,7 @@ export function Input({
         id={id}
         placeholder={placeholder ? placeholder : undefined}
         autoComplete="on"
+        type="text"
         {...otherProps}
       ></StyledInput>
       {error ? <Error>{error}</Error> : null}
