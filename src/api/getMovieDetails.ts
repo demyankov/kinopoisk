@@ -9,6 +9,7 @@ export async function getMovieDetails(
 ): Promise<AxiosResponse> {
   const querryParams = new URLSearchParams();
   querryParams.append("i", movieId);
+  querryParams.append("plot", "full");
 
   return await axios.get(`${apiPath}/?apikey=${ApiKey.key}&${querryParams}`);
 }

@@ -1,5 +1,6 @@
 export enum AppRoute {
   Main = "/",
+  Movie = "/movie",
   Trends = "/trends",
   Favourites = "/favourites",
   Settings = "/settings",

@@ -15,9 +15,10 @@ export function Input({
       <StyledInput
         id={id}
         placeholder={placeholder ? placeholder : undefined}
+        autoComplete="on"
         {...otherProps}
       ></StyledInput>
-      <Error>{error}</Error>
+      {error ? <Error>{error}</Error> : null}
     </InputWrapper>
   );
 }

@@ -27,7 +27,6 @@ export async function getMovies({
   );
 
   if (response.status === 200) {
-    console.log(response);
     return (await response.json()) as getMoviesResponseType;
   }
 

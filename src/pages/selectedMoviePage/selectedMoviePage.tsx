@@ -1,14 +1,19 @@
 import { getMoviesDetailsResponseType } from "../../types/getMoviesDetailsResponseType";
-import { MovieDescriptionItem } from "./movieDescriptionItem";
+import { MovieDescription } from "./movieDescription";
+import imdb from "../../components/images/Imdb.svg";
 import {
-  About,
-  Genres,
   ImageSection,
   ImageWrapper,
   InfoSection,
-  Raitings,
+  MovieName,
+  Raiting,
+  RaitingImdb,
   Wrapper,
+  Runtime,
+  RaitingWrapper,
 } from "./selectedMoviePageStyles";
+import { P } from "../../components/styles/P";
+import { MovieGenre } from "../../components/card/cardStyles";
 
 export function SelectedMoviePage({
   movie,
@@ -19,22 +24,29 @@ export function SelectedMoviePage({
     <Wrapper>
       <ImageSection>
         <ImageWrapper>
-          <img src={movie.Poster}></img>
+          <img src={movie.Poster} alt="Movie poster"></img>
         </ImageWrapper>
         <div></div>
       </ImageSection>
       <InfoSection>
-        <Genres></Genres>
-        <Raitings></Raitings>
-        <About></About>
-        <MovieDescriptionItem header="Year" text={movie.Year} />
-        <MovieDescriptionItem header="Released" text={movie.Released} />
-        <MovieDescriptionItem header="BoxOffice" text={movie.BoxOffice} />
-        <MovieDescriptionItem header="Country" text={movie.Country} />
-        <MovieDescriptionItem header="Production" text={movie.Production} />
-        <MovieDescriptionItem header="Actors" text={movie.Actors} />
-        <MovieDescriptionItem header="Director" text={movie.Director} />
-        <MovieDescriptionItem header="Writers" text={movie.Writer} />
+        <div>
+          <MovieGenre>
+            {movie.Genre.split(",").map((genre, key) => (
+              <li key={key}>{genre}</li>
+            ))}
+          </MovieGenre>
+          <MovieName>{movie.Title}</MovieName>
+        </div>
+
+        <RaitingWrapper>
+          <Raiting>{movie.imdbRating}</Raiting>
+          <RaitingImdb>
+            <img src={imdb} alt="IMDB" /> {movie.imdbRating}
+          </RaitingImdb>
+          <Runtime>{movie.Runtime}</Runtime>
+        </RaitingWrapper>
+        <P>{movie.Plot}</P>
+        <MovieDescription movie={movie} />
       </InfoSection>
     </Wrapper>
   );

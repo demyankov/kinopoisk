@@ -19,6 +19,8 @@ export const getRebootCSS = () => css`
     --font-color-active: #7b61ff;
     --font-color-error: #ee204d;
     --background-color: #000;
+
+    --background-color-raiting: #00a340;
     --background-color-invert: #e5e5e5;
     --background-color-medium: #242426;
     --background-color-second: #323537;
@@ -193,15 +195,15 @@ export const getRebootCSS = () => css`
       line-height: var(--subheadline-2-line-height);
     }
 
-    p {
-      margin: 0;
+    p,
+    div {
+      /* margin: 0; */
       font-size: var(--body-font-size);
       font-weight: var(--body-font-weight);
       line-height: var(--body-line-height);
-      color: var(--font-color-base);
     }
 
-    p,
+    div,
     label,
     input,
     button {

@@ -3,9 +3,9 @@ import { FontWeight } from "../../enums/fontWeight";
 export const TYPOGRAPHY = {
   desktop: {
     headline1: {
-      fontSize: "2rem",
+      fontSize: "2.5rem",
       fontWeight: FontWeight.Semibold,
-      lineHeight: "3rem",
+      lineHeight: "3.75rem",
     },
     headline2: {
       fontSize: "1.5rem",

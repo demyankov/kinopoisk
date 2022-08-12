@@ -35,13 +35,3 @@ export const MovieGenre = styled.ul`
     list-style-type: none;
   }
 `;
-
-export const MovieRaiting = styled.div`
-  padding: var(--spacing-9);
-  position: absolute;
-  top: var(--spacing-7);
-  left: var(--spacing-7);
-  border-radius: var(--spacing-9);
-  background-color: var(--background-color-bright);
-  color: var(--font-color-base);
-`;
