@@ -8,6 +8,21 @@ export const Wrapper = styled.div`
 export const ImageSection = styled.div`
   flex: 1;
 `;
+
+export const InteractionWrapper = styled.div`
+  display: flex;
+  border-radius: var(--spacing-8);
+  overflow: hidden;
+`;
+
+export const InteractionButton = styled.button`
+  flex: 1;
+  gap: 2px;
+  border-radius: none;
+  background-color: var(--background-color-second);
+  padding: var(--spacing-7);
+`;
+
 export const InfoSection = styled.div`
   flex: 5;
   display: flex;
@@ -17,6 +32,7 @@ export const InfoSection = styled.div`
 export const ImageWrapper = styled.div`
   border-radius: var(--spacing-7);
   overflow: hidden;
+  margin-bottom: var(--spacing-5);
 `;
 export const MovieName = styled.h2``;
 

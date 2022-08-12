@@ -3,6 +3,7 @@ import styled from "@emotion/styled";
 export const ButtonWrapper = styled.button<{ width: string }>`
   width: ${(props) => props.width};
   padding: var(--spacing-7) var(--spacing-1);
+  border-radius: var(--spacing-8);
   font-size: var(--subheadline-3-font-size);
   font-weight: var(--subheadline-3-font-weight);
   line-height: var(--subheadline-3-line-height);

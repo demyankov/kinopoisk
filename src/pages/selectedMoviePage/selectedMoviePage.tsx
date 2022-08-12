@@ -1,6 +1,6 @@
 import { getMoviesDetailsResponseType } from "../../types/getMoviesDetailsResponseType";
 import { MovieDescription } from "./movieDescription";
-import imdb from "../../components/images/Imdb.svg";
+import Imdb from "../../components/images/Imdb.svg";
 import {
   ImageSection,
   ImageWrapper,
@@ -11,9 +11,13 @@ import {
   Wrapper,
   Runtime,
   RaitingWrapper,
+  InteractionWrapper,
+  InteractionButton,
 } from "./selectedMoviePageStyles";
 import { P } from "../../components/styles/P";
 import { MovieGenre } from "../../components/card/cardStyles";
+import ToFavouriteIcon from "../../components/images/favouriteIcon.svg";
+import ToShareIcon from "../../components/images/toShareIcon.svg";
 
 export function SelectedMoviePage({
   movie,
@@ -26,7 +30,14 @@ export function SelectedMoviePage({
         <ImageWrapper>
           <img src={movie.Poster} alt="Movie poster"></img>
         </ImageWrapper>
-        <div></div>
+        <InteractionWrapper>
+          <InteractionButton>
+            <img src={ToFavouriteIcon} alt="" />
+          </InteractionButton>
+          <InteractionButton>
+            <img src={ToShareIcon} alt="" />
+          </InteractionButton>
+        </InteractionWrapper>
       </ImageSection>
       <InfoSection>
         <div>
@@ -41,7 +52,7 @@ export function SelectedMoviePage({
         <RaitingWrapper>
           <Raiting>{movie.imdbRating}</Raiting>
           <RaitingImdb>
-            <img src={imdb} alt="IMDB" /> {movie.imdbRating}
+            <img src={Imdb} alt="IMDB" /> {movie.imdbRating}
           </RaitingImdb>
           <Runtime>{movie.Runtime}</Runtime>
         </RaitingWrapper>

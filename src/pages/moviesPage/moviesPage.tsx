@@ -2,9 +2,15 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getMovies } from "../../api/getMovies";
 import { Card } from "../../components/card/card";
-import { AppLoader } from "../../components/loader/loader";
+import { AppLoader } from "../../components/loaders/appLoader";
+import { RingsLoader } from "../../components/loaders/ringsLoader";
+
 import { MovieType } from "../../types/movieType";
-import { Wrapper } from "./moviePageStyles";
+import {
+  ShowMoreButton,
+  CardsWrapper,
+  ShowMoreButtonWrapper,
+} from "./moviePageStyles";
 
 export function MoviesPage(): JSX.Element {
   const [movies, setMovie] = useState<MovieType[]>([
@@ -36,14 +42,21 @@ export function MoviesPage(): JSX.Element {
   }, []);
 
   return (
-    <Wrapper>
-      {isLoading ? (
-        <AppLoader />
-      ) : (
-        movies.map((movie) => {
-          return <Card key={movie.imdbID} movie={movie} />;
-        })
-      )}
-    </Wrapper>
+    <>
+      <CardsWrapper>
+        {isLoading ? (
+          <AppLoader />
+        ) : (
+          movies.map((movie) => {
+            return <Card key={movie.imdbID} movie={movie} />;
+          })
+        )}
+      </CardsWrapper>
+      <ShowMoreButtonWrapper>
+        <ShowMoreButton>
+          Show More <RingsLoader />
+        </ShowMoreButton>
+      </ShowMoreButtonWrapper>
+    </>
   );
 }

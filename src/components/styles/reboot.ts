@@ -195,9 +195,8 @@ export const getRebootCSS = () => css`
       line-height: var(--subheadline-2-line-height);
     }
 
-    p,
-    div {
-      /* margin: 0; */
+    p {
+      margin: 0;
       font-size: var(--body-font-size);
       font-weight: var(--body-font-weight);
       line-height: var(--body-line-height);
@@ -351,11 +350,6 @@ export const getRebootCSS = () => css`
     }
     label {
       display: inline-block;
-    }
-    input,
-    button {
-      border-radius: var(--spacing-8);
-      font-size: var();
     }
     button:focus:not(:focus-visible) {
       outline: 0;
