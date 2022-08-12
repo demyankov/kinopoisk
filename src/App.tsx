@@ -14,6 +14,7 @@ import { ResertPassword } from "./pages/authPages/resertPassword/resertPassword"
 import { NewPassword } from "./pages/authPages/newPassword/newPassword";
 import { SelectedMoviePage } from "./pages/selectedMoviePage/selectedMoviePage";
 import EmptyPageImage from "./components/images/emptyPage.png";
+import { FiltersPopup } from "./components/filtersPopup/filtersPopup";
 
 function App(): JSX.Element {
   return (
@@ -72,21 +73,7 @@ function App(): JSX.Element {
                 ></SelectedMoviePage>
               }
             />
-            <Route
-              path={AppRoute.Trends}
-              element={
-                <div
-                  style={{
-                    minHeight: "80%",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                  }}
-                >
-                  <img src={EmptyPageImage}></img>
-                </div>
-              }
-            />
+            <Route path={AppRoute.Trends} element={<FiltersPopup />} />
             <Route
               path={AppRoute.Favourites}
               element={

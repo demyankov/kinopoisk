@@ -1,11 +1,13 @@
 import styled from "@emotion/styled";
 
-export const InputWrapper = styled.div`
+export const InputWrapper = styled.div<{ justifyContent: string | undefined }>`
   width: 100%;
   flex: 1;
   display: flex;
   flex-direction: column;
   gap: var(--spacing-9);
+  justify-content: ${(props) =>
+    props.justifyContent ? props.justifyContent : "start"};
 `;
 
 export const Label = styled.label``;

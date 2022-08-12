@@ -7,10 +7,11 @@ export function Input({
   error,
   id,
   placeholder,
+  justifyContent,
   ...otherProps
 }: InputType): JSX.Element {
   return (
-    <InputWrapper>
+    <InputWrapper justifyContent={justifyContent}>
       <Label htmlFor={id}>{label}</Label>
       <StyledInput
         id={id}
