@@ -1,6 +1,4 @@
-import { AppRoute } from "../../enums/AppRoute";
-
-function IconHome() {
+export function IconHome() {
   return (
     <svg width="24" height="24" viewBox="0 0 24 24">
       <path
@@ -11,7 +9,7 @@ function IconHome() {
   );
 }
 
-function IconTrends() {
+export function IconTrends() {
   return (
     <svg width="24" height="24" viewBox="0 0 24 24">
       <path
@@ -22,7 +20,7 @@ function IconTrends() {
   );
 }
 
-function IconSettings() {
+export function IconSettings() {
   return (
     <svg width="24" height="24" viewBox="0 0 24 24">
       <path
@@ -33,7 +31,7 @@ function IconSettings() {
   );
 }
 
-function IconFavorites() {
+export function IconFavorites() {
   return (
     <svg width="24" height="24" viewBox="0 0 24 24">
       <path
@@ -43,37 +41,3 @@ function IconFavorites() {
     </svg>
   );
 }
-
-export interface SideBarType {
-  icon: JSX.Element;
-  text: string;
-  href: string;
-  id: number;
-}
-
-export const sideBar: Array<SideBarType> = [
-  {
-    icon: <IconHome />,
-    text: "Home",
-    href: `${AppRoute.Main}`,
-    id: 1,
-  },
-  {
-    icon: <IconTrends />,
-    text: "Trends",
-    href: `${AppRoute.Trends}`,
-    id: 2,
-  },
-  {
-    icon: <IconFavorites />,
-    text: "Favorites",
-    href: `${AppRoute.Favourites}`,
-    id: 3,
-  },
-  {
-    icon: <IconSettings />,
-    text: "Settings",
-    href: `${AppRoute.Settings}`,
-    id: 4,
-  },
-];

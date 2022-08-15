@@ -29,7 +29,7 @@ export function MoviesPage(): JSX.Element {
 
   useEffect(() => {
     const abortController = new AbortController();
-    getMovies({ abortController, s: "matrix", r: "json", page: "1" })
+    getMovies({ abortController, s: "death", r: "json", page: "1" })
       .then((response) => {
         setMovie(response["Search"]);
         setIsLoading(false);

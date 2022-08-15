@@ -205,6 +205,8 @@ export const getRebootCSS = () => css`
     div,
     label,
     input,
+    select,
+    option,
     button {
       color: var(--font-color-base);
     }
@@ -212,6 +214,15 @@ export const getRebootCSS = () => css`
     input {
       margin: 0;
       border: 0;
+    }
+
+    input[type="number"] {
+      -moz-appearance: textfield;
+    }
+
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+      -webkit-appearance: none;
     }
 
     abbr[title],

@@ -1,5 +1,6 @@
 import React from "react";
-import { Error, InputWrapper, Label, StyledInput } from "./inputStyles";
+import { Error } from "../styles/error";
+import { InputWrapper, Label, StyledInput } from "./inputStyles";
 import { InputType } from "./inputType";
 
 export function Input({

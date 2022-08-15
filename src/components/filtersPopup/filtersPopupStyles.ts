@@ -1,12 +1,51 @@
 import styled from "@emotion/styled";
 
-export const PopupWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: start;
-  gap: var(--spacing-4);
+export const PopupWrapper = styled.form`
+  position: fixed;
+  top: 0;
+  right: -100%;
+  padding: var(--spacing-4);
+  max-width: 32rem;
+  border-bottom-left-radius: var(--spacing-7);
+  border-top-left-radius: var(--spacing-7);
   background-color: var(--background-color-medium);
-  /* height: 100%; */
+  min-height: 100%;
+  transition: all 0.6s ease;
+
+  &.active {
+    right: 0;
+  }
+
+  & > div {
+    margin-bottom: var(--spacing-4);
+  }
+
+  option {
+    color: var(--font-color-base);
+  }
+`;
+
+export const SortBy = styled.fieldset`
+  display: flex;
+
+  input {
+    /* display: none; */
+  }
+
+  label {
+  }
+
+  label::before {
+    content: "";
+    min-width: 100%;
+    min-height: 100%;
+    background-color: var(--background-color-second);
+    padding: var(--spacing-8);
+  }
+
+  input[type="radio"]:checked + label::before {
+    background-color: var(--background-color-second);
+  }
 `;
 
 export const InputGroup = styled.div`
@@ -14,4 +53,49 @@ export const InputGroup = styled.div`
   gap: var(--spacing-6);
 `;
 
-export const GenreWrapper = styled.div``;
+export const Genres = styled.div`
+  padding: var(--spacing-8);
+  background-color: var(--background-color-second);
+  border-radius: var(--spacing-9);
+
+  ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-6);
+    margin: 0;
+  }
+`;
+
+export const GenreItem = styled.li`
+  display: flex;
+  gap: var(--spacing-9);
+  padding: var(--spacing-9);
+  background-color: var(--background-color-medium);
+  border-radius: var(--spacing-9);
+  border: 1px solid var(--background-color-medium);
+
+  &:hover {
+    border: 1px solid var(--background-color-invert);
+  }
+`;
+
+export const DeleteGenre = styled.span`
+  color: var(--font-color-second);
+
+  &:hover {
+    color: var(--font-color-error);
+    transform: scale(1.05);
+  }
+`;
+
+export const CloseSearchForm = styled.div`
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  color: var(--font-color-base);
+
+  &:hover {
+    color: var(--font-color-error);
+    transform: scale(1.05);
+  }
+`;

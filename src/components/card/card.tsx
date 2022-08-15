@@ -3,12 +3,13 @@ import { useEffect, useState } from "react";
 import { getMovieDetails } from "../../api/getMovieDetails";
 import { MovieDetailsType } from "../../types/movieDetailsType";
 import { MovieType } from "../../types/movieType";
-import { Error } from "../input/inputStyles";
+
 import { CardWrapper, ImageWrapper, MovieName, MovieGenre } from "./cardStyles";
 import { MutatingDots } from "react-loader-spinner";
 import { NavLink } from "react-router-dom";
 import { AppRoute } from "../../enums/AppRoute";
 import { MovieRaiting } from "../styles/movieRaitingStyle";
+import { Error } from "../styles/error";
 
 export function Card({ movie }: { movie: MovieType }): JSX.Element {
   const [movieDetails, setMovieDetails] = useState<MovieDetailsType>();
