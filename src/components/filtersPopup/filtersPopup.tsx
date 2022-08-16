@@ -1,59 +1,72 @@
 import { useState } from "react";
+import { useSelector } from "react-redux";
 import { defoultGenresList } from "../../generalData/defaultGenresList";
+import { filterSelector } from "../../store/isOpenedfFlter/filter.selector";
+import { filterActions } from "../../store/isOpenedfFlter/filter.slice";
+import { useAppDispatch } from "../../store/rootStore";
+import { Button } from "../button/button";
 import { Input } from "../input/input";
 import { Select } from "../select/select";
-
-// import { Select } from "../select/input/select";
 import {
+  ButtonWrapper,
   CloseSearchForm,
   DeleteGenre,
   GenreItem,
   Genres,
   InputGroup,
+  PopUpHeader,
   PopupWrapper,
 } from "./filtersPopupStyles";
 import { SortBySwitcher } from "./sortBySwitcher/sortBySwitcher";
 
 export function FiltersPopup(): JSX.Element {
   const [genresListFilter, setGenresListFilter] = useState(defoultGenresList);
-  const [searchFornIsActive, setSearchFornIsActive] = useState(true);
+  const isOpen = useSelector(filterSelector);
+  const dispatch = useAppDispatch();
   const currentYear = new Date().getFullYear();
 
   return (
-    <PopupWrapper className={searchFornIsActive ? "active" : undefined}>
-      <CloseSearchForm onClick={() => setSearchFornIsActive(false)}>
-        Х
-      </CloseSearchForm>
+    <PopupWrapper className={isOpen ? "active" : undefined}>
+      <PopUpHeader>
+        <h3>Filters</h3>
+        <CloseSearchForm onClick={() => dispatch(filterActions.toggleOpen())}>
+          Х
+        </CloseSearchForm>
+      </PopUpHeader>
       <SortBySwitcher firstLabel="Raiting" secondLabel="Year" />
       <Input label="Full or shot movie name" placeholder="Your text" />
-      <Genres>
-        <ul>
-          {genresListFilter.length ? (
-            genresListFilter.map((genre, i) => (
-              <GenreItem key={i}>
-                <span id={genre}>{genre}</span>
-                <DeleteGenre
-                  id={genre}
-                  onClick={(event) =>
-                    setGenresListFilter(
-                      genresListFilter.filter(
-                        (el) => el !== event.currentTarget.id
+      <div>
+        <p>Genres</p>
+        <Genres>
+          <ul>
+            {genresListFilter.length ? (
+              genresListFilter.map((genre, i) => (
+                <GenreItem key={i}>
+                  <span id={genre}>{genre}</span>
+                  <DeleteGenre
+                    id={genre}
+                    onClick={(event) =>
+                      setGenresListFilter(
+                        genresListFilter.filter(
+                          (el) => el !== event.currentTarget.id
+                        )
                       )
-                    )
-                  }
-                >
-                  x
-                </DeleteGenre>
-              </GenreItem>
-            ))
-          ) : (
-            <p>Genres not selected</p>
-          )}
-        </ul>
-      </Genres>
+                    }
+                  >
+                    x
+                  </DeleteGenre>
+                </GenreItem>
+              ))
+            ) : (
+              <p>Genres not selected</p>
+            )}
+          </ul>
+        </Genres>
+      </div>
       <InputGroup>
         <Input
           label="Years of release"
+          justifyContent="end"
           placeholder="From"
           type="number"
           min="1960"
@@ -71,6 +84,7 @@ export function FiltersPopup(): JSX.Element {
         <Input
           label="Raiting"
           placeholder="From"
+          justifyContent="end"
           type="number"
           min="0"
           max="10"
@@ -87,6 +101,10 @@ export function FiltersPopup(): JSX.Element {
         label="Country"
         options={["USA", "United Kingdom", "India", "France"]}
       />
+      <ButtonWrapper>
+        <Button>Clear filter</Button>
+        <Button>Show results</Button>
+      </ButtonWrapper>
     </PopupWrapper>
   );
 }

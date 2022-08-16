@@ -8,6 +8,13 @@ export const HeaderWrapper = styled.header`
   gap: var(--spacing-4);
 `;
 
+export const OpenFilter = styled.img`
+  position: absolute;
+  right: var(--spacing-7);
+  top: 50%;
+  transform: translateY(-50%);
+`;
+
 export const UserName = styled.p`
   grid-area: Header;
   color: var(--font-color-base);

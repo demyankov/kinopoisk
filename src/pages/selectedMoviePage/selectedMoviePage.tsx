@@ -19,14 +19,13 @@ import { MovieGenre } from "../../components/card/cardStyles";
 import ToFavouriteIcon from "../../components/images/favouriteIcon.svg";
 import ToShareIcon from "../../components/images/toShareIcon.svg";
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { getMovieDetails } from "../../api/getMovieDetails";
-import { AppRoute } from "../../enums/AppRoute";
+import { AppLoader } from "../../components/loaders/appLoader";
 
 export function SelectedMoviePage() {
   const { movieId } = useParams<{ movieId: string }>();
   const [movie, setMovie] = useState<getMoviesDetailsResponseType>();
-  const navigate = useNavigate();
 
   useEffect(() => {
     getMovieDetails(movieId).then((response) => {
@@ -71,6 +70,6 @@ export function SelectedMoviePage() {
       </InfoSection>
     </Wrapper>
   ) : (
-    <>{navigate(AppRoute.NotFound, { replace: true })}</>
+    <AppLoader />
   );
 }

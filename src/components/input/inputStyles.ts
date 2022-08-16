@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
 
 export const InputWrapper = styled.div<{ justifyContent: string | undefined }>`
+  position: relative;
   width: 100%;
   flex: 1;
   display: flex;
@@ -9,8 +10,6 @@ export const InputWrapper = styled.div<{ justifyContent: string | undefined }>`
   justify-content: ${(props) =>
     props.justifyContent ? props.justifyContent : "start"};
 `;
-
-export const Label = styled.label``;
 
 export const StyledInput = styled.input`
   width: 100%;

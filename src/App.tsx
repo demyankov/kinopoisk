@@ -29,7 +29,21 @@ function App(): JSX.Element {
               path={`${AppRoute.Movie}/:movieId`}
               element={<SelectedMoviePage></SelectedMoviePage>}
             />
-            <Route path={AppRoute.Trends} element={<FiltersPopup />} />
+            <Route
+              path={AppRoute.Trends}
+              element={
+                <div
+                  style={{
+                    minHeight: "80%",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  <img src={EmptyPageImage} alt="Empty Page"></img>
+                </div>
+              }
+            />
             <Route
               path={AppRoute.Favourites}
               element={

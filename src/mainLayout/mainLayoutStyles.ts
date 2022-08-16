@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 
 export const Wrapper = styled.div`
   background-color: var(--background-color);
+  min-height: 100%;
 `;
 
 export const Container = styled.div`

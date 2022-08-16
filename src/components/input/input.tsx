@@ -1,9 +1,10 @@
 import React from "react";
 import { Error } from "../styles/error";
-import { InputWrapper, Label, StyledInput } from "./inputStyles";
+import { InputWrapper, StyledInput } from "./inputStyles";
 import { InputType } from "./inputType";
 
 export function Input({
+  children,
   label,
   error,
   id,
@@ -13,7 +14,8 @@ export function Input({
 }: InputType): JSX.Element {
   return (
     <InputWrapper justifyContent={justifyContent}>
-      <Label htmlFor={id}>{label}</Label>
+      {children}
+      <label htmlFor={id}>{label}</label>
       <StyledInput
         id={id}
         placeholder={placeholder ? placeholder : undefined}

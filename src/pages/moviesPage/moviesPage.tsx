@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getMovies } from "../../api/getMovies";
 import { Card } from "../../components/card/card";
+import { FiltersPopup } from "../../components/filtersPopup/filtersPopup";
 import { AppLoader } from "../../components/loaders/appLoader";
 import { RingsLoader } from "../../components/loaders/ringsLoader";
 
@@ -43,6 +44,7 @@ export function MoviesPage(): JSX.Element {
 
   return (
     <>
+      <FiltersPopup />
       <CardsWrapper>
         {isLoading ? (
           <AppLoader />

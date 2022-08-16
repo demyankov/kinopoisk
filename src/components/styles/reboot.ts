@@ -132,6 +132,10 @@ export const getRebootCSS = () => css`
         scroll-behavior: smooth;
       }
     }
+    html {
+      min-height: 100vh;
+    }
+
     body {
       -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
       -webkit-text-size-adjust: 100%;
@@ -141,6 +145,7 @@ export const getRebootCSS = () => css`
       font-size: var(--body-font-size);
       font-weight: var(--body-font-weight);
       line-height: var(--body-line-height);
+      height: 100%;
       margin: 0;
     }
     hr {
