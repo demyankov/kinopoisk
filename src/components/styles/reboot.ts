@@ -212,7 +212,6 @@ export const getRebootCSS = () => css`
     }
 
     input {
-      margin: 0;
       border: 0;
     }
 
@@ -404,8 +403,6 @@ export const getRebootCSS = () => css`
     fieldset {
       min-width: 0;
       padding: 0;
-      margin: 0;
-      border: 0;
     }
     legend {
       float: left;

@@ -1,5 +1,5 @@
 import React from "react";
-import { Error } from "../../styles/error";
+import { Error } from "../styles/error";
 import { Label, SelectWrapper, StyledSelect } from "./selectStyles";
 
 import { SelectType } from "./selectType";
@@ -15,8 +15,10 @@ export function Select({
       <Label>{label}</Label>
       <StyledSelect {...otherProps}>
         <option>Not selected</option>
-        {options.map((option) => (
-          <option value={option}>{option}</option>
+        {options.map((option, id) => (
+          <option value={option} key={id}>
+            {option}
+          </option>
         ))}
       </StyledSelect>
       {error ? <Error>{error}</Error> : null}

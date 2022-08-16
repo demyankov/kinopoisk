@@ -25,29 +25,6 @@ export const PopupWrapper = styled.form`
   }
 `;
 
-export const SortBy = styled.fieldset`
-  display: flex;
-
-  input {
-    /* display: none; */
-  }
-
-  label {
-  }
-
-  label::before {
-    content: "";
-    min-width: 100%;
-    min-height: 100%;
-    background-color: var(--background-color-second);
-    padding: var(--spacing-8);
-  }
-
-  input[type="radio"]:checked + label::before {
-    background-color: var(--background-color-second);
-  }
-`;
-
 export const InputGroup = styled.div`
   display: flex;
   gap: var(--spacing-6);

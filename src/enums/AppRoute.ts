@@ -8,4 +8,5 @@ export enum AppRoute {
   SignUp = "/auth/signUp",
   Resert = "/auth/resert",
   NewPassword = "/auth/newPassword",
+  NotFound = "/404",
 }

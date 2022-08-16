@@ -16,13 +16,16 @@ export function SideBar({ links }: { links: Array<SideBarType> }): JSX.Element {
       />
       <Ul>
         {links.map((link) => {
+          let Icon = link.icon;
           return (
-            <SideBarLink to={link.href} key={link.id}>
-              <>
-                {link.icon}
-                {link.text}
-              </>
-            </SideBarLink>
+            <li key={link.id}>
+              <SideBarLink to={link.href}>
+                <>
+                  <Icon></Icon>
+                  {link.text}
+                </>
+              </SideBarLink>
+            </li>
           );
         })}
       </Ul>

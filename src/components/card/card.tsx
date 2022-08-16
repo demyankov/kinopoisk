@@ -27,7 +27,6 @@ export function Card({ movie }: { movie: MovieType }): JSX.Element {
       });
   }, []);
 
-  console.log(movieDetails);
   return movieDetails ? (
     <CardWrapper>
       <ImageWrapper>

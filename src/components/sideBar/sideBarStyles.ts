@@ -5,6 +5,10 @@ export const SideBarWrapper = styled.nav`
   grid-area: SideBar;
   min-height: 100vh;
   padding: var(--spacing-5) var(--spacing-2);
+
+  li {
+    list-style-type: none;
+  }
 `;
 
 export const SideBarLink = styled(NavLink)`

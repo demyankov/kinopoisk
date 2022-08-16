@@ -18,13 +18,23 @@ import { P } from "../../components/styles/P";
 import { MovieGenre } from "../../components/card/cardStyles";
 import ToFavouriteIcon from "../../components/images/favouriteIcon.svg";
 import ToShareIcon from "../../components/images/toShareIcon.svg";
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { getMovieDetails } from "../../api/getMovieDetails";
+import { AppRoute } from "../../enums/AppRoute";
 
-export function SelectedMoviePage({
-  movie,
-}: {
-  movie: getMoviesDetailsResponseType;
-}) {
-  return (
+export function SelectedMoviePage() {
+  const { movieId } = useParams<{ movieId: string }>();
+  const [movie, setMovie] = useState<getMoviesDetailsResponseType>();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    getMovieDetails(movieId).then((response) => {
+      setMovie(response.data);
+    });
+  }, [movieId]);
+
+  return movie ? (
     <Wrapper>
       <ImageSection>
         <ImageWrapper>
@@ -32,10 +42,10 @@ export function SelectedMoviePage({
         </ImageWrapper>
         <InteractionWrapper>
           <InteractionButton>
-            <img src={ToFavouriteIcon} alt="" />
+            <img src={ToFavouriteIcon} alt="To Favourite Icon" />
           </InteractionButton>
           <InteractionButton>
-            <img src={ToShareIcon} alt="" />
+            <img src={ToShareIcon} alt="To Share Icon" />
           </InteractionButton>
         </InteractionWrapper>
       </ImageSection>
@@ -60,5 +70,7 @@ export function SelectedMoviePage({
         <MovieDescription movie={movie} />
       </InfoSection>
     </Wrapper>
+  ) : (
+    <>{navigate(AppRoute.NotFound, { replace: true })}</>
   );
 }
