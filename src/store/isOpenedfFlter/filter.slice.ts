@@ -6,8 +6,11 @@ export const isOpenedFilterSlice = createSlice({
     isOpened: false,
   },
   reducers: {
-    toggleOpen: (state) => {
-      state.isOpened = !state.isOpened;
+    open: (state) => {
+      state.isOpened = true;
+    },
+    close: (state) => {
+      state.isOpened = false;
     },
   },
 });

@@ -4,6 +4,7 @@ import { defoultGenresList } from "../../generalData/defaultGenresList";
 import { filterSelector } from "../../store/isOpenedfFlter/filter.selector";
 import { filterActions } from "../../store/isOpenedfFlter/filter.slice";
 import { useAppDispatch } from "../../store/rootStore";
+import { useOutside } from "../../utils/useOutside";
 import { Button } from "../button/button";
 import { Input } from "../input/input";
 import { Select } from "../select/select";
@@ -21,15 +22,17 @@ import { SortBySwitcher } from "./sortBySwitcher/sortBySwitcher";
 
 export function FiltersPopup(): JSX.Element {
   const [genresListFilter, setGenresListFilter] = useState(defoultGenresList);
-  const isOpen = useSelector(filterSelector);
-  const dispatch = useAppDispatch();
+  // const isOpen = useSelector(filterSelector);
+  // const dispatch = useAppDispatch();
   const currentYear = new Date().getFullYear();
 
+  const { refForm, isOpen, dispatch } = useOutside();
+
   return (
-    <PopupWrapper className={isOpen ? "active" : undefined}>
+    <PopupWrapper ref={refForm} className={isOpen ? "active" : undefined}>
       <PopUpHeader>
         <h3>Filters</h3>
-        <CloseSearchForm onClick={() => dispatch(filterActions.toggleOpen())}>
+        <CloseSearchForm onClick={() => dispatch(filterActions.close())}>
           Х
         </CloseSearchForm>
       </PopUpHeader>
@@ -102,8 +105,8 @@ export function FiltersPopup(): JSX.Element {
         options={["USA", "United Kingdom", "India", "France"]}
       />
       <ButtonWrapper>
-        <Button>Clear filter</Button>
-        <Button>Show results</Button>
+        <Button width="100%">Clear filter</Button>
+        <Button width="100%">Show results</Button>
       </ButtonWrapper>
     </PopupWrapper>
   );

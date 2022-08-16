@@ -8,11 +8,14 @@ export const HeaderWrapper = styled.header`
   gap: var(--spacing-4);
 `;
 
-export const OpenFilter = styled.img`
+export const OpenFilter = styled.button`
   position: absolute;
   right: var(--spacing-7);
   top: 50%;
   transform: translateY(-50%);
+  background-color: transparent;
+  appearance: none;
+  border: none;
 `;
 
 export const UserName = styled.p`

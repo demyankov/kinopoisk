@@ -87,5 +87,6 @@ export const ButtonWrapper = styled.div`
   display: flex;
   gap: var(--spacing-7);
   justify-content: space-between;
+  align-items: center;
   flex: 1;
 `;

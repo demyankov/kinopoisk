@@ -5,7 +5,6 @@ import { Card } from "../../components/card/card";
 import { FiltersPopup } from "../../components/filtersPopup/filtersPopup";
 import { AppLoader } from "../../components/loaders/appLoader";
 import { RingsLoader } from "../../components/loaders/ringsLoader";
-
 import { MovieType } from "../../types/movieType";
 import {
   ShowMoreButton,

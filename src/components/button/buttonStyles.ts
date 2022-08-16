@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 
 export const ButtonWrapper = styled.button<{ width: string }>`
   width: ${(props) => props.width};
-  padding: var(--spacing-7) var(--spacing-1);
+  padding: var(--spacing-7) var(--spacing-3);
   border-radius: var(--spacing-8);
   font-size: var(--subheadline-3-font-size);
   font-weight: var(--subheadline-3-font-weight);
