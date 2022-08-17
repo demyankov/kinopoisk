@@ -1,6 +1,5 @@
 import { Provider } from "react-redux";
 import { Outlet } from "react-router-dom";
-import { FiltersPopup } from "../components/filtersPopup/filtersPopup";
 import { Header } from "../components/header/header";
 import { SideBar } from "../components/sideBar/sideBar";
 import { SecondaryP } from "../components/styles/secondaryP";

@@ -1,10 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { useDispatch } from "react-redux";
-import { filterReducer } from "./isOpenedfFlter/filter.slice";
+import { favouriteReducer } from "./favouriteMovies/favourite.slice";
+import { filterReducer } from "./isOpenedfFilter/filter.slice";
 
 export const rootStore = configureStore({
   reducer: {
     filter: filterReducer,
+    favourite: favouriteReducer,
   },
 });
 

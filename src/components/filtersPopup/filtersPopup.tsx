@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { defoultGenresList } from "../../generalData/defaultGenresList";
-import { filterActions } from "../../store/isOpenedfFlter/filter.slice";
+import { filterActions } from "../../store/isOpenedfFilter/filter.slice";
 import { useOutside } from "../../utils/useOutside";
 import { Button } from "../button/button";
 import { Input } from "../input/input";

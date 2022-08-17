@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
-import { filterSelector } from "../store/isOpenedfFlter/filter.selector";
-import { filterActions } from "../store/isOpenedfFlter/filter.slice";
+import { filterSelector } from "../store/isOpenedfFilter/filter.selector";
+import { filterActions } from "../store/isOpenedfFilter/filter.slice";
 import { useAppDispatch } from "../store/rootStore";
 
 export function useOutside() {
@@ -42,6 +42,6 @@ export function useOutside() {
         document.removeEventListener("click", handleClickOutsideOpen);
       }
     };
-  }, [isOpened]);
+  }, [isOpened, dispatch]);
   return { refForm, refOpen, isOpened, dispatch };
 }

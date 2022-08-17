@@ -22,10 +22,18 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getMovieDetails } from "../../api/getMovieDetails";
 import { AppLoader } from "../../components/loaders/appLoader";
+import { useSelector } from "react-redux";
+import { favouriteSelector } from "../../store/favouriteMovies/favourite.selector";
+import { useAppDispatch } from "../../store/rootStore";
+import { favouriteAction } from "../../store/favouriteMovies/favourite.slice";
 
 export function SelectedMoviePage() {
   const { movieId } = useParams<{ movieId: string }>();
   const [movie, setMovie] = useState<getMoviesDetailsResponseType>();
+
+  const favouriteMoviesList = useSelector(favouriteSelector);
+  const dispatch = useAppDispatch();
+  console.log(favouriteMoviesList);
 
   useEffect(() => {
     getMovieDetails(movieId).then((response) => {
@@ -40,7 +48,12 @@ export function SelectedMoviePage() {
           <img src={movie.Poster} alt="Movie poster"></img>
         </ImageWrapper>
         <InteractionWrapper>
-          <InteractionButton>
+          <InteractionButton
+            onClick={() => {
+              dispatch(favouriteAction.addInFavourite(movie.imdbID));
+              console.log(favouriteAction.addInFavourite);
+            }}
+          >
             <img src={ToFavouriteIcon} alt="To Favourite Icon" />
           </InteractionButton>
           <InteractionButton>
