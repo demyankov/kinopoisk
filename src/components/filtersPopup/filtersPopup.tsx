@@ -1,9 +1,6 @@
 import { useState } from "react";
-import { useSelector } from "react-redux";
 import { defoultGenresList } from "../../generalData/defaultGenresList";
-import { filterSelector } from "../../store/isOpenedfFlter/filter.selector";
 import { filterActions } from "../../store/isOpenedfFlter/filter.slice";
-import { useAppDispatch } from "../../store/rootStore";
 import { useOutside } from "../../utils/useOutside";
 import { Button } from "../button/button";
 import { Input } from "../input/input";
@@ -22,14 +19,12 @@ import { SortBySwitcher } from "./sortBySwitcher/sortBySwitcher";
 
 export function FiltersPopup(): JSX.Element {
   const [genresListFilter, setGenresListFilter] = useState(defoultGenresList);
-  // const isOpen = useSelector(filterSelector);
-  // const dispatch = useAppDispatch();
   const currentYear = new Date().getFullYear();
 
-  const { refForm, isOpen, dispatch } = useOutside();
+  const { refForm, isOpened, dispatch } = useOutside();
 
   return (
-    <PopupWrapper ref={refForm} className={isOpen ? "active" : undefined}>
+    <PopupWrapper ref={refForm} className={isOpened ? "active" : undefined}>
       <PopUpHeader>
         <h3>Filters</h3>
         <CloseSearchForm onClick={() => dispatch(filterActions.close())}>

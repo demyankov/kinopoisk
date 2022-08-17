@@ -7,30 +7,17 @@ import {
   UserName,
 } from "./headerStyles";
 import Svg from "../images/openFilter.svg";
-import { filterSelector } from "../../store/isOpenedfFlter/filter.selector";
-import { useSelector } from "react-redux";
-import { useAppDispatch } from "../../store/rootStore";
-import { filterActions } from "../../store/isOpenedfFlter/filter.slice";
 import { useOutside } from "../../utils/useOutside";
 
 export function Header(): JSX.Element {
-  const isOpen = useSelector(filterSelector);
-  // const dispatch = useAppDispatch();
-  const { refOpen, dispatch } = useOutside();
+  const { refOpen } = useOutside();
 
   const isSignIn = false;
   return (
     <HeaderWrapper>
       <Input id="mainInput" placeholder="Search">
         <OpenFilter>
-          <img
-            ref={refOpen}
-            onClick={() => {
-              dispatch(filterActions.open());
-            }}
-            src={Svg}
-            alt="Filter"
-          />
+          <img ref={refOpen} src={Svg} alt="Filter" />
         </OpenFilter>
       </Input>
       {isSignIn ? (

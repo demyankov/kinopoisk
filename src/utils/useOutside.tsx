@@ -1,32 +1,47 @@
 import { useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
-import { Button } from "../components/button/button";
 import { filterSelector } from "../store/isOpenedfFlter/filter.selector";
 import { filterActions } from "../store/isOpenedfFlter/filter.slice";
 import { useAppDispatch } from "../store/rootStore";
 
 export function useOutside() {
-  const isOpen = useSelector(filterSelector);
+  const isOpened = useSelector(filterSelector);
   const dispatch = useAppDispatch();
+
   const refForm = useRef<HTMLFormElement>(null);
   const refOpen = useRef<HTMLImageElement>(null);
 
   useEffect(() => {
-    const handleClickOutside = (event: Event) => {
-      if (
-        isOpen &&
-        refForm.current &&
-        !refOpen?.current?.contains(event.target as Node) &&
-        !refForm.current.contains(event.target as Node)
-      ) {
+    console.log("outListener");
+    const handleClickOutsideOpen: EventListener = (event) => {
+      console.log("inListenerOpen");
+
+      if (refOpen.current && refOpen.current.contains(event.target as Node)) {
+        dispatch(filterActions.open());
+      }
+    };
+
+    const handleClickOutsideClose: EventListener = (event) => {
+      console.log("inListenerClose");
+
+      if (refForm.current && !refForm.current.contains(event.target as Node)) {
         dispatch(filterActions.close());
       }
     };
 
-    document.addEventListener("click", (event) => handleClickOutside(event));
-    return document.removeEventListener("click", (event) =>
-      handleClickOutside(event)
-    );
-  }, []);
-  return { refForm, refOpen, isOpen, dispatch };
+    if (isOpened) {
+      document.addEventListener("click", handleClickOutsideClose);
+    } else {
+      document.addEventListener("click", handleClickOutsideOpen);
+    }
+
+    return () => {
+      if (isOpened) {
+        document.removeEventListener("click", handleClickOutsideClose);
+      } else {
+        document.removeEventListener("click", handleClickOutsideOpen);
+      }
+    };
+  }, [isOpened]);
+  return { refForm, refOpen, isOpened, dispatch };
 }
