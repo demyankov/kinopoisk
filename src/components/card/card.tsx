@@ -11,12 +11,16 @@ import { AppRoute } from "../../enums/AppRoute";
 import { MovieRaiting } from "../styles/movieRaitingStyle";
 import { Error } from "../styles/error";
 
-export function Card({ movie }: { movie: MovieType }): JSX.Element {
+export function Card({
+  movieId,
+}: {
+  movieId: MovieDetailsType["imdbID"];
+}): JSX.Element {
   const [movieDetails, setMovieDetails] = useState<MovieDetailsType>();
   const [errors, setErrors] = useState<AxiosError>();
 
   useEffect(() => {
-    getMovieDetails(movie.imdbID)
+    getMovieDetails(movieId)
       .then((response) => {
         setMovieDetails(response.data);
       })
@@ -34,7 +38,7 @@ export function Card({ movie }: { movie: MovieType }): JSX.Element {
           <img
             src={
               movieDetails.Poster !== "N/A"
-                ? movie.Poster
+                ? movieDetails.Poster
                 : "https://korzik.net/uploads/posts/2011-04/1302509289_1302382236_18.jpg"
             }
             alt={movieDetails.Title}

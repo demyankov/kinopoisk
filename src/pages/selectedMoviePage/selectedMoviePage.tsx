@@ -30,17 +30,17 @@ import { favouriteAction } from "../../store/favouriteMovies/favourite.slice";
 export function SelectedMoviePage() {
   const { movieId } = useParams<{ movieId: string }>();
   const [movie, setMovie] = useState<getMoviesDetailsResponseType>();
-
-  const favouriteMoviesList = useSelector(favouriteSelector);
+  const favouriteMovies = useSelector(favouriteSelector);
+  const [isFavourite, setIsFavourite] = useState<boolean>(false);
   const dispatch = useAppDispatch();
-  console.log(favouriteMoviesList);
 
   useEffect(() => {
     getMovieDetails(movieId).then((response) => {
       setMovie(response.data);
+      setIsFavourite(favouriteMovies.includes(response.data.imdbID));
     });
   }, [movieId]);
-
+  console.log(isFavourite);
   return movie ? (
     <Wrapper>
       <ImageSection>
@@ -49,9 +49,12 @@ export function SelectedMoviePage() {
         </ImageWrapper>
         <InteractionWrapper>
           <InteractionButton
+            isFavourite={isFavourite}
             onClick={() => {
-              dispatch(favouriteAction.addInFavourite(movie.imdbID));
-              console.log(favouriteAction.addInFavourite);
+              setIsFavourite(!isFavourite);
+              isFavourite
+                ? dispatch(favouriteAction.removeFromFavourite(movie.imdbID))
+                : dispatch(favouriteAction.addInFavourite(movie.imdbID));
             }}
           >
             <img src={ToFavouriteIcon} alt="To Favourite Icon" />

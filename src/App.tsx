@@ -16,6 +16,7 @@ import { SelectedMoviePage } from "./pages/selectedMoviePage/selectedMoviePage";
 import EmptyPageImage from "./components/images/emptyPage.png";
 import { FiltersPopup } from "./components/filtersPopup/filtersPopup";
 import NotFound from "./pages/notFound/notFound";
+import { FavouriteMoviesPage } from "./pages/favouriteMoviesPage/favouriteMovies";
 
 function App(): JSX.Element {
   return (
@@ -47,16 +48,17 @@ function App(): JSX.Element {
             <Route
               path={AppRoute.Favourites}
               element={
-                <div
-                  style={{
-                    minHeight: "80%",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                  }}
-                >
-                  <img src={EmptyPageImage} alt="Empty Page"></img>
-                </div>
+                <FavouriteMoviesPage />
+                // <div
+                //   style={{
+                //     minHeight: "80%",
+                //     display: "flex",
+                //     alignItems: "center",
+                //     justifyContent: "center",
+                //   }}
+                // >
+                //   <img src={EmptyPageImage} alt="Empty Page"></img>
+                // </div>
               }
             />
             <Route

@@ -49,7 +49,7 @@ export function MoviesPage(): JSX.Element {
           <AppLoader />
         ) : (
           movies.map((movie) => {
-            return <Card key={movie.imdbID} movie={movie} />;
+            return <Card key={movie.imdbID} movieId={movie.imdbID} />;
           })
         )}
       </CardsWrapper>

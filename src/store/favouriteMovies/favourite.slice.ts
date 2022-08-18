@@ -4,11 +4,12 @@ import { MovieType } from "../../types/movieType";
 export const favouriteMoviesSlice = createSlice({
   name: "favourite",
   initialState: {
-    favouriteList: [] as Array<MovieType["imdbID"]>,
+    favouriteList: (JSON.parse(localStorage.getItem("@fovouriteMovies")) ||
+      []) as Array<MovieType["imdbID"]>,
   },
   reducers: {
     addInFavourite: (state, action) => {
-      if (!state.favouriteList.includes) {
+      if (!state.favouriteList.includes(action.payload)) {
         state.favouriteList.push(action.payload);
       }
     },

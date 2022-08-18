@@ -12,18 +12,13 @@ export function useOutside() {
   const refOpen = useRef<HTMLImageElement>(null);
 
   useEffect(() => {
-    console.log("outListener");
     const handleClickOutsideOpen: EventListener = (event) => {
-      console.log("inListenerOpen");
-
       if (refOpen.current && refOpen.current.contains(event.target as Node)) {
         dispatch(filterActions.open());
       }
     };
 
     const handleClickOutsideClose: EventListener = (event) => {
-      console.log("inListenerClose");
-
       if (refForm.current && !refForm.current.contains(event.target as Node)) {
         dispatch(filterActions.close());
       }

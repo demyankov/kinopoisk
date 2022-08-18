@@ -15,11 +15,14 @@ export const InteractionWrapper = styled.div`
   overflow: hidden;
 `;
 
-export const InteractionButton = styled.button`
+export const InteractionButton = styled.button<{ isFavourite?: boolean }>`
   flex: 1;
   gap: 2px;
   border-radius: none;
-  background-color: var(--background-color-second);
+  background-color: ${(props) =>
+    props.isFavourite
+      ? "var(--background-color-bright)"
+      : "var(--background-color-second)"};
   padding: var(--spacing-7);
 `;
 
