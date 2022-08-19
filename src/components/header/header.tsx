@@ -8,17 +8,21 @@ import {
 } from "./headerStyles";
 import Svg from "../images/openFilter.svg";
 import { useOutside } from "../../utils/useOutside";
+import { useLocation } from "react-router-dom";
 
 export function Header(): JSX.Element {
   const { refOpen } = useOutside();
+  const url = useLocation();
 
   const isSignIn = false;
   return (
     <HeaderWrapper>
       <Input id="mainInput" placeholder="Search">
-        <OpenFilter>
-          <img ref={refOpen} src={Svg} alt="Filter" />
-        </OpenFilter>
+        {url.pathname === AppRoute.Main ? (
+          <OpenFilter>
+            <img ref={refOpen} src={Svg} alt="Filter" />
+          </OpenFilter>
+        ) : null}
       </Input>
       {isSignIn ? (
         <UserName>Demyankov</UserName>

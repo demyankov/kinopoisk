@@ -12,7 +12,7 @@ export const favouriteMoviesSlice = createSlice({
     favouriteList: initialState(LocalStorage.FavouriveMovies) as Array<
       MovieType["imdbID"]
     >,
-    error: {} as string,
+    error: "" as string,
   },
   reducers: {
     inFavourite: (state, action) => {

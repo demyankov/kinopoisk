@@ -1,6 +1,5 @@
 import axios, { AxiosResponse } from "axios";
 import { ApiKey } from "../enums/apiKey";
-import { MovieType } from "../types/movieType";
 
 export const apiPath = `${process.env.REACT_APP_API_PATH}`;
 
