@@ -10,13 +10,6 @@ export const rootStore = configureStore({
   },
 });
 
-rootStore.subscribe((): void => {
-  localStorage.setItem(
-    "@fovouriteMovies",
-    JSON.stringify(rootStore.getState().favourite.favouriteList)
-  );
-});
-
 export type RootState = ReturnType<typeof rootStore.getState>;
 export type AppDispatch = typeof rootStore.dispatch;
 export const useAppDispatch: () => AppDispatch = useDispatch;

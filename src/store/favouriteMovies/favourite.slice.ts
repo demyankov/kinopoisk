@@ -1,22 +1,32 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { LocalStorage } from "../../enums/localStorage";
 import { MovieType } from "../../types/movieType";
+
+export const initialState = (name: string) => {
+  return JSON.parse(localStorage.getItem(name) || "") || [];
+};
 
 export const favouriteMoviesSlice = createSlice({
   name: "favourite",
   initialState: {
-    favouriteList: (JSON.parse(localStorage.getItem("@fovouriteMovies")) ||
-      []) as Array<MovieType["imdbID"]>,
+    favouriteList: initialState(LocalStorage.FavouriveMovies) as Array<
+      MovieType["imdbID"]
+    >,
+    error: {} as string,
   },
   reducers: {
-    addInFavourite: (state, action) => {
+    inFavourite: (state, action) => {
       if (!state.favouriteList.includes(action.payload)) {
         state.favouriteList.push(action.payload);
       }
     },
-    removeFromFavourite: (state, action) => {
+    fromFavourite: (state, action) => {
       state.favouriteList = state.favouriteList.filter(
         (movieId) => movieId !== action.payload
       );
+    },
+    setError: (state, action) => {
+      state.error = action.payload;
     },
   },
 });

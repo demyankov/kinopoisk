@@ -25,7 +25,10 @@ import { AppLoader } from "../../components/loaders/appLoader";
 import { useSelector } from "react-redux";
 import { favouriteSelector } from "../../store/favouriteMovies/favourite.selector";
 import { useAppDispatch } from "../../store/rootStore";
-import { favouriteAction } from "../../store/favouriteMovies/favourite.slice";
+import {
+  removeFromFavourite,
+  addInFavourite,
+} from "../../store/favouriteMovies/appFavouriteActions";
 
 export function SelectedMoviePage() {
   const { movieId } = useParams<{ movieId: string }>();
@@ -40,7 +43,6 @@ export function SelectedMoviePage() {
       setIsFavourite(favouriteMovies.includes(response.data.imdbID));
     });
   }, [movieId]);
-  console.log(isFavourite);
   return movie ? (
     <Wrapper>
       <ImageSection>
@@ -53,8 +55,8 @@ export function SelectedMoviePage() {
             onClick={() => {
               setIsFavourite(!isFavourite);
               isFavourite
-                ? dispatch(favouriteAction.removeFromFavourite(movie.imdbID))
-                : dispatch(favouriteAction.addInFavourite(movie.imdbID));
+                ? dispatch(removeFromFavourite(movie.imdbID))
+                : dispatch(addInFavourite(movie.imdbID));
             }}
           >
             <img src={ToFavouriteIcon} alt="To Favourite Icon" />
