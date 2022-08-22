@@ -1,27 +1,18 @@
-const apiPath = `${process.env.REACT_APP_API_PATH}/auth/users/`;
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
+import {
+  RegisterUserResponseType,
+  RegisterUserType,
+} from "../types/signUpTypes";
 
-export interface RegisterUserResponseType {
-  username: string;
-  email: string;
-  id: number;
-}
+const apiPath = `${process.env.REACT_APP_API_AUTH}/auth/users/`;
 
-export interface RegisterUserType {
-  username: string;
-  email: string;
-  password: string;
-}
+export async function registerUser({
+  ...querryParams
+}: RegisterUserType): Promise<RegisterUserResponseType> {
+  const { data } = await axios.post<
+    RegisterUserType,
+    AxiosResponse<RegisterUserResponseType>
+  >(apiPath, querryParams);
 
-export interface RegisterUserErrors {
-  username?: string[];
-  email?: string[];
-  password?: string[];
-  global?: string[];
-}
-
-export async function registerUser(
-  querryParams: RegisterUserType
-): Promise<RegisterUserResponseType> {
-  return axios.post(apiPath, querryParams);
+  return data;
 }

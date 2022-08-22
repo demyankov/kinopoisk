@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
 import { getMovies } from "../../api/getMovies";
 import { Card } from "../../components/card/card";
 import { FiltersPopup } from "../../components/filtersPopup/filtersPopup";
@@ -25,7 +24,6 @@ export function MoviesPage(): JSX.Element {
 
   const [errors, setErrors] = useState();
   const [isLoading, setIsLoading] = useState(true);
-  const { movieID } = useParams<{ movieID: string }>();
 
   useEffect(() => {
     const abortController = new AbortController();

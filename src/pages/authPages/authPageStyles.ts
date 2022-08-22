@@ -9,7 +9,7 @@ export const Wrapper = styled.div`
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: stretch;
   padding: var(--spacing-6) var(--spacing-9);
   background: ${() => `linear-gradient(rgba(0,0,0, 0.5) 0 100%), url(${back})`};
   background-position: center;

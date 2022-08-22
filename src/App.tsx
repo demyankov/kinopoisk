@@ -14,7 +14,6 @@ import { ResertPassword } from "./pages/authPages/resertPassword/resertPassword"
 import { NewPassword } from "./pages/authPages/newPassword/newPassword";
 import { SelectedMoviePage } from "./pages/selectedMoviePage/selectedMoviePage";
 import EmptyPageImage from "./components/images/emptyPage.png";
-import { FiltersPopup } from "./components/filtersPopup/filtersPopup";
 import NotFound from "./pages/notFound/notFound";
 import { FavouriteMoviesPage } from "./pages/favouriteMoviesPage/favouriteMovies";
 

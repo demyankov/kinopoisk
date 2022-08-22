@@ -2,8 +2,6 @@ import { AxiosError } from "axios";
 import { useEffect, useState } from "react";
 import { getMovieDetails } from "../../api/getMovieDetails";
 import { MovieDetailsType } from "../../types/movieDetailsType";
-import { MovieType } from "../../types/movieType";
-
 import { CardWrapper, ImageWrapper, MovieName, MovieGenre } from "./cardStyles";
 import { MutatingDots } from "react-loader-spinner";
 import { NavLink } from "react-router-dom";

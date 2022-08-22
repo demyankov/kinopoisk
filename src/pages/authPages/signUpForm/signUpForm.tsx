@@ -1,13 +1,13 @@
 import React, { useState } from "react";
-import { RegisterUserType } from "../../../api/signUp";
+import { Form, SignLink } from "../authPageStyles";
 import { Button } from "../../../components/button/button";
 import { Input } from "../../../components/input/input";
 import { AppRoute } from "../../../enums/AppRoute";
-import { Form, SignLink } from "../authPageStyles";
-
-interface FormDataType extends RegisterUserType {
-  confirmPassword: string;
-}
+import { registerUser } from "../../../api/signUp";
+import {
+  FormDataType,
+  RegistrationErrorType,
+} from "../../../types/signUpTypes";
 
 export function SignUpForm(): JSX.Element {
   const [formData, setFormData] = useState<FormDataType>({
@@ -16,8 +16,9 @@ export function SignUpForm(): JSX.Element {
     password: "",
     confirmPassword: "",
   });
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [error, setError] = useState<RegistrationErrorType>();
 
-  console.log(formData);
   return (
     <Form>
       <h3>Sign Up</h3>
@@ -31,6 +32,7 @@ export function SignUpForm(): JSX.Element {
         }}
         label="Name"
         placeholder="Your name"
+        error={error?.username}
       />
       <Input
         value={formData.email}
@@ -42,6 +44,8 @@ export function SignUpForm(): JSX.Element {
         }}
         label="Email"
         placeholder="Your Email"
+        type="email"
+        error={error?.email}
       />
       <Input
         value={formData.password}
@@ -53,6 +57,9 @@ export function SignUpForm(): JSX.Element {
         }}
         label="Password"
         placeholder="Your password"
+        type="password"
+        autoComplete="off"
+        error={error?.password}
       />
       <Input
         value={formData.confirmPassword}
@@ -64,8 +71,34 @@ export function SignUpForm(): JSX.Element {
         }}
         label="Confirm password"
         placeholder="Confirm password"
+        type="password"
+        autoComplete="off"
       />
-      <Button width="100%">Sign Up</Button>
+      <Button
+        width="100%"
+        disabled={
+          isLoading ||
+          !formData.username ||
+          !formData.email ||
+          !formData.password ||
+          formData.password !== formData.confirmPassword
+        }
+        onClick={() => {
+          setIsLoading(true);
+          registerUser({
+            username: formData.username,
+            email: formData.email,
+            password: formData.password,
+          })
+            .then(() => setIsLoading(false))
+            .catch((e) => {
+              setError(JSON.parse(e.request?.responseText));
+              setIsLoading(false);
+            });
+        }}
+      >
+        Sign Up
+      </Button>
       <p>
         Already have an account? <SignLink to={AppRoute.Auth}>Sign In</SignLink>
       </p>
