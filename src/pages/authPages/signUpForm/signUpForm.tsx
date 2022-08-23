@@ -8,6 +8,7 @@ import {
   FormDataType,
   RegistrationErrorType,
 } from "../../../types/signUpTypes";
+import { SignUpSuccess } from "./signUpSuccess";
 
 export function SignUpForm(): JSX.Element {
   const [formData, setFormData] = useState<FormDataType>({
@@ -17,9 +18,10 @@ export function SignUpForm(): JSX.Element {
     confirmPassword: "",
   });
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isSuccess, setIsSuccess] = useState<boolean>(false);
   const [error, setError] = useState<RegistrationErrorType>();
 
-  return (
+  return !isSuccess ? (
     <Form>
       <h3>Sign Up</h3>
       <Input
@@ -90,7 +92,10 @@ export function SignUpForm(): JSX.Element {
             email: formData.email,
             password: formData.password,
           })
-            .then(() => setIsLoading(false))
+            .then(() => {
+              setIsLoading(false);
+              setIsSuccess(true);
+            })
             .catch((e) => {
               setError(JSON.parse(e.request?.responseText));
               setIsLoading(false);
@@ -103,5 +108,7 @@ export function SignUpForm(): JSX.Element {
         Already have an account? <SignLink to={AppRoute.Auth}>Sign In</SignLink>
       </p>
     </Form>
+  ) : (
+    <SignUpSuccess email={formData.email} />
   );
 }

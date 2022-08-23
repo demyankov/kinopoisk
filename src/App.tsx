@@ -16,6 +16,7 @@ import { SelectedMoviePage } from "./pages/selectedMoviePage/selectedMoviePage";
 import EmptyPageImage from "./components/images/emptyPage.png";
 import NotFound from "./pages/notFound/notFound";
 import { FavouriteMoviesPage } from "./pages/favouriteMoviesPage/favouriteMovies";
+import { ActivationAccount } from "./pages/authPages/activation/activationPage";
 
 function App(): JSX.Element {
   return (
@@ -68,6 +69,11 @@ function App(): JSX.Element {
           <Route path={AppRoute.Auth} element={<Auth />}>
             <Route index element={<SignInForm />} />
             <Route path={AppRoute.SignUp} element={<SignUpForm />} />
+            <Route
+              path={`${AppRoute.ActivateAccount}/:uid/:token`}
+              element={<ActivationAccount />}
+            />
+            <Route path={AppRoute.SignIn} element={<SignInForm />} />
             <Route path={AppRoute.Resert} element={<ResertPassword />} />
             <Route path={AppRoute.NewPassword} element={<NewPassword />} />
           </Route>

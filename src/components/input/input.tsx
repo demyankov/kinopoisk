@@ -22,9 +22,7 @@ export function Input({
         autoComplete="on"
         type="text"
         {...otherProps}
-      >
-        {children}
-      </StyledInput>
+      ></StyledInput>
       {error ? <Error>{error}</Error> : null}
     </InputWrapper>
   );
