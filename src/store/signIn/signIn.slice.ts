@@ -3,8 +3,8 @@ import { LocalStorage } from "../../enums/localStorage";
 import { UserType } from "../../types/userType";
 import { signInAction } from "./signIn.actions";
 
-export const signInSlice = createSlice({
-  name: "signIn",
+export const authSlice = createSlice({
+  name: "auth",
   initialState: {
     user: {} as UserType,
     loadingState: "idle" as "idle" | "pending" | "fulfilled" | "rejected",
@@ -39,4 +39,4 @@ export const signInSlice = createSlice({
 export const {
   reducer: signInReducer,
   actions: { exitFromAccount },
-} = signInSlice;
+} = authSlice;

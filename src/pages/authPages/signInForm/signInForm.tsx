@@ -51,6 +51,7 @@ export function SignInForm(): JSX.Element {
           error={`${tokenError ? tokenError?.request?.responseText : ""} ${
             userError ? userError : ""
           } `}
+          errorPosition="static"
           onChange={(event) => {
             setPassword(event.currentTarget.value);
           }}

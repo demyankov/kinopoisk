@@ -7,6 +7,7 @@ export function Input({
   children,
   label,
   error,
+  errorPosition,
   id,
   placeholder,
   justifyContent,
@@ -23,7 +24,7 @@ export function Input({
         type="text"
         {...otherProps}
       ></StyledInput>
-      {error ? <Error>{error}</Error> : null}
+      {error ? <Error position={errorPosition}>{error}</Error> : null}
     </InputWrapper>
   );
 }
