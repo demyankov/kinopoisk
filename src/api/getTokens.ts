@@ -13,11 +13,15 @@ interface TokensType {
   refresh: string;
 }
 
-export async function getTokens(querryParams: QuerryParamsType): Promise<void> {
+export async function getTokens(
+  querryParams: QuerryParamsType
+): Promise<TokensType> {
   const tokens: TokensType = await axios
     .post(apiToken, querryParams)
     .then((response) => response.data);
 
   localStorage.setItem(LocalStorage.AccessToken, tokens.access);
   localStorage.setItem(LocalStorage.RefreshToken, tokens.refresh);
+
+  return tokens;
 }

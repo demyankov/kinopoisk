@@ -10,7 +10,11 @@ export const signInSlice = createSlice({
     loadingState: "idle" as "idle" | "pending" | "fulfilled" | "rejected",
     error: null as SerializedError | null,
   },
-  reducers: {},
+  reducers: {
+    exitFromAccount: (state) => {
+      state.user = {} as UserType;
+    },
+  },
   extraReducers(builder) {
     builder
       .addCase(signInAction.pending, (state, action) => {
@@ -20,7 +24,10 @@ export const signInSlice = createSlice({
       })
       .addCase(signInAction.fulfilled, (state, action) => {
         state.loadingState = action.meta.requestStatus;
-        state.user = action.payload;
+        console.log(action);
+        if (action.payload.username) {
+          state.user = action.payload;
+        }
       })
       .addCase(signInAction.rejected, (state, action) => {
         state.loadingState = action.meta.requestStatus;
@@ -29,4 +36,7 @@ export const signInSlice = createSlice({
   },
 });
 
-export const { reducer: signInReducer } = signInSlice;
+export const {
+  reducer: signInReducer,
+  actions: { exitFromAccount },
+} = signInSlice;

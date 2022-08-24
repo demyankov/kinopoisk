@@ -12,6 +12,7 @@ authAxiosInstance.interceptors.request.use((requestConfigArgs) => {
   if (accessToken) {
     requestConfig.headers.Authorization = `Bearer ${accessToken}`;
   }
+  console.log(requestConfigArgs);
   return requestConfig;
 });
 

@@ -61,10 +61,13 @@ export function SignInForm(): JSX.Element {
         width="100%"
         disabled={!email || !password}
         onClick={() => {
-          getTokens({ email: email, password: password }).catch((error) => {
-            setTokenError(error);
-          });
-          dispatch(signInAction());
+          getTokens({ email: email, password: password })
+            .then(() => {
+              dispatch(signInAction());
+            })
+            .catch((error) => {
+              setTokenError(error);
+            });
         }}
       >
         Sign In
