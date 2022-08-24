@@ -17,6 +17,7 @@ import EmptyPageImage from "./components/images/emptyPage.png";
 import NotFound from "./pages/notFound/notFound";
 import { FavouriteMoviesPage } from "./pages/favouriteMoviesPage/favouriteMovies";
 import { ActivationAccount } from "./pages/authPages/activation/activationPage";
+import { EmptyContentPage } from "./components/emptyContentPage/emptyContentPage";
 
 function App(): JSX.Element {
   return (
@@ -30,36 +31,10 @@ function App(): JSX.Element {
               path={`${AppRoute.Movie}/:movieId`}
               element={<SelectedMoviePage></SelectedMoviePage>}
             />
-            <Route
-              path={AppRoute.Trends}
-              element={
-                <div
-                  style={{
-                    minHeight: "80%",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                  }}
-                >
-                  <img src={EmptyPageImage} alt="Empty Page"></img>
-                </div>
-              }
-            />
+            <Route path={AppRoute.Trends} element={<EmptyContentPage />} />
             <Route
               path={AppRoute.Favourites}
-              element={
-                <FavouriteMoviesPage />
-                // <div
-                //   style={{
-                //     minHeight: "80%",
-                //     display: "flex",
-                //     alignItems: "center",
-                //     justifyContent: "center",
-                //   }}
-                // >
-                //   <img src={EmptyPageImage} alt="Empty Page"></img>
-                // </div>
-              }
+              element={<FavouriteMoviesPage />}
             />
             <Route
               path={AppRoute.Settings}

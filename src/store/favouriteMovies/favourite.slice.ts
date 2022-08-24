@@ -1,10 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { LocalStorage } from "../../enums/localStorage";
 import { MovieType } from "../../types/movieType";
-
-export const initialState = (name: string) => {
-  return JSON.parse(localStorage.getItem(name) || "") || [];
-};
+import { initialState } from "../../utils/localStorage";
 
 export const favouriteMoviesSlice = createSlice({
   name: "favourite",
