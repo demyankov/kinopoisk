@@ -1,5 +1,5 @@
 import { AxiosError } from "axios";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { getTokens } from "../../../api/getTokens";
@@ -22,6 +22,12 @@ export function SignInForm(): JSX.Element {
   const userError = useSelector(signInErrorSelector)?.message;
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (user.username) {
+      navigate(`${AppRoute.Main}`, { replace: true });
+    }
+  }, [user]);
 
   return (
     <Form>
@@ -59,9 +65,6 @@ export function SignInForm(): JSX.Element {
             setTokenError(error);
           });
           dispatch(signInAction());
-          if (user?.username) {
-            navigate(`${AppRoute.Main}`, { replace: true });
-          }
         }}
       >
         Sign In

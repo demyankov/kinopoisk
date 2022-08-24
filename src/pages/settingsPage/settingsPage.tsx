@@ -1,5 +1,7 @@
+import { useSelector } from "react-redux";
 import { Button } from "../../components/button/button";
 import { Input } from "../../components/input/input";
+import { signInUserSelector } from "../../store/signIn/signIn.selector";
 import {
   ButtonWrapper,
   SettingsItem,
@@ -9,13 +11,24 @@ import {
 } from "./setingsPageStyles";
 
 export function SettingsPage(): JSX.Element {
+  const user = useSelector(signInUserSelector);
   return (
     <form>
       <SettingsItemWrapper>
         <h3>Profile</h3>
         <SettingsItem>
-          <Input id="name" label="Name" placeholder="Your name"></Input>
-          <Input id="email" label="Email" placeholder="Your Email"></Input>
+          <Input
+            id="name"
+            label="Name"
+            placeholder="Your name"
+            defaultValue={user?.username}
+          />
+          <Input
+            id="email"
+            label="Email"
+            placeholder="Your Email"
+            defaultValue={user?.email}
+          />
         </SettingsItem>
       </SettingsItemWrapper>
 
