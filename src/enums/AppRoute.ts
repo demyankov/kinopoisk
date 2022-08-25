@@ -6,10 +6,9 @@ export enum AppRoute {
   Settings = "/settings",
   Auth = "/auth",
   SignUp = "/auth/signUp",
-  SignUpSuccess = "/auth/signUpSuccess",
   ActivateAccount = "/auth/activate",
   SignIn = "/auth/signIn",
-  Resert = "/auth/resert",
-  NewPassword = "/auth/newPassword",
+  ResertPassword = "/auth/password/reset",
+  NewPassword = "/auth/password/reset/confirm",
   NotFound = "/404",
 }

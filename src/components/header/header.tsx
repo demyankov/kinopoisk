@@ -10,11 +10,11 @@ import Svg from "../images/openFilter.svg";
 import { useOutside } from "../../utils/useOutside";
 import { useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { signInUserSelector } from "../../store/signIn/signIn.selector";
+import { signInUserSelector } from "../../store/auth/signIn.selector";
 import { Button } from "../button/button";
 import { removeTokensFromLocalStorage } from "../../utils/localStorage";
 import { useAppDispatch } from "../../store/rootStore";
-import { exitFromAccount } from "../../store/signIn/signIn.slice";
+import { exitFromAccount } from "../../store/auth/auth.slice";
 
 export function Header(): JSX.Element {
   const { refOpen } = useOutside();

@@ -12,14 +12,16 @@ authAxiosInstance.interceptors.request.use((requestConfigArgs) => {
   if (accessToken) {
     requestConfig.headers.Authorization = `Bearer ${accessToken}`;
   }
-  console.log(requestConfigArgs);
+
   return requestConfig;
 });
 
 authAxiosInstance.interceptors.response.use(undefined, (error: AxiosError) => {
   if (error.response) {
     const { status, config } = error.response;
-    if (status === 401 && refreshQuerryCount < 3) {
+    const accessToken = localStorage.getItem(LocalStorage.AccessToken);
+
+    if (status === 401 && accessToken && refreshQuerryCount < 3) {
       refreshToken();
       refreshQuerryCount += 1;
       return authAxiosInstance(config);

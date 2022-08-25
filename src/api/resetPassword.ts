@@ -3,7 +3,7 @@ import { UserType } from "../types/userType";
 
 const apiPath = `${process.env.REACT_APP_API_AUTH}/auth/users/reset_password/`;
 
-export async function resertPassword(
+export async function resetPassword(
   email: UserType["email"]
 ): Promise<UserType["email"]> {
   const { data } = await axios({

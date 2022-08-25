@@ -5,7 +5,7 @@ import { SideBar } from "../components/sideBar/sideBar";
 import { SecondaryP } from "../components/styles/secondaryP";
 import { sideBar } from "../generalData/sideBarList";
 import { useAppDispatch } from "../store/rootStore";
-import { signInAction } from "../store/signIn/signIn.actions";
+import { signInAction } from "../store/auth/signIn.actions";
 import { Container, Footer, Main, Wrapper } from "./mainLayoutStyles";
 
 export function MainLayout() {

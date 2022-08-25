@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 import { Button } from "../../components/button/button";
 import { Input } from "../../components/input/input";
-import { signInUserSelector } from "../../store/signIn/signIn.selector";
+import { signInUserSelector } from "../../store/auth/signIn.selector";
 import {
   ButtonWrapper,
   SettingsItem,

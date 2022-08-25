@@ -10,10 +10,9 @@ import { MoviesPage } from "./pages/moviesPage/moviesPage";
 import { SignInForm } from "./pages/authPages/signInForm/signInForm";
 import { Auth } from "./pages/authPages/authPage";
 import { SignUpForm } from "./pages/authPages/signUpForm/signUpForm";
-import { ResertPassword } from "./pages/authPages/resertPassword/resertPassword";
+import { ResertPassword } from "./pages/authPages/resetPassword/resertPassword";
 import { NewPassword } from "./pages/authPages/newPassword/newPassword";
 import { SelectedMoviePage } from "./pages/selectedMoviePage/selectedMoviePage";
-import EmptyPageImage from "./components/images/emptyPage.png";
 import NotFound from "./pages/notFound/notFound";
 import { FavouriteMoviesPage } from "./pages/favouriteMoviesPage/favouriteMovies";
 import { ActivationAccount } from "./pages/authPages/activation/activationPage";
@@ -49,7 +48,14 @@ function App(): JSX.Element {
               element={<ActivationAccount />}
             />
             <Route path={AppRoute.SignIn} element={<SignInForm />} />
-            <Route path={AppRoute.Resert} element={<ResertPassword />} />
+            <Route
+              path={AppRoute.ResertPassword}
+              element={<ResertPassword />}
+            />
+            <Route
+              path={`${AppRoute.NewPassword}/:uid/:token`}
+              element={<NewPassword />}
+            />
             <Route path={AppRoute.NewPassword} element={<NewPassword />} />
           </Route>
           <Route path={AppRoute.NotFound} element={<NotFound />} />

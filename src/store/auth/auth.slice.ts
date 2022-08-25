@@ -1,5 +1,4 @@
 import { createSlice, SerializedError } from "@reduxjs/toolkit";
-import { LocalStorage } from "../../enums/localStorage";
 import { UserType } from "../../types/userType";
 import { signInAction } from "./signIn.actions";
 
@@ -24,7 +23,7 @@ export const authSlice = createSlice({
       })
       .addCase(signInAction.fulfilled, (state, action) => {
         state.loadingState = action.meta.requestStatus;
-        console.log(action);
+
         if (action.payload.username) {
           state.user = action.payload;
         }

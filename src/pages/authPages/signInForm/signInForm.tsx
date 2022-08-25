@@ -7,11 +7,11 @@ import { Button } from "../../../components/button/button";
 import { Input } from "../../../components/input/input";
 import { AppRoute } from "../../../enums/AppRoute";
 import { useAppDispatch } from "../../../store/rootStore";
-import { signInAction } from "../../../store/signIn/signIn.actions";
+import { signInAction } from "../../../store/auth/signIn.actions";
 import {
   signInErrorSelector,
   signInUserSelector,
-} from "../../../store/signIn/signIn.selector";
+} from "../../../store/auth/signIn.selector";
 import { Form, SignLink } from "../authPageStyles";
 
 export function SignInForm(): JSX.Element {
@@ -36,6 +36,7 @@ export function SignInForm(): JSX.Element {
         value={email}
         label="Email"
         type="email"
+        autoComplete="on"
         placeholder="Your Email"
         onChange={(event) => {
           setEmail(event.currentTarget.value);
@@ -56,7 +57,7 @@ export function SignInForm(): JSX.Element {
             setPassword(event.currentTarget.value);
           }}
         />
-        <SignLink to={AppRoute.Resert}>Forgot your password?</SignLink>
+        <SignLink to={AppRoute.ResertPassword}>Forgot your password?</SignLink>
       </div>
       <Button
         width="100%"
