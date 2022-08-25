@@ -1,6 +1,8 @@
 import styled from "@emotion/styled";
 
-export const InputWrapper = styled.div<{ justifyContent: string | undefined }>`
+export const InputWrapper = styled.div<{
+  justifyContent: string | undefined;
+}>`
   position: relative;
   width: 100%;
   flex: 1;
@@ -9,6 +11,17 @@ export const InputWrapper = styled.div<{ justifyContent: string | undefined }>`
   gap: var(--spacing-9);
   justify-content: ${(props) =>
     props.justifyContent ? props.justifyContent : "start"};
+`;
+
+export const InputPositionWrapper = styled.div`
+  position: relative;
+`;
+
+export const ShowPasswordIcon = styled.span`
+  position: absolute;
+  right: var(--spacing-7);
+  bottom: 50%;
+  transform: translateY(50%);
 `;
 
 export const StyledInput = styled.input`

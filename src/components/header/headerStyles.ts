@@ -16,6 +16,7 @@ export const OpenFilter = styled.button`
   background-color: transparent;
   appearance: none;
   border: none;
+  z-index: 9999;
 `;
 
 export const UserName = styled.p`
