@@ -17,8 +17,13 @@ import NotFound from "./pages/notFound/notFound";
 import { FavouriteMoviesPage } from "./pages/favouriteMoviesPage/favouriteMovies";
 import { ActivationAccount } from "./pages/authPages/activation/activationPage";
 import { EmptyContentPage } from "./components/emptyContentPage/emptyContentPage";
+import { ProtectedPage } from "./utils/protectedPage";
+import { useSelector } from "react-redux";
+import { signInUserSelector } from "./store/auth/signIn.selector";
 
 function App(): JSX.Element {
+  const user = useSelector(signInUserSelector);
+
   return (
     <div className="App">
       <Global styles={getRebootCSS()} />
@@ -28,16 +33,26 @@ function App(): JSX.Element {
             <Route index element={<MoviesPage />} />
             <Route
               path={`${AppRoute.Movie}/:movieId`}
-              element={<SelectedMoviePage></SelectedMoviePage>}
+              element={<SelectedMoviePage />}
             />
             <Route path={AppRoute.Trends} element={<EmptyContentPage />} />
+
             <Route
               path={AppRoute.Favourites}
-              element={<FavouriteMoviesPage />}
+              element={
+                <ProtectedPage user={user}>
+                  <FavouriteMoviesPage />
+                </ProtectedPage>
+              }
             />
+
             <Route
               path={AppRoute.Settings}
-              element={<SettingsPage></SettingsPage>}
+              element={
+                <ProtectedPage user={user}>
+                  <SettingsPage />
+                </ProtectedPage>
+              }
             />
           </Route>
           <Route path={AppRoute.Auth} element={<Auth />}>
