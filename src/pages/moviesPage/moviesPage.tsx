@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { EventType } from "@testing-library/react";
+import { useEffect, useState, WheelEvent } from "react";
 import { getMovies } from "../../api/getMovies";
 import { Card } from "../../components/card/card";
 import { FiltersPopup } from "../../components/filtersPopup/filtersPopup";
@@ -12,46 +13,61 @@ import {
 } from "./moviePageStyles";
 
 export function MoviesPage(): JSX.Element {
-  const [movies, setMovie] = useState<MovieType[]>([
-    {
-      Title: " ",
-      Year: " ",
-      imdbID: " ",
-      Type: " ",
-      Poster: " ",
-    },
-  ]);
+  const [movies, setMovie] = useState<MovieType[]>([]);
 
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [pageCount, setPageCount] = useState<number>(1);
   const [errors, setErrors] = useState();
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const abortController = new AbortController();
-    getMovies({ abortController, s: "death", r: "json", page: "2" })
-      .then((response) => {
-        console.log(response);
-        setMovie(response["Search"]);
-        setIsLoading(false);
-      })
-      .catch((errors) => setErrors(errors));
-    return () => {
-      abortController.abort();
-      setIsLoading(false);
-    };
+    document.addEventListener("scroll", scrollHandler);
+    return () => document.removeEventListener("scroll", scrollHandler);
   }, []);
+
+  const scrollHandler = (e: any): void => {
+    if (
+      e.target.documentElement.scrollHeight -
+        e.target.documentElement.scrollTop -
+        window.innerHeight <
+      100
+    ) {
+      setIsLoading(true);
+      console.log(isLoading);
+    }
+  };
+
+  useEffect(() => {
+    if (isLoading) {
+      const abortController = new AbortController();
+      getMovies({ abortController, s: "death", r: "json", page: currentPage })
+        .then((response) => {
+          console.log(response);
+          setMovie([...movies, ...response["Search"]]);
+          setCurrentPage((prevPage) => prevPage + 1);
+          setPageCount(Math.ceil(+response.totalResults / 10));
+        })
+        .catch((errors) => setErrors(errors))
+        .finally(() => {
+          setIsLoading(false);
+        });
+      return () => {
+        abortController.abort();
+        setIsLoading(false);
+      };
+    }
+  }, [isLoading]);
 
   return (
     <>
       <FiltersPopup />
       <CardsWrapper>
-        {isLoading ? (
-          <AppLoader />
-        ) : (
-          movies.map((movie) => {
-            return <Card key={movie.imdbID} movieId={movie.imdbID} />;
-          })
-        )}
+        {movies.map((movie) => {
+          return <Card key={movie.imdbID} movieId={movie.imdbID} />;
+        })}
       </CardsWrapper>
+      {isLoading ? <AppLoader /> : null}
+
       <ShowMoreButtonWrapper>
         <ShowMoreButton>
           Show More <RingsLoader />

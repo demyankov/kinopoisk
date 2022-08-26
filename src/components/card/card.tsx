@@ -8,6 +8,8 @@ import { NavLink } from "react-router-dom";
 import { AppRoute } from "../../enums/AppRoute";
 import { MovieRaiting } from "../styles/movieRaitingStyle";
 import { Error } from "../styles/error";
+import { useSelector } from "react-redux";
+import { favouriteSelector } from "../../store/favouriteMovies/favourite.selector";
 
 export function Card({
   movieId,
@@ -16,7 +18,7 @@ export function Card({
 }): JSX.Element {
   const [movieDetails, setMovieDetails] = useState<MovieDetailsType>();
   const [errors, setErrors] = useState<AxiosError>();
-
+  const isFavourite: boolean = useSelector(favouriteSelector).includes(movieId);
   useEffect(() => {
     getMovieDetails(movieId)
       .then((response) => {
@@ -29,6 +31,9 @@ export function Card({
       });
   }, []);
 
+  const urlDefaultPoster: string =
+    "https://korzik.net/uploads/posts/2011-04/1302509289_1302382236_18.jpg";
+
   return movieDetails ? (
     <CardWrapper>
       <ImageWrapper>
@@ -37,19 +42,17 @@ export function Card({
             src={
               movieDetails.Poster !== "N/A"
                 ? movieDetails.Poster
-                : "https://korzik.net/uploads/posts/2011-04/1302509289_1302382236_18.jpg"
+                : urlDefaultPoster
             }
             alt={movieDetails.Title}
           />
         </NavLink>
       </ImageWrapper>
 
-      <MovieRaiting>
-        {movieDetails.imdbRating || <MutatingDots color="red" radius="15%" />}
+      <MovieRaiting isFavourite={isFavourite}>
+        {movieDetails.imdbRating || "--"}
       </MovieRaiting>
-      <MovieName>
-        {movieDetails.Title || <MutatingDots color="red" radius="15%" />}
-      </MovieName>
+      <MovieName>{movieDetails.Title}</MovieName>
       <MovieGenre>
         {movieDetails?.Genre?.split(",").map((genre, key) => (
           <li key={key}>{genre}</li>

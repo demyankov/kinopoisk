@@ -101,6 +101,11 @@ export const TYPOGRAPHY = {
   },
 };
 
+export const SIDEBARWIDTH = {
+  desktop: "15rem",
+  tablet: "13rem",
+};
+
 export const SPACING = {
   desktop: {
     L1: "4rem",

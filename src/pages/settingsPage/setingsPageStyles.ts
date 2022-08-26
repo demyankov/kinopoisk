@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 
 export const SettingsItemWrapper = styled.div`
-  margin-bottom: var(--spacing-4);
+  margin-bottom: var(--spacing-5);
 
   h3 {
     margin-bottom: var(--spacing-7);
@@ -10,7 +10,7 @@ export const SettingsItemWrapper = styled.div`
 
 export const SettingsItem = styled.div`
   display: flex;
-  gap: var(--spacing-4);
+  gap: var(--spacing-5);
   padding: var(--spacing-4);
   background-color: var(--background-color-medium);
   border-radius: var(--spacing-8);

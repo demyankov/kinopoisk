@@ -4,8 +4,18 @@ import { Link } from "react-router-dom";
 export const HeaderWrapper = styled.header`
   grid-area: Header;
   display: flex;
+  position: sticky;
+  top: 0;
+  z-index: 9999;
   align-items: center;
   gap: var(--spacing-4);
+  padding: var(--spacing-4) 0;
+  background-color: var(--background-color);
+`;
+
+export const ImageWrapper = styled.header`
+  width: var(--sideBarWidth);
+  padding-left: var(--spacing-4);
 `;
 
 export const OpenFilter = styled.button`

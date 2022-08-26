@@ -3,12 +3,18 @@ import { NavLink } from "react-router-dom";
 
 export const SideBarWrapper = styled.nav`
   grid-area: SideBar;
-  min-height: 100vh;
+  max-height: 95vh;
+  height: 100%;
   padding: var(--spacing-5) var(--spacing-2);
-
+  position: fixed;
+  top: var(--spacing-1);
+  z-index: 9999;
   li {
     list-style-type: none;
   }
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 `;
 
 export const SideBarLink = styled(NavLink)`
