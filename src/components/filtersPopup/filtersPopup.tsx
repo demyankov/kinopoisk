@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { defoultGenresList } from "../../generalData/defaultGenresList";
+import { defaultGenresList } from "../../generalData/defaultGenresList";
 import { filterActions } from "../../store/isOpenedfFilter/filter.slice";
 import { useOutside } from "../../utils/useOutside";
 import { Button } from "../button/button";
@@ -18,7 +18,7 @@ import {
 import { SortBySwitcher } from "./sortBySwitcher/sortBySwitcher";
 
 export function FiltersPopup(): JSX.Element {
-  const [genresListFilter, setGenresListFilter] = useState(defoultGenresList);
+  const [genresListFilter, setGenresListFilter] = useState(defaultGenresList);
   const currentYear = new Date().getFullYear();
 
   const { refForm, isOpened, dispatch } = useOutside();
@@ -63,16 +63,9 @@ export function FiltersPopup(): JSX.Element {
       </div>
       <InputGroup>
         <Input
-          label="Years of release"
+          label="Year of release"
           justifyContent="end"
           placeholder="From"
-          type="number"
-          min="1960"
-          max={currentYear}
-        />
-        <Input
-          placeholder="To"
-          justifyContent="end"
           type="number"
           min="1960"
           max={currentYear}

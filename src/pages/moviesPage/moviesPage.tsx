@@ -1,5 +1,4 @@
-import { EventType } from "@testing-library/react";
-import { useEffect, useState, WheelEvent } from "react";
+import { useEffect, useState } from "react";
 import { getMovies } from "../../api/getMovies";
 import { Card } from "../../components/card/card";
 import { FiltersPopup } from "../../components/filtersPopup/filtersPopup";
@@ -38,7 +37,7 @@ export function MoviesPage(): JSX.Element {
   };
 
   useEffect(() => {
-    if (isLoading) {
+    if (isLoading && currentPage <= pageCount) {
       const abortController = new AbortController();
       getMovies({ abortController, s: "death", r: "json", page: currentPage })
         .then((response) => {
