@@ -1,17 +1,31 @@
+import { AxiosError } from "axios";
+import { useState } from "react";
 import { useSelector } from "react-redux";
+import { setPassword, SetPasswordType } from "../../api/setPassword";
 import { Button } from "../../components/button/button";
 import { Input } from "../../components/input/input";
+import { P } from "../../components/styles/P";
+import { SuccessfullMessage } from "../../components/styles/successfullMessage";
 import { signInUserSelector } from "../../store/auth/signIn.selector";
 import {
   ButtonWrapper,
   SettingsItem,
   SettingsItemWrapper,
   SettingsSubItem,
+  Theme,
   ThemeSwitcher,
 } from "./setingsPageStyles";
 
 export function SettingsPage(): JSX.Element {
   const user = useSelector(signInUserSelector);
+  const [currentPassword, setCurrentPassword] = useState<string>("");
+  const [newPassword, setNewPassword] = useState<string>("");
+  const [confirmNewPassword, setConfirmNewPassword] = useState<string>("");
+  const [isPasswordChanged, setIsPasswordChanged] = useState<boolean>(false);
+  const [error, setError] = useState<SetPasswordType>({});
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  console.log(isPasswordChanged);
   return (
     <form>
       <SettingsItemWrapper>
@@ -31,9 +45,14 @@ export function SettingsPage(): JSX.Element {
           />
         </SettingsItem>
       </SettingsItemWrapper>
-
+      {isPasswordChanged ? (
+        <SuccessfullMessage>
+          The password has been successfully changed
+        </SuccessfullMessage>
+      ) : null}
       <SettingsItemWrapper>
         <h3>Password</h3>
+
         <SettingsItem>
           <Input
             id="password"
@@ -41,6 +60,11 @@ export function SettingsPage(): JSX.Element {
             placeholder="Your password"
             autoComplete="off"
             type="password"
+            value={currentPassword}
+            error={error?.current_password}
+            onChange={({ currentTarget: { value } }) =>
+              setCurrentPassword(value)
+            }
           ></Input>
           <SettingsSubItem>
             <Input
@@ -49,6 +73,8 @@ export function SettingsPage(): JSX.Element {
               placeholder="New password"
               autoComplete="off"
               type="password"
+              value={newPassword}
+              onChange={({ currentTarget: { value } }) => setNewPassword(value)}
             ></Input>
             <Input
               id="confirmPassword"
@@ -56,6 +82,12 @@ export function SettingsPage(): JSX.Element {
               placeholder="Confirm password"
               autoComplete="off"
               type="password"
+              value={confirmNewPassword}
+              error={error?.new_password}
+              errorPosition="static"
+              onChange={({ currentTarget: { value } }) =>
+                setConfirmNewPassword(value)
+              }
             ></Input>
           </SettingsSubItem>
         </SettingsItem>
@@ -66,7 +98,7 @@ export function SettingsPage(): JSX.Element {
         <SettingsItem>
           <div>
             <h5>Dark</h5>
-            <p>Use dark theme</p>
+            <Theme>Use dark theme</Theme>
           </div>
           <ThemeSwitcher>
             <input id="themeSwitcher" type="checkbox" />
@@ -75,8 +107,37 @@ export function SettingsPage(): JSX.Element {
         </SettingsItem>
       </SettingsItemWrapper>
       <ButtonWrapper>
-        <Button onClick={() => console.log("Cancel")}>Cancel</Button>
-        <Button onClick={() => console.log("Save")}>Save</Button>
+        <Button>Cancel</Button>
+        <Button
+          onClick={() => {
+            if (
+              !isLoading &&
+              currentPassword &&
+              newPassword &&
+              newPassword === confirmNewPassword
+            ) {
+              setIsLoading(true);
+              setPassword({
+                new_password: newPassword,
+                current_password: currentPassword,
+              })
+                .then((response) => {
+                  console.log(response);
+                  setIsLoading(false);
+                  setIsPasswordChanged(true);
+                  setError({});
+                })
+                .catch((error) => {
+                  console.log(error);
+                  setIsLoading(false);
+                  setIsPasswordChanged(false);
+                  setError(JSON.parse(error.request.responseText));
+                });
+            }
+          }}
+        >
+          Save
+        </Button>
       </ButtonWrapper>
     </form>
   );

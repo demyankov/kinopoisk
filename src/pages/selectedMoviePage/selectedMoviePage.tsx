@@ -34,6 +34,7 @@ import {
 } from "../../store/favouriteMovies/appFavouriteActions";
 import { Error } from "../../components/styles/error";
 import { AxiosError } from "axios";
+import { signInUserSelector } from "../../store/auth/signIn.selector";
 
 export function SelectedMoviePage() {
   const { movieId } = useParams<{ movieId: string }>();
@@ -43,12 +44,15 @@ export function SelectedMoviePage() {
   const errorFavourite = useSelector(favouriteErrorSelector);
   const [isFavourite, setIsFavourite] = useState<boolean>(false);
   const dispatch = useAppDispatch();
+  const user = useSelector(signInUserSelector);
 
   useEffect(() => {
     getMovieDetails(movieId)
       .then((response) => {
         setMovie(response.data);
-        setIsFavourite(favouriteMovies.includes(response.data.imdbID));
+        if (user.username) {
+          setIsFavourite(favouriteMovies.includes(response.data.imdbID));
+        }
       })
       .catch((e: AxiosError) => setError(e.message));
   }, [movieId]);
@@ -58,23 +62,25 @@ export function SelectedMoviePage() {
         <ImageWrapper>
           <img src={movie.Poster} alt="Movie poster"></img>
         </ImageWrapper>
-        <InteractionWrapper>
-          <InteractionButton
-            isFavourite={isFavourite}
-            onClick={() => {
-              setIsFavourite(!isFavourite);
-              isFavourite
-                ? dispatch(removeFromFavourite(movie.imdbID))
-                : dispatch(addInFavourite(movie.imdbID));
-            }}
-          >
-            <img src={ToFavouriteIcon} alt="To Favourite Icon" />
-          </InteractionButton>
-          <Error>{errorFavourite}</Error>
-          <InteractionButton>
-            <img src={ToShareIcon} alt="To Share Icon" />
-          </InteractionButton>
-        </InteractionWrapper>
+        {user.username ? (
+          <InteractionWrapper>
+            <InteractionButton
+              isFavourite={isFavourite}
+              onClick={() => {
+                setIsFavourite(!isFavourite);
+                isFavourite
+                  ? dispatch(removeFromFavourite(movie.imdbID))
+                  : dispatch(addInFavourite(movie.imdbID));
+              }}
+            >
+              <img src={ToFavouriteIcon} alt="To Favourite Icon" />
+            </InteractionButton>
+            <Error>{errorFavourite}</Error>
+            <InteractionButton>
+              <img src={ToShareIcon} alt="To Share Icon" />
+            </InteractionButton>
+          </InteractionWrapper>
+        ) : null}
       </ImageSection>
       <InfoSection>
         <div>

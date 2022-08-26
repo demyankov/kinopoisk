@@ -13,8 +13,9 @@ export const InputWrapper = styled.div<{
     props.justifyContent ? props.justifyContent : "start"};
 `;
 
-export const InputPositionWrapper = styled.div`
+export const InputPositionWrapper = styled.span`
   position: relative;
+  height: auto;
 `;
 
 export const ShowPasswordIcon = styled.span`

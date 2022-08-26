@@ -18,10 +18,10 @@ export const SettingsItem = styled.div`
   div:first-of-type {
     flex: 1;
   }
+`;
 
-  p {
-    color: var(--font-color-second);
-  }
+export const Theme = styled.p`
+  color: var(--font-color-second);
 `;
 
 export const SettingsSubItem = styled.div`

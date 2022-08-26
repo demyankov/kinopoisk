@@ -25,13 +25,25 @@ export const MovieName = styled.h5``;
 export const MovieGenre = styled.ul`
   display: flex;
   flex-wrap: wrap;
-  column-gap: var(--spacing-4);
+  column-gap: var(--spacing-8);
   margin: 0;
 
   li {
+    position: relative;
+    padding-left: var(--spacing-8);
     color: var(--font-color-second);
-  }
-  li:first-of-type {
     list-style-type: none;
+  }
+
+  li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: calc(var(--spacing-8) / 2);
+    height: calc(var(--spacing-8) / 2);
+    border-radius: 50%;
+    background-color: var(--font-color-second);
   }
 `;

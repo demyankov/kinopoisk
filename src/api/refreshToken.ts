@@ -11,7 +11,6 @@ export function refreshToken(): void {
       .post(apiToken, { refresh: token })
       .then(({ data }: { data: { access: string } }) => {
         localStorage.setItem(LocalStorage.AccessToken, data.access);
-        console.log(data);
       })
       .catch((error) => {
         console.log("error", error);

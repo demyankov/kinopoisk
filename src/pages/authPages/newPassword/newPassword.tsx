@@ -17,7 +17,7 @@ export function NewPassword(): JSX.Element {
 
   return (
     <Form>
-      <h3>New password</h3>
+      <h3>Email</h3>
       <Input
         value={password}
         label="Password"

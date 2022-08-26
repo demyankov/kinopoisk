@@ -26,10 +26,12 @@ authAxiosInstance.interceptors.response.use(undefined, (error: AxiosError) => {
       refreshQuerryCount += 1;
       return authAxiosInstance(config);
     }
-    return error.response;
+
+    return Promise.reject(error.response);
   }
   if (error.request) {
-    return error.request;
+    return Promise.reject(error.request);
   }
-  throw error;
+
+  return Promise.reject(error);
 });

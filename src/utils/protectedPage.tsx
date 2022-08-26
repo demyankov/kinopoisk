@@ -13,8 +13,6 @@ export function ProtectedPage({
   user?: UserType | {};
   children: JSX.Element;
 }): JSX.Element {
-  console.log(authorizedOnly);
-  console.log(!user);
   if (Object.keys(user).length && authorizedOnly) {
     return children;
   }
