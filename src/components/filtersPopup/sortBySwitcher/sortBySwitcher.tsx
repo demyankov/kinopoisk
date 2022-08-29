@@ -1,3 +1,7 @@
+import { useSelector } from "react-redux";
+import { filterSortSelector } from "../../../store/filter/filter.selector";
+import { filterActions } from "../../../store/filter/filter.slice";
+import { useAppDispatch } from "../../../store/rootStore";
 import { SortBy, SortByWrapper } from "./sortBySwitcherStyles";
 
 export function SortBySwitcher({
@@ -7,6 +11,15 @@ export function SortBySwitcher({
   firstLabel: string;
   secondLabel: string;
 }) {
+  const sortBy = useSelector(filterSortSelector);
+  const dispatch = useAppDispatch();
+
+  const setSortBy = ({
+    target: { value },
+  }: React.ChangeEvent<HTMLInputElement>) => {
+    dispatch(filterActions.sortBy(value));
+  };
+
   return (
     <SortByWrapper>
       <p>Sort by</p>
@@ -16,8 +29,9 @@ export function SortBySwitcher({
             id={firstLabel}
             type="radio"
             value={firstLabel}
+            checked={sortBy === firstLabel ? true : false}
+            onChange={setSortBy}
             name="sortBy"
-            defaultChecked
           />
           <label htmlFor={firstLabel}>{firstLabel}</label>
         </div>
@@ -26,6 +40,8 @@ export function SortBySwitcher({
             id={secondLabel}
             type="radio"
             value={secondLabel}
+            checked={sortBy === secondLabel ? true : false}
+            onChange={setSortBy}
             name="sortBy"
           />
           <label htmlFor={secondLabel}>{secondLabel}</label>

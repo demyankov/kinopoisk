@@ -49,9 +49,9 @@ export function SelectedMoviePage() {
   useEffect(() => {
     getMovieDetails(movieId)
       .then((response) => {
-        setMovie(response.data);
+        setMovie(response);
         if (user.username) {
-          setIsFavourite(favouriteMovies.includes(response.data.imdbID));
+          setIsFavourite(favouriteMovies.includes(response.imdbID));
         }
       })
       .catch((e: AxiosError) => setError(e.message));

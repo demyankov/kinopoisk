@@ -24,7 +24,7 @@ export const authSlice = createSlice({
       .addCase(signInAction.fulfilled, (state, action) => {
         state.loadingState = action.meta.requestStatus;
 
-        if (action.payload.username) {
+        if (action.payload?.username) {
           state.user = action.payload;
         }
       })

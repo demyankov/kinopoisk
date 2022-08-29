@@ -1,6 +1,10 @@
+import { useSelect } from "@mui/base";
 import { useState } from "react";
+import { useSelector } from "react-redux";
+import { contriesList } from "../../generalData/countries";
 import { defaultGenresList } from "../../generalData/defaultGenresList";
-import { filterActions } from "../../store/isOpenedfFilter/filter.slice";
+
+import { filterActions } from "../../store/filter/filter.slice";
 import { useOutside } from "../../utils/useOutside";
 import { Button } from "../button/button";
 import { Input } from "../input/input";
@@ -88,10 +92,7 @@ export function FiltersPopup(): JSX.Element {
           max="10"
         />
       </InputGroup>
-      <Select
-        label="Country"
-        options={["USA", "United Kingdom", "India", "France"]}
-      />
+      <Select label="Country" options={contriesList.sort()} />
       <ButtonWrapper>
         <Button width="100%">Clear filter</Button>
         <Button width="100%">Show results</Button>

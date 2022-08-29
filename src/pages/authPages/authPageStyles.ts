@@ -10,16 +10,11 @@ export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: stretch;
-  padding: var(--spacing-6) var(--spacing-9);
+  padding: var(--spacing-3) var(--spacing-3);
   background: ${() => `linear-gradient(rgba(0,0,0, 0.5) 0 100%), url(${back})`};
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-
-  img {
-    margin-top: var(--spacing-3);
-    margin-left: var(--spacing-2);
-  }
 `;
 
 export const Header = styled.header`

@@ -3,13 +3,13 @@ import { useEffect, useState } from "react";
 import { getMovieDetails } from "../../api/getMovieDetails";
 import { MovieDetailsType } from "../../types/movieDetailsType";
 import { CardWrapper, ImageWrapper, MovieName, MovieGenre } from "./cardStyles";
-import { MutatingDots } from "react-loader-spinner";
 import { NavLink } from "react-router-dom";
 import { AppRoute } from "../../enums/AppRoute";
 import { MovieRaiting } from "../styles/movieRaitingStyle";
 import { Error } from "../styles/error";
 import { useSelector } from "react-redux";
 import { favouriteSelector } from "../../store/favouriteMovies/favourite.selector";
+import { signInUserSelector } from "../../store/auth/signIn.selector";
 
 export function Card({
   movieId,
@@ -19,10 +19,12 @@ export function Card({
   const [movieDetails, setMovieDetails] = useState<MovieDetailsType>();
   const [errors, setErrors] = useState<AxiosError>();
   const isFavourite: boolean = useSelector(favouriteSelector).includes(movieId);
+  const user = useSelector(signInUserSelector);
+
   useEffect(() => {
     getMovieDetails(movieId)
       .then((response) => {
-        setMovieDetails(response.data);
+        setMovieDetails(response);
       })
       .catch((error: AxiosError) => {
         if (error.isAxiosError) {
@@ -49,7 +51,7 @@ export function Card({
         </NavLink>
       </ImageWrapper>
 
-      <MovieRaiting isFavourite={isFavourite}>
+      <MovieRaiting isFavourite={user.username ? isFavourite : false}>
         {movieDetails.imdbRating || "--"}
       </MovieRaiting>
       <MovieName>{movieDetails.Title}</MovieName>

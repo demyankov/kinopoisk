@@ -1,10 +1,8 @@
-import { AxiosError } from "axios";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { setPassword, SetPasswordType } from "../../api/setPassword";
 import { Button } from "../../components/button/button";
 import { Input } from "../../components/input/input";
-import { P } from "../../components/styles/P";
 import { SuccessfullMessage } from "../../components/styles/successfullMessage";
 import { signInUserSelector } from "../../store/auth/signIn.selector";
 import {
@@ -122,13 +120,11 @@ export function SettingsPage(): JSX.Element {
                 current_password: currentPassword,
               })
                 .then((response) => {
-                  console.log(response);
                   setIsLoading(false);
                   setIsPasswordChanged(true);
                   setError({});
                 })
                 .catch((error) => {
-                  console.log(error);
                   setIsLoading(false);
                   setIsPasswordChanged(false);
                   setError(JSON.parse(error.request.responseText));

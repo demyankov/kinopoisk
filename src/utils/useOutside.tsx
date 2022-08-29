@@ -1,11 +1,11 @@
 import { useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
-import { filterSelector } from "../store/isOpenedfFilter/filter.selector";
-import { filterActions } from "../store/isOpenedfFilter/filter.slice";
+import { filterSelectorIsOpened } from "../store/filter/filter.selector";
+import { filterActions } from "../store/filter/filter.slice";
 import { useAppDispatch } from "../store/rootStore";
 
 export function useOutside() {
-  const isOpened = useSelector(filterSelector);
+  const isOpened = useSelector(filterSelectorIsOpened);
   const dispatch = useAppDispatch();
 
   const refForm = useRef<HTMLFormElement>(null);

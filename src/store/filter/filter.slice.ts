@@ -5,22 +5,33 @@ import {
 } from "../../generalData/defaultGenresList";
 import { currentYear } from "../../utils/currentYear";
 
-const filterSlice = createSlice({
+export const filterSlice = createSlice({
   name: "filter",
   initialState: {
+    isOpened: false,
     filterConfigure: {
       movieName: "death",
       genres: defaultGenresList as Array<GenresType>,
-      yearOfRelease: currentYear.toString,
+      year: currentYear,
       raitingFrom: 5 as number,
       raitingTo: 10 as number,
       country: "" as string,
     },
-    sortConfigure: ("raiting" as "raiting") || "year",
+    sortConfigure: "Raiting" as "Raiting" | "Year",
   },
   reducers: {
-    sortBy: () => {},
+    open: (state) => {
+      state.isOpened = true;
+    },
+    close: (state) => {
+      state.isOpened = false;
+    },
+    sortBy: (state, action) => {
+      state.sortConfigure = action.payload;
+    },
     changeFilter: () => {},
     clearFilter: () => {},
   },
 });
+
+export const { reducer: filterReducer, actions: filterActions } = filterSlice;
