@@ -6,7 +6,7 @@ import {
 
 const apiPath = `${process.env.REACT_APP_API_AUTH}/auth/users/`;
 
-export async function registerUser({
+export async function signUp({
   ...querryParams
 }: RegisterUserType): Promise<RegisterUserResponseType> {
   const { data } = await axios.post<

@@ -1,4 +1,3 @@
-import { Search } from "@mui/icons-material";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { getMovieDetails } from "../../api/getMovieDetails";
@@ -9,7 +8,7 @@ import { AppLoader } from "../../components/loaders/appLoader";
 import { RingsLoader } from "../../components/loaders/ringsLoader";
 import { filterSortSelector } from "../../store/filter/filter.selector";
 import { MovieDetailsType } from "../../types/movieDetailsType";
-import { MovieType } from "../../types/movieType";
+import { sortMovies } from "../../utils/sortMovies";
 import {
   ShowMoreButton,
   CardsWrapper,
@@ -18,8 +17,8 @@ import {
 
 export function MoviesPage(): JSX.Element {
   const [movies, setMovie] = useState<MovieDetailsType[]>([]);
-  const [sortMovies, setSortMovies] = useState<MovieDetailsType[]>([]);
   const sortBy = useSelector(filterSortSelector);
+  const [sortMoviesList, setSortMoviesList] = useState<MovieDetailsType[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [pageCount, setPageCount] = useState<number>(1);
   const [errors, setErrors] = useState();
@@ -40,7 +39,7 @@ export function MoviesPage(): JSX.Element {
       setIsLoading(true);
     }
   };
-  console.log(movies);
+
   useEffect(() => {
     if (isLoading && currentPage <= pageCount) {
       const abortController = new AbortController();
@@ -66,22 +65,17 @@ export function MoviesPage(): JSX.Element {
   }, [isLoading]);
 
   useEffect(() => {
-    setSortMovies(
-      sortBy === "Raiting"
-        ? movies.sort(
-            (prev, current) =>
-              Number(current.imdbRating) - Number(prev.imdbRating)
-          )
-        : []
-    );
-    console.log(sortMovies);
+    console.log(sortBy);
+    window.scrollTo(0, 0);
+    setSortMoviesList(() => sortMovies(movies, sortBy));
   }, [movies, sortBy]);
+  console.log(sortMoviesList);
 
   return (
     <>
       <FiltersPopup />
       <CardsWrapper>
-        {sortMovies.map((movie) => {
+        {sortMoviesList.map((movie) => {
           return <Card key={movie.imdbID} movieId={movie.imdbID} />;
         })}
       </CardsWrapper>

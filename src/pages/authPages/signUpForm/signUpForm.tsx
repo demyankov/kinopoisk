@@ -3,7 +3,7 @@ import { Form, SignLink } from "../authPageStyles";
 import { Button } from "../../../components/button/button";
 import { Input } from "../../../components/input/input";
 import { AppRoute } from "../../../enums/AppRoute";
-import { registerUser } from "../../../api/signUp";
+import { signUp } from "../../../api/signUp";
 import {
   FormDataType,
   RegistrationErrorType,
@@ -87,7 +87,7 @@ export function SignUpForm(): JSX.Element {
         }
         onClick={() => {
           setIsLoading(true);
-          registerUser({
+          signUp({
             username: formData.username,
             email: formData.email,
             password: formData.password,

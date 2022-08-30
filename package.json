@@ -49,5 +49,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@types/lodash.clonedeep": "^4.5.7",
+    "lodash.clonedeep": "^4.5.0"
   }
 }

@@ -1,9 +1,6 @@
-import { useSelect } from "@mui/base";
 import { useState } from "react";
-import { useSelector } from "react-redux";
 import { contriesList } from "../../generalData/countries";
 import { defaultGenresList } from "../../generalData/defaultGenresList";
-
 import { filterActions } from "../../store/filter/filter.slice";
 import { useOutside } from "../../utils/useOutside";
 import { Button } from "../button/button";
@@ -35,7 +32,7 @@ export function FiltersPopup(): JSX.Element {
           Х
         </CloseSearchForm>
       </PopUpHeader>
-      <SortBySwitcher firstLabel="Raiting" secondLabel="Year" />
+      <SortBySwitcher firstLabel="Rating" secondLabel="Year" />
       <Input label="Full or shot movie name" placeholder="Your text" />
       <div>
         <p>Genres</p>
@@ -77,7 +74,7 @@ export function FiltersPopup(): JSX.Element {
       </InputGroup>
       <InputGroup>
         <Input
-          label="Raiting"
+          label="Rating"
           placeholder="From"
           justifyContent="end"
           type="number"

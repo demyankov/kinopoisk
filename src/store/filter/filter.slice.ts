@@ -13,11 +13,11 @@ export const filterSlice = createSlice({
       movieName: "death",
       genres: defaultGenresList as Array<GenresType>,
       year: currentYear,
-      raitingFrom: 5 as number,
-      raitingTo: 10 as number,
+      ratingFrom: 5 as number,
+      ratingTo: 10 as number,
       country: "" as string,
     },
-    sortConfigure: "Raiting" as "Raiting" | "Year",
+    sortConfigure: "Rating" as "Rating" | "Year",
   },
   reducers: {
     open: (state) => {
