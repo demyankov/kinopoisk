@@ -38,5 +38,5 @@ export function useOutside() {
       }
     };
   }, [isOpened, dispatch]);
-  return { refForm, refOpen, isOpened, dispatch };
+  return { refForm, refOpen, isOpened };
 }

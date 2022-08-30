@@ -65,11 +65,9 @@ export function MoviesPage(): JSX.Element {
   }, [isLoading]);
 
   useEffect(() => {
-    console.log(sortBy);
     window.scrollTo(0, 0);
     setSortMoviesList(() => sortMovies(movies, sortBy));
   }, [movies, sortBy]);
-  console.log(sortMoviesList);
 
   return (
     <>
