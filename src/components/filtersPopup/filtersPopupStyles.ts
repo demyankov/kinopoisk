@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 export const PopupWrapper = styled.form`
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-8);
+  gap: var(--spacing-5);
   position: fixed;
   justify-content: space-between;
   z-index: 9999;
@@ -16,9 +16,9 @@ export const PopupWrapper = styled.form`
   background-color: var(--background-color-medium);
   min-height: 100%;
   transition: all 0.6s ease;
-  & > div {
+  /* & > div {
     flex: 1;
-  }
+  } */
 
   &.active {
     right: 0;
@@ -88,6 +88,6 @@ export const ButtonWrapper = styled.div`
   display: flex;
   gap: var(--spacing-7);
   justify-content: space-between;
-  align-items: center;
-  flex: 5;
+  align-items: flex-end;
+  flex: 1;
 `;

@@ -5,7 +5,7 @@ export const InputWrapper = styled.div<{
 }>`
   position: relative;
   width: 100%;
-  flex: 1;
+  flex: "1";
   display: flex;
   flex-direction: column;
   gap: var(--spacing-9);

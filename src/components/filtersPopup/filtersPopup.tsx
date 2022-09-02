@@ -11,8 +11,10 @@ import {
   FilterConfigureType,
 } from "../../store/filter/filter.slice";
 import { useAppDispatch } from "../../store/rootStore";
+import { checkEmptyField } from "../../utils/checkEmptyField";
 import { currentYear } from "../../utils/currentYear";
 import { initialState } from "../../utils/localStorage";
+import { numberError } from "../../utils/numberError";
 import { useOutside } from "../../utils/useOutside";
 import { Button } from "../button/button";
 import { Input } from "../input/input";
@@ -88,6 +90,7 @@ export function FiltersPopup(): JSX.Element {
         onChange={setAppFilterParams("movieName")}
         label="Full or shot movie name"
         placeholder="Your text"
+        error={checkEmptyField(filterParams.movieName)}
       />
       <div>
         <p>Genres</p>
@@ -126,10 +129,10 @@ export function FiltersPopup(): JSX.Element {
           justifyContent="end"
           placeholder="Year"
           type="number"
-          min="1960"
           max={currentYear}
           value={filterParams.year}
           onChange={setAppFilterParams("year")}
+          error={numberError(filterParams.year, 1950, currentYear)}
         />
       </InputGroup>
       <InputGroup>
@@ -138,10 +141,9 @@ export function FiltersPopup(): JSX.Element {
           placeholder="From"
           justifyContent="end"
           type="number"
-          min="0"
-          max="10"
           value={filterParams.ratingFrom}
           onChange={setAppFilterParams("ratingFrom")}
+          error={numberError(filterParams.ratingFrom, 0, 10)}
         />
         <Input
           placeholder="To"
@@ -151,6 +153,7 @@ export function FiltersPopup(): JSX.Element {
           max="10"
           value={filterParams.ratingTo}
           onChange={setAppFilterParams("ratingTo")}
+          error={numberError(filterParams.ratingTo, 0, 10)}
         />
       </InputGroup>
       <Select
