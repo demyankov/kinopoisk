@@ -19,7 +19,7 @@ export function Input({
   id,
   placeholder,
   justifyContent,
-  type,
+  type = "text",
   ...otherProps
 }: InputType): JSX.Element {
   const [isShowPassword, setIsShowPassword] = useState<boolean>(
@@ -39,7 +39,7 @@ export function Input({
           id={id}
           placeholder={placeholder ? placeholder : undefined}
           autoComplete="on"
-          type={isShowPassword ? "text" : "password"}
+          type={isShowPassword ? type : "password"}
           {...otherProps}
         />
         {type === "password" ? (

@@ -1,31 +1,29 @@
 import { createSlice } from "@reduxjs/toolkit";
-import {
-  defaultGenresList,
-  GenresType,
-} from "../../generalData/defaultGenresList";
-import { currentYear } from "../../utils/currentYear";
+import { GenresType } from "../../generalData/defaultGenresList";
 
-interface filterConfigureType {
+export interface FilterConfigureType {
   movieName: string;
   genres: Array<GenresType>;
-  year: number;
-  ratingFrom: number;
-  ratingTo: number;
+  year: string;
+  ratingFrom: string;
+  ratingTo: string;
   country: string;
 }
+
+const initialFilterConfigure: FilterConfigureType = {
+  movieName: "",
+  genres: [],
+  year: "",
+  ratingFrom: "",
+  ratingTo: "",
+  country: "",
+};
 
 export const filterSlice = createSlice({
   name: "filter",
   initialState: {
     isOpened: false,
-    filterConfigure: <filterConfigureType>{
-      movieName: "death",
-      genres: defaultGenresList,
-      year: currentYear - 1,
-      ratingFrom: 5,
-      ratingTo: 10,
-      country: "",
-    },
+    filterConfigure: initialFilterConfigure,
     sortConfigure: "Rating" as "Rating" | "Year",
   },
   reducers: {
@@ -39,9 +37,8 @@ export const filterSlice = createSlice({
       state.sortConfigure = action.payload;
     },
     changeFilter: (state, action) => {
-      state.filterConfigure = action.payload;
+      state.filterConfigure = { ...state, ...action.payload };
     },
-    clearFilter: () => {},
   },
 });
 

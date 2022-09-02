@@ -1,12 +1,18 @@
-import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "react-router-dom";
+import { convertCompilerOptionsFromJson } from "typescript";
 import { contriesList } from "../../generalData/countries";
-import { defaultGenresList } from "../../generalData/defaultGenresList";
-import { filterConfigureSelector } from "../../store/filter/filter.selector";
-import { filterActions } from "../../store/filter/filter.slice";
+import {
+  defaultGenresList,
+  GenresType,
+} from "../../generalData/defaultGenresList";
+import {
+  filterActions,
+  FilterConfigureType,
+} from "../../store/filter/filter.slice";
 import { useAppDispatch } from "../../store/rootStore";
 import { currentYear } from "../../utils/currentYear";
+import { initialState } from "../../utils/localStorage";
 import { useOutside } from "../../utils/useOutside";
 import { Button } from "../button/button";
 import { Input } from "../input/input";
@@ -26,27 +32,47 @@ import { SortBySwitcher } from "./sortBySwitcher/sortBySwitcher";
 export function FiltersPopup(): JSX.Element {
   const { refForm, isOpened } = useOutside();
   const [searchParams, setSearchParams] = useSearchParams();
-  const [movieName, setMovieName] = useState(
-    `${searchParams.get("movieName") || "death"}`
-  );
-  const [genresList, setGenresList] = useState(
-    searchParams.get("genres")?.split(",") || defaultGenresList
-  );
-  const [movieYear, setMovieYear] = useState(
-    `${searchParams.get("year") || ""}`
-  );
-  const [ratingFrom, setRatingFrom] = useState(
-    `${searchParams.get("ratingFrom") || ""}`
-  );
-  const [ratingTo, setRatingTo] = useState(
-    `${searchParams.get("ratingTo") || ""}`
-  );
-  const [country, setCountry] = useState(
-    `${searchParams.get("country") || ""}`
-  );
-
-  const filterConfigure = useSelector(filterConfigureSelector);
   const dispatch = useAppDispatch();
+
+  const initialFilterState = useMemo((): FilterConfigureType => {
+    return {
+      movieName: searchParams.get("movieName") || "death",
+      genres: (searchParams.get("genres")?.split(",") ||
+        defaultGenresList) as GenresType[],
+      year: searchParams.get("year") || "",
+      ratingFrom: searchParams.get("ratingFrom") || "",
+      ratingTo: searchParams.get("ratingTo") || "",
+      country: searchParams.get("country") || "",
+    };
+  }, []);
+
+  useEffect(() => {
+    dispatch(filterActions.changeFilter(filterParams));
+  }, []);
+
+  const [filterParams, setFilterParams] =
+    useState<FilterConfigureType>(initialFilterState);
+
+  const setAppSearchParams = () => {
+    let params: string = "";
+    for (let key in filterParams) {
+      if (!!filterParams[key as keyof typeof filterParams]) {
+        params += `&${key}=${filterParams[key as keyof typeof filterParams]}`;
+        setSearchParams(params ? params : "");
+      }
+    }
+  };
+
+  const setAppFilterParams =
+    (payload: string) =>
+    (
+      e:
+        | React.ChangeEvent<HTMLInputElement>
+        | React.ChangeEvent<HTMLSelectElement>
+    ) =>
+      setFilterParams((prevParams) => {
+        return { ...prevParams, [payload]: e.target.value };
+      });
 
   return (
     <PopupWrapper ref={refForm} className={isOpened ? "active" : undefined}>
@@ -58,8 +84,8 @@ export function FiltersPopup(): JSX.Element {
       </PopUpHeader>
       <SortBySwitcher firstLabel="Rating" secondLabel="Year" />
       <Input
-        value={movieName}
-        onChange={({ target: { value } }) => setMovieName(value)}
+        value={filterParams.movieName}
+        onChange={setAppFilterParams("movieName")}
         label="Full or shot movie name"
         placeholder="Your text"
       />
@@ -67,17 +93,22 @@ export function FiltersPopup(): JSX.Element {
         <p>Genres</p>
         <Genres>
           <ul>
-            {genresList.length ? (
-              genresList.map((genre, i) => (
+            {filterParams.genres.length ? (
+              filterParams.genres.map((genre, i) => (
                 <GenreItem key={i}>
-                  <span id={genre}>{genre}</span>
+                  <span>{genre}</span>
                   <DeleteGenre
                     id={genre}
-                    onClick={(event) =>
-                      setGenresList(
-                        genresList.filter((el) => el !== event.currentTarget.id)
-                      )
-                    }
+                    onClick={({ currentTarget }) => {
+                      setFilterParams((prevParams) => {
+                        return {
+                          ...prevParams,
+                          genres: prevParams["genres"].filter(
+                            (el) => el !== currentTarget.id
+                          ),
+                        };
+                      });
+                    }}
                   >
                     x
                   </DeleteGenre>
@@ -97,8 +128,8 @@ export function FiltersPopup(): JSX.Element {
           type="number"
           min="1960"
           max={currentYear}
-          value={movieYear}
-          onChange={({ target: { value } }) => setMovieYear(value)}
+          value={filterParams.year}
+          onChange={setAppFilterParams("year")}
         />
       </InputGroup>
       <InputGroup>
@@ -109,8 +140,8 @@ export function FiltersPopup(): JSX.Element {
           type="number"
           min="0"
           max="10"
-          value={ratingFrom}
-          onChange={({ target: { value } }) => setRatingFrom(value)}
+          value={filterParams.ratingFrom}
+          onChange={setAppFilterParams("ratingFrom")}
         />
         <Input
           placeholder="To"
@@ -118,50 +149,32 @@ export function FiltersPopup(): JSX.Element {
           type="number"
           min="0"
           max="10"
-          value={ratingTo}
-          onChange={({ target: { value } }) => setRatingTo(value)}
+          value={filterParams.ratingTo}
+          onChange={setAppFilterParams("ratingTo")}
         />
       </InputGroup>
       <Select
         label="Country"
         options={contriesList.sort()}
-        value={country}
-        onChange={({ target: { value } }) => setCountry(value)}
+        value={filterParams.country}
+        onChange={setAppFilterParams("country")}
       />
       <ButtonWrapper>
-        <Button width="100%">Clear filter</Button>
         <Button
           width="100%"
           onClick={() => {
-            // const querry = {
-            //   movieName: `${movieName}`,
-            //   genres: genresList,
-            //   year: `${movieYear}`,
-            //   ratingFrom: `${ratingFrom}`,
-            //   ratingTo: `${ratingTo}`,
-            //   country: `${country}`,
-            // };
-            dispatch(
-              filterActions.changeFilter({
-                movieName: movieName,
-                genres: genresList,
-                year: movieYear,
-                ratingFrom: ratingFrom,
-                ratingTo: ratingTo,
-                country: country,
-              })
-            );
-            // for (const key in querry) {
-            //   if (querry[`${key}`]) {
-            //     setSearchParams(key, querry.key);
-            //   }
-            // }
-
-            // for (const key in querry) {
-            //   if (querry[`${key}`]) {
-            //     console.log(key, querry[`${key}`]);
-            //   }
-            // }
+            setSearchParams("");
+            setFilterParams(initialFilterState);
+            dispatch(filterActions.changeFilter(initialState));
+          }}
+        >
+          Clear filter
+        </Button>
+        <Button
+          width="100%"
+          onClick={() => {
+            setAppSearchParams();
+            dispatch(filterActions.changeFilter(filterParams));
           }}
         >
           Show results
