@@ -6,7 +6,10 @@ import { Card } from "../../components/card/card";
 import { FiltersPopup } from "../../components/filtersPopup/filtersPopup";
 import { AppLoader } from "../../components/loaders/appLoader";
 import { RingsLoader } from "../../components/loaders/ringsLoader";
-import { filterSortSelector } from "../../store/filter/filter.selector";
+import {
+  filterConfigureSelector,
+  filterSortSelector,
+} from "../../store/filter/filter.selector";
 import { MovieDetailsType } from "../../types/movieDetailsType";
 import { sortMovies } from "../../utils/sortMovies";
 import {
@@ -23,6 +26,13 @@ export function MoviesPage(): JSX.Element {
   const [pageCount, setPageCount] = useState<number>(1);
   const [errors, setErrors] = useState();
   const [isLoading, setIsLoading] = useState(true);
+  const filterConfigure = useSelector(filterConfigureSelector);
+
+  useEffect(() => {
+    if (filterConfigure.year) {
+      setMovie([]);
+    }
+  }, [filterConfigure.year]);
 
   useEffect(() => {
     document.addEventListener("scroll", scrollHandler);
@@ -41,9 +51,15 @@ export function MoviesPage(): JSX.Element {
   };
 
   useEffect(() => {
-    if (isLoading && currentPage <= pageCount) {
+    if ((isLoading && currentPage <= pageCount) || filterConfigure.year) {
       const abortController = new AbortController();
-      getMovies({ abortController, s: "death", r: "json", page: currentPage })
+      getMovies({
+        abortController,
+        s: "death",
+        r: "json",
+        page: currentPage,
+        y: filterConfigure.year,
+      })
         .then((response) => {
           response["Search"].map((movie) => {
             getMovieDetails(movie.imdbID).then((response) => {
@@ -62,10 +78,9 @@ export function MoviesPage(): JSX.Element {
         setIsLoading(false);
       };
     }
-  }, [isLoading]);
+  }, [isLoading, filterConfigure.year]);
 
   useEffect(() => {
-    window.scrollTo(0, 0);
     setSortMoviesList(() => sortMovies(movies, sortBy));
   }, [movies, sortBy]);
 

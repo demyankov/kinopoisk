@@ -6,9 +6,14 @@ export const Wrapper = styled.div`
   gap: var(--spacing-4);
 `;
 export const ImageSection = styled.div`
-  flex: 1;
+  min-width: 15rem;
+  flex-basis: 30%;
 `;
-
+export const Poster = styled.img`
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+`;
 export const InteractionWrapper = styled.div`
   display: flex;
   border-radius: var(--spacing-8);

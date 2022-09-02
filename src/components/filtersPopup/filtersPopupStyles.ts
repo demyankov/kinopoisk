@@ -35,6 +35,7 @@ export const PopUpHeader = styled.div`
 `;
 
 export const InputGroup = styled.div`
+  position: relative;
   display: flex;
   gap: var(--spacing-6);
 `;

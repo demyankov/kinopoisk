@@ -1,6 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import { convertCompilerOptionsFromJson } from "typescript";
 import { contriesList } from "../../generalData/countries";
 import {
   defaultGenresList,
@@ -13,12 +12,12 @@ import {
 import { useAppDispatch } from "../../store/rootStore";
 import { checkEmptyField } from "../../utils/checkEmptyField";
 import { currentYear } from "../../utils/currentYear";
-import { initialState } from "../../utils/localStorage";
 import { numberError } from "../../utils/numberError";
 import { useOutside } from "../../utils/useOutside";
 import { Button } from "../button/button";
 import { Input } from "../input/input";
 import { Select } from "../select/select";
+import { Error } from "../styles/error";
 import {
   ButtonWrapper,
   CloseSearchForm,
@@ -50,7 +49,7 @@ export function FiltersPopup(): JSX.Element {
 
   useEffect(() => {
     dispatch(filterActions.changeFilter(filterParams));
-  }, []);
+  }, [dispatch]);
 
   const [filterParams, setFilterParams] =
     useState<FilterConfigureType>(initialFilterState);
@@ -129,7 +128,6 @@ export function FiltersPopup(): JSX.Element {
           justifyContent="end"
           placeholder="Year"
           type="number"
-          max={currentYear}
           value={filterParams.year}
           onChange={setAppFilterParams("year")}
           error={numberError(filterParams.year, 1950, currentYear)}
@@ -143,18 +141,22 @@ export function FiltersPopup(): JSX.Element {
           type="number"
           value={filterParams.ratingFrom}
           onChange={setAppFilterParams("ratingFrom")}
-          error={numberError(filterParams.ratingFrom, 0, 10)}
+          error={numberError(filterParams.ratingFrom)}
         />
         <Input
           placeholder="To"
           justifyContent="end"
           type="number"
-          min="0"
-          max="10"
           value={filterParams.ratingTo}
           onChange={setAppFilterParams("ratingTo")}
-          error={numberError(filterParams.ratingTo, 0, 10)}
+          error={numberError(filterParams.ratingTo)}
         />
+        {filterParams.ratingTo &&
+        +filterParams.ratingFrom > +filterParams.ratingTo ? (
+          <Error position="absolute">
+            "Enter the correct rating parameters"
+          </Error>
+        ) : null}
       </InputGroup>
       <Select
         label="Country"
@@ -168,16 +170,26 @@ export function FiltersPopup(): JSX.Element {
           onClick={() => {
             setSearchParams("");
             setFilterParams(initialFilterState);
-            dispatch(filterActions.changeFilter(initialState));
+            dispatch(filterActions.changeFilter(initialFilterState));
           }}
         >
           Clear filter
         </Button>
         <Button
           width="100%"
+          disabled={
+            !filterParams.movieName ||
+            +filterParams.ratingFrom > +filterParams.ratingTo ||
+            numberError(filterParams.year, 1950, currentYear) ||
+            numberError(filterParams.ratingFrom) ||
+            numberError(filterParams.ratingTo)
+              ? true
+              : false
+          }
           onClick={() => {
             setAppSearchParams();
             dispatch(filterActions.changeFilter(filterParams));
+            dispatch(filterActions.close());
           }}
         >
           Show results

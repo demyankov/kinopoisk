@@ -10,6 +10,7 @@ import { Error } from "../styles/error";
 import { useSelector } from "react-redux";
 import { favouriteSelector } from "../../store/favouriteMovies/favourite.selector";
 import { signInUserSelector } from "../../store/auth/signIn.selector";
+import { urlDefaultPoster } from "../../generalData/urlDefaultPoster";
 
 export function Card({
   movieId,
@@ -32,9 +33,6 @@ export function Card({
         }
       });
   }, []);
-
-  const urlDefaultPoster: string =
-    "https://korzik.net/uploads/posts/2011-04/1302509289_1302382236_18.jpg";
 
   return movieDetails ? (
     <CardWrapper>

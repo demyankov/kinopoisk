@@ -13,6 +13,7 @@ import {
   RaitingWrapper,
   InteractionWrapper,
   InteractionButton,
+  Poster,
 } from "./selectedMoviePageStyles";
 import { P } from "../../components/styles/P";
 import { MovieGenre } from "../../components/card/cardStyles";
@@ -35,6 +36,7 @@ import {
 import { Error } from "../../components/styles/error";
 import { AxiosError } from "axios";
 import { signInUserSelector } from "../../store/auth/signIn.selector";
+import { urlDefaultPoster } from "../../generalData/urlDefaultPoster";
 
 export function SelectedMoviePage() {
   const { movieId } = useParams<{ movieId: string }>();
@@ -60,7 +62,10 @@ export function SelectedMoviePage() {
     <Wrapper>
       <ImageSection>
         <ImageWrapper>
-          <img src={movie.Poster} alt="Movie poster"></img>
+          <Poster
+            src={!(movie.Poster === "N/A") ? movie.Poster : urlDefaultPoster}
+            alt="Movie poster"
+          ></Poster>
         </ImageWrapper>
         {user.username ? (
           <InteractionWrapper>
