@@ -8,6 +8,8 @@ export const defaultGenresList: Array<GenresType> = [
   "Thriller",
   "Animation",
   "Family",
+  "Crime",
+  "Mystery",
   "Short",
 ];
 
@@ -21,4 +23,6 @@ export type GenresType =
   | "Thriller"
   | "Animation"
   | "Family"
+  | "Crime"
+  | "Mystery"
   | "Short";

@@ -11,3 +11,7 @@ export const filterSortSelector = (
 export const filterConfigureSelector = (
   state: RootState
 ): RootState["filter"]["filterConfigure"] => state.filter.filterConfigure;
+
+export const moviesSelector = (
+  state: RootState
+): RootState["filter"]["movies"] => state.filter.movies;

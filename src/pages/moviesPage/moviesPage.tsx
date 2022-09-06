@@ -1,16 +1,23 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { useSearchParams } from "react-router-dom";
 import { getMovieDetails } from "../../api/getMovieDetails";
 import { getMovies } from "../../api/getMovies";
 import { Card } from "../../components/card/card";
+import { EmptyContentPage } from "../../components/emptyContentPage/emptyContentPage";
 import { FiltersPopup } from "../../components/filtersPopup/filtersPopup";
 import { AppLoader } from "../../components/loaders/appLoader";
 import { RingsLoader } from "../../components/loaders/ringsLoader";
 import {
   filterConfigureSelector,
   filterSortSelector,
+  moviesSelector,
 } from "../../store/filter/filter.selector";
+import { filterActions } from "../../store/filter/filter.slice";
+import { useAppDispatch } from "../../store/rootStore";
 import { MovieDetailsType } from "../../types/movieDetailsType";
+import { filterMovies } from "../../utils/filterMovies";
+import { setAppSearchParams } from "../../utils/setAppSearchParams";
 import { sortMovies } from "../../utils/sortMovies";
 import {
   ShowMoreButton,
@@ -19,22 +26,30 @@ import {
 } from "./moviePageStyles";
 
 export function MoviesPage(): JSX.Element {
-  const [movies, setMovie] = useState<MovieDetailsType[]>([]);
+  const movies = useSelector(moviesSelector);
   const sortBy = useSelector(filterSortSelector);
   const [sortMoviesList, setSortMoviesList] = useState<MovieDetailsType[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [pageCount, setPageCount] = useState<number>(1);
   const [errors, setErrors] = useState();
-  const [isLoading, setIsLoading] = useState(true);
+  const [isScroll, setIsScroll] = useState(true);
   const filterConfigure = useSelector(filterConfigureSelector);
+  const dispatch = useAppDispatch();
+  const [searchParams, setSearchParams] = useSearchParams();
 
   useEffect(() => {
     if (filterConfigure.year) {
-      setMovie([]);
+      setCurrentPage(1);
     }
   }, [filterConfigure.year]);
 
   useEffect(() => {
+    setCurrentPage(1);
+  }, [filterConfigure.movieName]);
+
+  useEffect(() => {
+    dispatch(filterActions.clearMovies());
+    setAppSearchParams(setSearchParams);
     document.addEventListener("scroll", scrollHandler);
     return () => document.removeEventListener("scroll", scrollHandler);
   }, []);
@@ -44,26 +59,42 @@ export function MoviesPage(): JSX.Element {
       e.target.documentElement.scrollHeight -
         e.target.documentElement.scrollTop -
         window.innerHeight <
-      100
+      50
     ) {
-      setIsLoading(true);
+      setIsScroll(true);
     }
   };
 
+  console.log(filterConfigure);
   useEffect(() => {
-    if ((isLoading && currentPage <= pageCount) || filterConfigure.year) {
+    // console.log("in");
+    // console.log(
+    //   "isLoading && currentPage <= pageCount:",
+    //   isLoading && currentPage <= pageCount
+    // );
+    // console.log("filterConfigure.year:", !!filterConfigure.year);
+    // console.log("filterConfigure.movieName:", !!filterConfigure.movieName);
+    if (
+      ((isScroll && currentPage <= pageCount) || filterConfigure.year) &&
+      filterConfigure.movieName
+    ) {
+      console.log("in in");
       const abortController = new AbortController();
       getMovies({
         abortController,
-        s: "death",
+        s: !!filterConfigure.movieName ? filterConfigure.movieName : "",
         r: "json",
         page: currentPage,
-        y: filterConfigure.year,
+        y: filterConfigure.year || "",
       })
         .then((response) => {
           response["Search"].map((movie) => {
             getMovieDetails(movie.imdbID).then((response) => {
-              setMovie((prev) => [...prev, response]);
+              if (!isScroll) {
+                console.log("clear");
+                dispatch(filterActions.clearMovies());
+              }
+              dispatch(filterActions.addMovies(response));
             });
           });
           setCurrentPage((prevPage) => prevPage + 1);
@@ -71,29 +102,31 @@ export function MoviesPage(): JSX.Element {
         })
         .catch((errors) => setErrors(errors))
         .finally(() => {
-          setIsLoading(false);
+          setIsScroll(false);
         });
       return () => {
-        abortController.abort();
-        setIsLoading(false);
+        // abortController.abort();
+        setIsScroll(false);
       };
     }
-  }, [isLoading, filterConfigure.year]);
+  }, [isScroll, filterConfigure.year, filterConfigure.movieName]);
 
   useEffect(() => {
     setSortMoviesList(() => sortMovies(movies, sortBy));
-  }, [movies, sortBy]);
+  }, [movies, sortBy, filterConfigure]);
 
   return (
     <>
       <FiltersPopup />
       <CardsWrapper>
-        {sortMoviesList.map((movie) => {
-          return <Card key={movie.imdbID} movieId={movie.imdbID} />;
+        {filterMovies(sortMoviesList, filterConfigure).map((movie) => {
+          return <Card key={movie.imdbID} movie={movie} />;
         })}
+        {isScroll ? <AppLoader /> : null}
+        {!isScroll && !filterMovies(sortMoviesList, filterConfigure).length ? (
+          <EmptyContentPage />
+        ) : null}
       </CardsWrapper>
-      {isLoading ? <AppLoader /> : null}
-
       <ShowMoreButtonWrapper>
         <ShowMoreButton>
           Show More <RingsLoader />

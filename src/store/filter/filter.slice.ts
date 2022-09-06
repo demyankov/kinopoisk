@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { GenresType } from "../../generalData/defaultGenresList";
+import { MovieDetailsType } from "../../types/movieDetailsType";
 
 export interface FilterConfigureType {
   movieName: string;
@@ -23,6 +24,7 @@ export const filterSlice = createSlice({
   name: "filter",
   initialState: {
     isOpened: false,
+    movies: [] as MovieDetailsType[],
     filterConfigure: initialFilterConfigure,
     sortConfigure: "Rating" as "Rating" | "Year",
   },
@@ -32,6 +34,15 @@ export const filterSlice = createSlice({
     },
     close: (state) => {
       state.isOpened = false;
+    },
+    setMovies: (state, action) => {
+      state.movies = action.payload;
+    },
+    addMovies: (state, action) => {
+      state.movies = [...state.movies, action.payload];
+    },
+    clearMovies: (state) => {
+      state.movies = [];
     },
     sortBy: (state, action) => {
       state.sortConfigure = action.payload;

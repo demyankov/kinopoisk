@@ -14,8 +14,9 @@ export const SettingsItem = styled.div`
   padding: var(--spacing-4);
   background-color: var(--background-color-medium);
   border-radius: var(--spacing-8);
+  justify-content: space-between;
 
-  div:first-of-type {
+  & > div {
     flex: 1;
   }
 `;
@@ -32,6 +33,9 @@ export const SettingsSubItem = styled.div`
 `;
 
 export const ThemeSwitcher = styled.div`
+  display: flex;
+  justify-content: end;
+
   input {
     display: none;
   }

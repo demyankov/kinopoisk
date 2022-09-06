@@ -9,6 +9,7 @@ import { Container, Main, Wrapper } from "./mainLayoutStyles";
 
 export function MainLayout() {
   const dispatch = useAppDispatch();
+
   useEffect(() => {
     dispatch(signInAction());
   }, []);

@@ -13,6 +13,7 @@ import { useAppDispatch } from "../../store/rootStore";
 import { checkEmptyField } from "../../utils/checkEmptyField";
 import { currentYear } from "../../utils/currentYear";
 import { numberError } from "../../utils/numberError";
+import { setAppSearchParams } from "../../utils/setAppSearchParams";
 import { useOutside } from "../../utils/useOutside";
 import { Button } from "../button/button";
 import { Input } from "../input/input";
@@ -49,20 +50,11 @@ export function FiltersPopup(): JSX.Element {
 
   useEffect(() => {
     dispatch(filterActions.changeFilter(filterParams));
+    setAppSearchParams(setSearchParams, filterParams);
   }, [dispatch]);
 
   const [filterParams, setFilterParams] =
     useState<FilterConfigureType>(initialFilterState);
-
-  const setAppSearchParams = () => {
-    let params: string = "";
-    for (let key in filterParams) {
-      if (!!filterParams[key as keyof typeof filterParams]) {
-        params += `&${key}=${filterParams[key as keyof typeof filterParams]}`;
-        setSearchParams(params ? params : "");
-      }
-    }
-  };
 
   const setAppFilterParams =
     (payload: string) =>
@@ -187,7 +179,7 @@ export function FiltersPopup(): JSX.Element {
               : false
           }
           onClick={() => {
-            setAppSearchParams();
+            setAppSearchParams(setSearchParams, filterParams);
             dispatch(filterActions.changeFilter(filterParams));
             dispatch(filterActions.close());
           }}

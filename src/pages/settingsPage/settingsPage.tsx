@@ -23,7 +23,6 @@ export function SettingsPage(): JSX.Element {
   const [error, setError] = useState<SetPasswordType>({});
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  console.log(isPasswordChanged);
   return (
     <form>
       <SettingsItemWrapper>
