@@ -48,13 +48,13 @@ export function FiltersPopup(): JSX.Element {
     };
   }, []);
 
+  const [filterParams, setFilterParams] =
+    useState<FilterConfigureType>(initialFilterState);
+
   useEffect(() => {
     dispatch(filterActions.changeFilter(filterParams));
     setAppSearchParams(setSearchParams, filterParams);
-  }, [dispatch]);
-
-  const [filterParams, setFilterParams] =
-    useState<FilterConfigureType>(initialFilterState);
+  }, [dispatch, initialFilterState]);
 
   const setAppFilterParams =
     (payload: string) =>
@@ -171,7 +171,8 @@ export function FiltersPopup(): JSX.Element {
           width="100%"
           disabled={
             !filterParams.movieName ||
-            +filterParams.ratingFrom > +filterParams.ratingTo ||
+            (filterParams.ratingTo &&
+              +filterParams.ratingFrom > +filterParams.ratingTo) ||
             numberError(filterParams.year, 1950, currentYear) ||
             numberError(filterParams.ratingFrom) ||
             numberError(filterParams.ratingTo)
@@ -180,6 +181,7 @@ export function FiltersPopup(): JSX.Element {
           }
           onClick={() => {
             dispatch(filterActions.clearMovies());
+            dispatch(filterActions.setIsLoading(true));
             setAppSearchParams(setSearchParams, filterParams);
             dispatch(filterActions.changeFilter(filterParams));
             dispatch(filterActions.close());

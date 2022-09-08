@@ -14,7 +14,7 @@ export function Select({
     <SelectWrapper>
       <Label>{label}</Label>
       <StyledSelect {...otherProps}>
-        <option>Not selected</option>
+        <option value="">Not selected</option>
         {options.map((option, id) => (
           <option value={option} key={id}>
             {option}

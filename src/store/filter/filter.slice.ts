@@ -23,8 +23,9 @@ const initialFilterConfigure: FilterConfigureType = {
 export const filterSlice = createSlice({
   name: "filter",
   initialState: {
-    isOpened: false,
+    isOpened: false as boolean,
     movies: [] as MovieDetailsType[],
+    isLoading: true as boolean,
     filterConfigure: initialFilterConfigure,
     sortConfigure: "Rating" as "Rating" | "Year",
   },
@@ -35,11 +36,17 @@ export const filterSlice = createSlice({
     close: (state) => {
       state.isOpened = false;
     },
-    setMovies: (state, action) => {
-      state.movies = action.payload;
+    setIsLoading: (state, action) => {
+      state.isLoading = action.payload;
     },
     addMovies: (state, action) => {
-      state.movies = [...state.movies, ...action.payload];
+      const uniqMovies = action.payload.filter(
+        (newMovie: MovieDetailsType) =>
+          !state.movies.filter(
+            (movie: MovieDetailsType) => movie.imdbID === newMovie.imdbID
+          ).length
+      );
+      state.movies = [...state.movies, ...uniqMovies];
     },
     clearMovies: (state) => {
       state.movies = [];

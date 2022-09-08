@@ -1,9 +1,9 @@
 export const defaultGenresList: Array<GenresType> = [
   "Action",
   "Sci-Fi",
-  "Dramma",
+  "Drama",
   "Comedy",
-  "Docomentary",
+  "Documentary",
   "Adventure",
   "Thriller",
   "Animation",
@@ -16,9 +16,9 @@ export const defaultGenresList: Array<GenresType> = [
 export type GenresType =
   | "Action"
   | "Sci-Fi"
-  | "Dramma"
+  | "Drama"
   | "Comedy"
-  | "Docomentary"
+  | "Documentary"
   | "Adventure"
   | "Thriller"
   | "Animation"

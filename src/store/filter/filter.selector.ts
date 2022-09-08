@@ -15,3 +15,7 @@ export const filterConfigureSelector = (
 export const moviesSelector = (
   state: RootState
 ): RootState["filter"]["movies"] => state.filter.movies;
+
+export const filterIsLoadingSelector = (
+  state: RootState
+): RootState["filter"]["isLoading"] => state.filter.isLoading;

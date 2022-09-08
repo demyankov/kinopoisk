@@ -4,12 +4,12 @@ import { useSearchParams } from "react-router-dom";
 import { getMovieDetails } from "../../api/getMovieDetails";
 import { getMovies } from "../../api/getMovies";
 import { Card } from "../../components/card/card";
-import { EmptyContentPage } from "../../components/emptyContentPage/emptyContentPage";
 import { FiltersPopup } from "../../components/filtersPopup/filtersPopup";
 import { AppLoader } from "../../components/loaders/appLoader";
 import { RingsLoader } from "../../components/loaders/ringsLoader";
 import {
   filterConfigureSelector,
+  filterIsLoadingSelector,
   filterSortSelector,
   moviesSelector,
 } from "../../store/filter/filter.selector";
@@ -32,7 +32,7 @@ export function MoviesPage(): JSX.Element {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [pageCount, setPageCount] = useState<number>(1);
   const [errors, setErrors] = useState();
-  const [isScroll, setIsScroll] = useState(true);
+  const isLoading = useSelector(filterIsLoadingSelector);
   const filterConfigure = useSelector(filterConfigureSelector);
   const dispatch = useAppDispatch();
   const [searchParams, setSearchParams] = useSearchParams();
@@ -49,38 +49,42 @@ export function MoviesPage(): JSX.Element {
 
   useEffect(() => {
     dispatch(filterActions.clearMovies());
+    dispatch(filterActions.setIsLoading(true));
     setAppSearchParams(setSearchParams);
     document.addEventListener("scroll", scrollHandler);
     return () => document.removeEventListener("scroll", scrollHandler);
   }, []);
 
   const scrollHandler = (e: any): void => {
+    console.log("isLoading", isLoading);
+    console.log(
+      "e",
+      e.target.documentElement.scrollHeight -
+        e.target.documentElement.scrollTop -
+        window.innerHeight <
+        50
+    );
     if (
+      // !isLoading &&
       e.target.documentElement.scrollHeight -
         e.target.documentElement.scrollTop -
         window.innerHeight <
       50
     ) {
-      setIsScroll(true);
+      console.log("туту");
+      dispatch(filterActions.setIsLoading(true));
     }
   };
 
   useEffect(() => {
-    // console.log("in");
-    // console.log(
-    //   "isLoading && currentPage <= pageCount:",
-    //   isLoading && currentPage <= pageCount
-    // );
-    // console.log("filterConfigure.year:", !!filterConfigure.year);
-    // console.log("filterConfigure.movieName:", !!filterConfigure.movieName);
     if (
-      ((isScroll && currentPage <= pageCount) || filterConfigure.year) &&
+      ((isLoading && currentPage <= pageCount) || filterConfigure.year) &&
       filterConfigure.movieName
     ) {
       const abortController = new AbortController();
       getMovies({
         abortController,
-        s: filterConfigure.movieName || "",
+        s: filterConfigure.movieName,
         r: "json",
         page: currentPage,
         y: filterConfigure.year || "",
@@ -99,14 +103,14 @@ export function MoviesPage(): JSX.Element {
         })
         .catch((errors) => setErrors(errors))
         .finally(() => {
-          setIsScroll(false);
+          dispatch(filterActions.setIsLoading(false));
         });
       return () => {
-        // abortController.abort();
-        setIsScroll(false);
+        abortController.abort();
+        dispatch(filterActions.setIsLoading(false));
       };
     }
-  }, [isScroll, filterConfigure.year, filterConfigure.movieName]);
+  }, [isLoading, filterConfigure.movieName, filterConfigure.year]);
 
   useEffect(() => {
     setSortMoviesList(() => sortMovies(movies, sortBy));
@@ -119,10 +123,10 @@ export function MoviesPage(): JSX.Element {
         {filterMovies(sortMoviesList, filterConfigure).map((movie) => {
           return <Card key={movie.imdbID} movie={movie} />;
         })}
-        {isScroll ? <AppLoader /> : null}
-        {!isScroll && !filterMovies(sortMoviesList, filterConfigure).length ? (
+        {isLoading ? <AppLoader /> : null}
+        {/* {!isScroll && !filterMovies(sortMoviesList, filterConfigure).length ? (
           <EmptyContentPage />
-        ) : null}
+        ) : null} */}
       </CardsWrapper>
       <ShowMoreButtonWrapper>
         <ShowMoreButton>

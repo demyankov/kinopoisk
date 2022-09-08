@@ -19,8 +19,6 @@ export const filterMovies = <T extends MovieDetailsType>(
       return movie;
     }
   });
-  // console.log("moviesArray: ", moviesArray);
-  // console.log("filteredArray: ", filteredArray);
   return filteredArray;
 };
 
