@@ -179,6 +179,7 @@ export function FiltersPopup(): JSX.Element {
               : false
           }
           onClick={() => {
+            dispatch(filterActions.clearMovies());
             setAppSearchParams(setSearchParams, filterParams);
             dispatch(filterActions.changeFilter(filterParams));
             dispatch(filterActions.close());

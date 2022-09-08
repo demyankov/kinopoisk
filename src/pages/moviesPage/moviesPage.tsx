@@ -65,7 +65,6 @@ export function MoviesPage(): JSX.Element {
     }
   };
 
-  console.log(filterConfigure);
   useEffect(() => {
     // console.log("in");
     // console.log(
@@ -78,24 +77,22 @@ export function MoviesPage(): JSX.Element {
       ((isScroll && currentPage <= pageCount) || filterConfigure.year) &&
       filterConfigure.movieName
     ) {
-      console.log("in in");
       const abortController = new AbortController();
       getMovies({
         abortController,
-        s: !!filterConfigure.movieName ? filterConfigure.movieName : "",
+        s: filterConfigure.movieName || "",
         r: "json",
         page: currentPage,
         y: filterConfigure.year || "",
       })
         .then((response) => {
-          response["Search"].map((movie) => {
-            getMovieDetails(movie.imdbID).then((response) => {
-              if (!isScroll) {
-                console.log("clear");
-                dispatch(filterActions.clearMovies());
-              }
-              dispatch(filterActions.addMovies(response));
-            });
+          Promise.allSettled(
+            response["Search"].map((movie) => getMovieDetails(movie.imdbID))
+          ).then((response) => {
+            const fulfilledResponse = response.map((responseItem) =>
+              responseItem.status === "fulfilled" ? responseItem.value : null
+            );
+            dispatch(filterActions.addMovies(fulfilledResponse));
           });
           setCurrentPage((prevPage) => prevPage + 1);
           setPageCount(Math.ceil(+response.totalResults / 10));

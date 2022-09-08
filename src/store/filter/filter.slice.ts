@@ -39,7 +39,7 @@ export const filterSlice = createSlice({
       state.movies = action.payload;
     },
     addMovies: (state, action) => {
-      state.movies = [...state.movies, action.payload];
+      state.movies = [...state.movies, ...action.payload];
     },
     clearMovies: (state) => {
       state.movies = [];
