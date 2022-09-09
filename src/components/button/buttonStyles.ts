@@ -9,7 +9,7 @@ export const ButtonWrapper = styled.button<{ width: string }>`
   line-height: var(--subheadline-3-line-height);
   background-color: var(--background-color-bright);
   border: none;
-  border: 2px solid var(--background-color-medium);
+  border: 2px solid var(--background-color);
 
   &:hover {
     background-color: var(--background-color-button-hover);

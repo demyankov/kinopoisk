@@ -28,6 +28,7 @@ export function Input({
 
   const handleClick = () => {
     setIsShowPassword(!isShowPassword);
+    console.log(isShowPassword);
   };
 
   return (
@@ -39,7 +40,7 @@ export function Input({
           id={id}
           placeholder={placeholder ? placeholder : undefined}
           autoComplete="on"
-          type={isShowPassword ? type : "password"}
+          type={isShowPassword ? "text" : "password"}
           {...otherProps}
         />
         {type === "password" ? (

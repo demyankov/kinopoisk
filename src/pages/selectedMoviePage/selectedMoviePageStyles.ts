@@ -17,6 +17,7 @@ export const Poster = styled.img`
 export const InteractionWrapper = styled.div`
   display: flex;
   border-radius: var(--spacing-8);
+  border: 2px solid var(--background-color);
   overflow: hidden;
 `;
 
@@ -24,6 +25,7 @@ export const InteractionButton = styled.button<{ isFavourite?: boolean }>`
   flex: 1;
   gap: 2px;
   border-radius: none;
+  border-color: var(--background-color);
   background-color: ${(props) =>
     props.isFavourite
       ? "var(--background-color-bright)"

@@ -3,4 +3,5 @@ export enum LocalStorage {
   AccessToken = "@accessTokenPixema",
   RefreshToken = "@refreshTokenPixema",
   User = "@userPixema",
+  Theme = "@themePixema",
 }

@@ -1,8 +1,9 @@
 import { css } from "@emotion/react";
 import { Breakpoints } from "../../enums/breakpoints";
-import { SPACING, TYPOGRAPHY, SIDEBARWIDTH } from "./variables";
+import { ThemeVariant } from "../../store/theme/theme.slice";
+import { SPACING, TYPOGRAPHY, SIDEBARWIDTH, appTheme } from "./variables";
 
-export const getRebootCSS = () => css`
+export const getRebootCSS = (themeVariant: ThemeVariant) => css`
   :root {
     --theme-switcher-width: 4rem;
 
@@ -13,20 +14,27 @@ export const getRebootCSS = () => css`
     --bs-font-monospace: SFMono-Regular, Menlo, Monaco, Consolas,
       "Liberation Mono", "Courier New", monospace;
     --max-width: ${Breakpoints.Desktop};
-    --font-color-base: #fff;
-    --font-color-invert: #000;
-    --font-color-second: #80858b;
-    --font-color-active: #7b61ff;
-    --font-color-error: #ee204d;
-    --background-color: #000;
 
-    --background-color-raiting: #00a340;
-    --background-color-invert: #e5e5e5;
-    --background-color-medium: #242426;
-    --background-color-second: #323537;
-    --background-color-bright: #7b61ff;
-    --background-color-button-hover: #664af0;
-    --background-color-disabled: #80858b;
+    --font-color-base: ${appTheme[themeVariant].colors.fontBase};
+    --font-color-invert: ${appTheme[themeVariant].colors.fontInvert};
+    --font-color-second: ${appTheme[themeVariant].colors.fontSecond};
+    --font-color-active: ${appTheme[themeVariant].colors.fontActive};
+    --font-color-error: ${appTheme[themeVariant].colors.fontError};
+    --background-color: ${appTheme[themeVariant].colors.background};
+    --background-color-raiting: ${appTheme[themeVariant].colors
+      .backgroundRating};
+    --background-color-invert: ${appTheme[themeVariant].colors
+      .backgroundInvert};
+    --background-color-medium: ${appTheme[themeVariant].colors
+      .backgroundMedium};
+    --background-color-second: ${appTheme[themeVariant].colors
+      .backgroundSecond};
+    --background-color-bright: ${appTheme[themeVariant].colors
+      .backgroundBright};
+    --background-color-button-hover: ${appTheme[themeVariant].colors
+      .backgroundButtonHover};
+    --background-color-disabled: ${appTheme[themeVariant].colors
+      .backgroundDisabled};
     --body-font-family: var(--bs-font-sans-serif);
     --body-font-size: ${TYPOGRAPHY.mobile.body.fontSize};
     --body-line-height: ${TYPOGRAPHY.mobile.body.lineHeight};

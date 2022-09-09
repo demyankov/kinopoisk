@@ -20,13 +20,15 @@ import { EmptyContentPage } from "./components/emptyContentPage/emptyContentPage
 import { ProtectedPage } from "./utils/protectedPage";
 import { useSelector } from "react-redux";
 import { signInUserSelector } from "./store/auth/signIn.selector";
+import { themeSelector } from "./store/theme/theme.selector";
 
 function App(): JSX.Element {
   const user = useSelector(signInUserSelector);
+  const themeVariant = useSelector(themeSelector);
 
   return (
     <div className="App">
-      <Global styles={getRebootCSS()} />
+      <Global styles={getRebootCSS(themeVariant)} />
       <BrowserRouter>
         <Routes>
           <Route path={AppRoute.Main} element={<MainLayout />}>

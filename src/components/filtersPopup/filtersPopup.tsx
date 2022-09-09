@@ -1,10 +1,12 @@
 import { useEffect, useMemo, useState } from "react";
+import { useSelector } from "react-redux";
 import { useSearchParams } from "react-router-dom";
 import { contriesList } from "../../generalData/countries";
 import {
   defaultGenresList,
   GenresType,
 } from "../../generalData/defaultGenresList";
+import { filterIsLoadingSelector } from "../../store/filter/filter.selector";
 import {
   filterActions,
   FilterConfigureType,
@@ -35,6 +37,7 @@ export function FiltersPopup(): JSX.Element {
   const { refForm, isOpened } = useOutside();
   const [searchParams, setSearchParams] = useSearchParams();
   const dispatch = useAppDispatch();
+  const isLoading = useSelector(filterIsLoadingSelector);
 
   const initialFilterState = useMemo((): FilterConfigureType => {
     return {
@@ -181,7 +184,10 @@ export function FiltersPopup(): JSX.Element {
           }
           onClick={() => {
             dispatch(filterActions.clearMovies());
-            dispatch(filterActions.setIsLoading(true));
+            if (!isLoading) {
+              dispatch(filterActions.setIsLoading(true));
+            }
+            dispatch(filterActions.setCurrentPage(1));
             setAppSearchParams(setSearchParams, filterParams);
             dispatch(filterActions.changeFilter(filterParams));
             dispatch(filterActions.close());

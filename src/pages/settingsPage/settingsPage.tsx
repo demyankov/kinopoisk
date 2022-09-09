@@ -5,6 +5,10 @@ import { Button } from "../../components/button/button";
 import { Input } from "../../components/input/input";
 import { SuccessfullMessage } from "../../components/styles/successfullMessage";
 import { signInUserSelector } from "../../store/auth/signIn.selector";
+import { useAppDispatch } from "../../store/rootStore";
+import { appSaveThemeAction } from "../../store/theme/appsaveThemeAction";
+import { themeSelector } from "../../store/theme/theme.selector";
+import { themeActions } from "../../store/theme/theme.slice";
 import {
   ButtonWrapper,
   SettingsItem,
@@ -22,6 +26,9 @@ export function SettingsPage(): JSX.Element {
   const [isPasswordChanged, setIsPasswordChanged] = useState<boolean>(false);
   const [error, setError] = useState<SetPasswordType>({});
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const theme = useSelector(themeSelector);
+  console.log(theme);
+  const dispatch = useAppDispatch();
 
   return (
     <form>
@@ -94,11 +101,18 @@ export function SettingsPage(): JSX.Element {
         <h3>Color mode</h3>
         <SettingsItem>
           <div>
-            <h5>Dark</h5>
-            <Theme>Use dark theme</Theme>
+            <h5>{theme}</h5>
+            <Theme>Use {theme} theme</Theme>
           </div>
           <ThemeSwitcher>
-            <input id="themeSwitcher" type="checkbox" />
+            <input
+              defaultChecked={theme === "Light"}
+              id="themeSwitcher"
+              type="checkbox"
+              onClick={() =>
+                setTimeout(() => dispatch(themeActions.toggleTheme()), 500)
+              }
+            />
             <label htmlFor="themeSwitcher"></label>
           </ThemeSwitcher>
         </SettingsItem>
@@ -107,6 +121,8 @@ export function SettingsPage(): JSX.Element {
         <Button>Cancel</Button>
         <Button
           onClick={() => {
+            dispatch(appSaveThemeAction());
+
             if (
               !isLoading &&
               currentPassword &&
@@ -118,7 +134,7 @@ export function SettingsPage(): JSX.Element {
                 new_password: newPassword,
                 current_password: currentPassword,
               })
-                .then((response) => {
+                .then(() => {
                   setIsLoading(false);
                   setIsPasswordChanged(true);
                   setError({});

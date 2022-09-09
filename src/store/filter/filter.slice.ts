@@ -26,6 +26,7 @@ export const filterSlice = createSlice({
     isOpened: false as boolean,
     movies: [] as MovieDetailsType[],
     isLoading: true as boolean,
+    currentPage: 1 as number,
     filterConfigure: initialFilterConfigure,
     sortConfigure: "Rating" as "Rating" | "Year",
   },
@@ -39,6 +40,10 @@ export const filterSlice = createSlice({
     setIsLoading: (state, action) => {
       state.isLoading = action.payload;
     },
+    setCurrentPage: (state, action) => {
+      state.currentPage = action.payload;
+    },
+
     addMovies: (state, action) => {
       const uniqMovies = action.payload.filter(
         (newMovie: MovieDetailsType) =>

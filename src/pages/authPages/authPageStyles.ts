@@ -35,7 +35,7 @@ export const Form = styled.form`
   padding: var(--spacing-4);
   flex-basis: 30%;
   min-width: 25rem;
-  background-color: var(--background-color-medium);
+  background-color: var(--background-color);
   border-radius: var(--spacing-6);
 `;
 

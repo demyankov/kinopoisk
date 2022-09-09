@@ -146,3 +146,50 @@ export const SPACING = {
     L10: "0.25rem",
   },
 };
+
+// export enum ThemeVariant {
+//   Dark = "dark",
+//   Light = "light",
+// }
+
+const darkTheme = {
+  colors: {
+    fontBase: "#fff",
+    fontInvert: "#000",
+    fontSecond: "#80858b",
+    fontActive: "#7b61ff",
+    fontError: "#ee204d",
+    background: "#000",
+    backgroundRating: "#00a340",
+    backgroundInvert: "#e5e5e5",
+    backgroundMedium: "#242426",
+    backgroundSecond: "#323537",
+    backgroundBright: "#7b61ff",
+    backgroundButtonHover: "#664af0",
+    backgroundDisabled: "#80858b",
+  },
+};
+
+const lightTheme = {
+  colors: {
+    fontBase: "#000",
+    fontInvert: "#fff",
+    background: "#e5e5e5",
+    backgroundInvert: "#ccc",
+    backgroundMedium: "#666",
+    fontSecond: "#444",
+    fontActive: "#7b61ff",
+    fontError: "#ee204d",
+    backgroundSecond: "#ccc",
+    backgroundRating: "#00a340",
+
+    backgroundBright: "#7b61ff",
+    backgroundButtonHover: "#664af0",
+    backgroundDisabled: "#80858b",
+  },
+};
+
+export const appTheme = {
+  Dark: darkTheme,
+  Light: lightTheme,
+};

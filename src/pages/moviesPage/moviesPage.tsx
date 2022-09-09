@@ -10,15 +10,12 @@ import { RingsLoader } from "../../components/loaders/ringsLoader";
 import {
   filterConfigureSelector,
   filterIsLoadingSelector,
-  filterSortSelector,
-  moviesSelector,
+  filterCurrentPageSelector,
+  filterResultSelector,
 } from "../../store/filter/filter.selector";
 import { filterActions } from "../../store/filter/filter.slice";
 import { useAppDispatch } from "../../store/rootStore";
-import { MovieDetailsType } from "../../types/movieDetailsType";
-import { filterMovies } from "../../utils/filterMovies";
 import { setAppSearchParams } from "../../utils/setAppSearchParams";
-import { sortMovies } from "../../utils/sortMovies";
 import {
   ShowMoreButton,
   CardsWrapper,
@@ -26,10 +23,8 @@ import {
 } from "./moviePageStyles";
 
 export function MoviesPage(): JSX.Element {
-  const movies = useSelector(moviesSelector);
-  const sortBy = useSelector(filterSortSelector);
-  const [sortMoviesList, setSortMoviesList] = useState<MovieDetailsType[]>([]);
-  const [currentPage, setCurrentPage] = useState<number>(1);
+  const moviesFiltered = useSelector(filterResultSelector);
+  const currentPage = useSelector(filterCurrentPageSelector);
   const [pageCount, setPageCount] = useState<number>(1);
   const [errors, setErrors] = useState();
   const isLoading = useSelector(filterIsLoadingSelector);
@@ -38,16 +33,7 @@ export function MoviesPage(): JSX.Element {
   const [searchParams, setSearchParams] = useSearchParams();
 
   useEffect(() => {
-    if (filterConfigure.year) {
-      setCurrentPage(1);
-    }
-  }, [filterConfigure.year]);
-
-  useEffect(() => {
-    setCurrentPage(1);
-  }, [filterConfigure.movieName]);
-
-  useEffect(() => {
+    dispatch(filterActions.setCurrentPage(1));
     dispatch(filterActions.clearMovies());
     dispatch(filterActions.setIsLoading(true));
     setAppSearchParams(setSearchParams);
@@ -56,22 +42,12 @@ export function MoviesPage(): JSX.Element {
   }, []);
 
   const scrollHandler = (e: any): void => {
-    console.log("isLoading", isLoading);
-    console.log(
-      "e",
-      e.target.documentElement.scrollHeight -
-        e.target.documentElement.scrollTop -
-        window.innerHeight <
-        50
-    );
     if (
-      // !isLoading &&
       e.target.documentElement.scrollHeight -
         e.target.documentElement.scrollTop -
         window.innerHeight <
-      50
+      100
     ) {
-      console.log("туту");
       dispatch(filterActions.setIsLoading(true));
     }
   };
@@ -82,6 +58,7 @@ export function MoviesPage(): JSX.Element {
       filterConfigure.movieName
     ) {
       const abortController = new AbortController();
+
       getMovies({
         abortController,
         s: filterConfigure.movieName,
@@ -98,7 +75,7 @@ export function MoviesPage(): JSX.Element {
             );
             dispatch(filterActions.addMovies(fulfilledResponse));
           });
-          setCurrentPage((prevPage) => prevPage + 1);
+          dispatch(filterActions.setCurrentPage(currentPage + 1));
           setPageCount(Math.ceil(+response.totalResults / 10));
         })
         .catch((errors) => setErrors(errors))
@@ -110,17 +87,13 @@ export function MoviesPage(): JSX.Element {
         dispatch(filterActions.setIsLoading(false));
       };
     }
-  }, [isLoading, filterConfigure.movieName, filterConfigure.year]);
-
-  useEffect(() => {
-    setSortMoviesList(() => sortMovies(movies, sortBy));
-  }, [movies, sortBy, filterConfigure]);
+  }, [isLoading, filterConfigure.year, filterConfigure.movieName]);
 
   return (
     <>
       <FiltersPopup />
       <CardsWrapper>
-        {filterMovies(sortMoviesList, filterConfigure).map((movie) => {
+        {moviesFiltered.map((movie) => {
           return <Card key={movie.imdbID} movie={movie} />;
         })}
         {isLoading ? <AppLoader /> : null}
