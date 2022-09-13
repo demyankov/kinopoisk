@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useReducer, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { setPassword, SetPasswordType } from "../../api/setPassword";
 import { Button } from "../../components/button/button";
@@ -6,7 +6,8 @@ import { Input } from "../../components/input/input";
 import { SuccessfullMessage } from "../../components/styles/successfullMessage";
 import { signInUserSelector } from "../../store/auth/signIn.selector";
 import { useAppDispatch } from "../../store/rootStore";
-import { appSaveThemeAction } from "../../store/theme/appsaveThemeAction";
+import { appRebootThemeAction } from "../../store/theme/appRebootThemeAction";
+import { appSaveThemeAction } from "../../store/theme/appsaveThemeAction copy";
 import { themeSelector } from "../../store/theme/theme.selector";
 import { themeActions } from "../../store/theme/theme.slice";
 import {
@@ -26,9 +27,16 @@ export function SettingsPage(): JSX.Element {
   const [isPasswordChanged, setIsPasswordChanged] = useState<boolean>(false);
   const [error, setError] = useState<SetPasswordType>({});
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isThemeLoading, setIsThemeLoading] = useState<boolean>(false);
   const theme = useSelector(themeSelector);
-  console.log(theme);
   const dispatch = useAppDispatch();
+  const refSwitcher = useRef<HTMLInputElement>(null);
+
+  const clearPasswordField = () => {
+    setCurrentPassword("");
+    setNewPassword("");
+    setConfirmNewPassword("");
+  };
 
   return (
     <form>
@@ -40,12 +48,14 @@ export function SettingsPage(): JSX.Element {
             label="Name"
             placeholder="Your name"
             defaultValue={user?.username}
+            readOnly
           />
           <Input
             id="email"
             label="Email"
             placeholder="Your Email"
             defaultValue={user?.email}
+            readOnly
           />
         </SettingsItem>
       </SettingsItemWrapper>
@@ -66,6 +76,7 @@ export function SettingsPage(): JSX.Element {
             type="password"
             value={currentPassword}
             error={error?.current_password}
+            errorPosition="static"
             onChange={({ currentTarget: { value } }) =>
               setCurrentPassword(value)
             }
@@ -109,20 +120,30 @@ export function SettingsPage(): JSX.Element {
               defaultChecked={theme === "Light"}
               id="themeSwitcher"
               type="checkbox"
-              onClick={() =>
-                setTimeout(() => dispatch(themeActions.toggleTheme()), 500)
-              }
+              ref={refSwitcher}
+              onClick={() => {
+                setTimeout(() => {
+                  dispatch(themeActions.toggleTheme());
+                  setIsThemeLoading(false);
+                }, 500);
+              }}
             />
             <label htmlFor="themeSwitcher"></label>
           </ThemeSwitcher>
         </SettingsItem>
       </SettingsItemWrapper>
       <ButtonWrapper>
-        <Button>Cancel</Button>
         <Button
           onClick={() => {
-            dispatch(appSaveThemeAction());
-
+            clearPasswordField();
+            dispatch(appRebootThemeAction(refSwitcher));
+          }}
+        >
+          Cancel
+        </Button>
+        <Button
+          onClick={() => {
+            appSaveThemeAction();
             if (
               !isLoading &&
               currentPassword &&
@@ -144,6 +165,33 @@ export function SettingsPage(): JSX.Element {
                   setIsPasswordChanged(false);
                   setError(JSON.parse(error.request.responseText));
                 });
+            } else if (
+              !currentPassword &&
+              (newPassword || confirmNewPassword)
+            ) {
+              setError((prev) => ({
+                ...prev,
+                current_password: "Enter a current password",
+              }));
+            } else if (
+              currentPassword &&
+              newPassword &&
+              newPassword !== confirmNewPassword
+            ) {
+              setError({
+                current_password: "",
+                new_password: "Confirm password is not valid",
+              });
+            } else if (currentPassword && !newPassword) {
+              setError({
+                new_password: "Enter a new password",
+              });
+            } else {
+              setError((prev) => ({
+                ...prev,
+                current_password: "",
+                new_password: "",
+              }));
             }
           }}
         >

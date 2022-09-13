@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { Breakpoints } from "../enums/breakpoints";
 
 export const Wrapper = styled.div`
   background-color: var(--background-color);
@@ -16,6 +17,13 @@ export const Container = styled.div`
   max-width: var(--max-width);
   padding: 0 var(--spacing-9) var(--spacing-4) var(--spacing-9);
   margin: 0 auto;
+
+  @media (max-width: ${Breakpoints.Tablet}) {
+    grid-template-areas:
+      "Header"
+      "Main";
+    grid-template-columns: 1fr;
+  }
 `;
 
 export const Main = styled.main`

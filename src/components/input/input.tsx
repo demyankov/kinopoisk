@@ -28,7 +28,6 @@ export function Input({
 
   const handleClick = () => {
     setIsShowPassword(!isShowPassword);
-    console.log(isShowPassword);
   };
 
   return (

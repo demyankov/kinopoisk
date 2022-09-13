@@ -15,8 +15,11 @@ export const themeSlice = createSlice({
     toggleTheme: (state) => {
       state.themeVariant = state.themeVariant === "Dark" ? "Light" : "Dark";
     },
-    saveTheme: (state) => {
-      state.initialThemeVariant = state.themeVariant;
+    // saveTheme: (state) => {
+    //   state.initialThemeVariant = state.themeVariant;
+    // },
+    rebootTheme: (state, action) => {
+      state.themeVariant = action.payload;
     },
   },
 });

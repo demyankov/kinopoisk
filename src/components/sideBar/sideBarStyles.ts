@@ -1,7 +1,8 @@
 import styled from "@emotion/styled";
 import { NavLink } from "react-router-dom";
+import { Breakpoints } from "../../enums/breakpoints";
 
-export const SideBarWrapper = styled.nav`
+export const SideBarWrapper = styled.nav<{ isOpened: boolean }>`
   grid-area: SideBar;
   max-height: 95vh;
   height: 100%;
@@ -15,6 +16,12 @@ export const SideBarWrapper = styled.nav`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+
+  @media (max-width: ${Breakpoints.Tablet}) {
+    left: ${(props) => (props.isOpened ? "0" : "-100%")};
+    transition: all 0.5s ease-in-out;
+    background-color: var(--background-color);
+  }
 `;
 
 export const SideBarLink = styled(NavLink)`

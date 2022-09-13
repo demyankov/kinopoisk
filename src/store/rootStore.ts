@@ -4,6 +4,7 @@ import { favouriteReducer } from "./favouriteMovies/favourite.slice";
 import { filterReducer } from "./filter/filter.slice";
 import { signInReducer } from "./auth/auth.slice";
 import { themeReducer } from "./theme/theme.slice";
+import { sideBarReducer } from "./sideBar/sideBar.slice";
 
 export const rootStore = configureStore({
   reducer: {
@@ -11,6 +12,7 @@ export const rootStore = configureStore({
     favourite: favouriteReducer,
     signIn: signInReducer,
     theme: themeReducer,
+    sideBar: sideBarReducer,
   },
 });
 

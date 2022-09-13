@@ -144,8 +144,6 @@ export const getRebootCSS = (themeVariant: ThemeVariant) => css`
   body {
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
     -webkit-text-size-adjust: 100%;
-    /* background-color: var(--bs-color-bg);
-      color: var(--bs-color-text); */
     font-family: var(--body-font-family);
     font-size: var(--body-font-size);
     font-weight: var(--body-font-weight);

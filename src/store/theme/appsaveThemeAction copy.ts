@@ -1,7 +1,7 @@
 import { LocalStorage } from "../../enums/localStorage";
-import { AppDispatch, rootStore } from "../rootStore";
+import { rootStore } from "../rootStore";
 
-export const appSaveThemeAction = () => (dispatch: AppDispatch) => {
+export const appSaveThemeAction = () => {
   try {
     localStorage.setItem(
       LocalStorage.Theme,

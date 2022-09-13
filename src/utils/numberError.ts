@@ -4,5 +4,5 @@ export const numberError = (
   max: number = 10
 ): string =>
   value && (+value > max || +value < min)
-    ? `Enter the value from ${min} to ${max}`
+    ? `Enter a value from ${min} to ${max}`
     : "";
