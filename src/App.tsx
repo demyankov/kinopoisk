@@ -19,13 +19,17 @@ import { ActivationAccount } from "./pages/authPages/activation/activationPage";
 import { EmptyContentPage } from "./components/emptyContentPage/emptyContentPage";
 import { ProtectedPage } from "./utils/protectedPage";
 import { useSelector } from "react-redux";
-import { signInUserSelector } from "./store/auth/signIn.selector";
+import {
+  signInLoadingSelector,
+  signInUserSelector,
+} from "./store/auth/signIn.selector";
 import { themeSelector } from "./store/theme/theme.selector";
 
 function App(): JSX.Element {
   const user = useSelector(signInUserSelector);
   const themeVariant = useSelector(themeSelector);
-
+  const userLoadingState = useSelector(signInLoadingSelector);
+  console.log(userLoadingState);
   return (
     <div className="App">
       <Global styles={getRebootCSS(themeVariant)} />
@@ -42,18 +46,24 @@ function App(): JSX.Element {
             <Route
               path={AppRoute.Favourites}
               element={
-                <ProtectedPage user={user}>
-                  <FavouriteMoviesPage />
-                </ProtectedPage>
+                userLoadingState === "fulfilled" ||
+                userLoadingState === "rejected" ? (
+                  <ProtectedPage user={user}>
+                    <FavouriteMoviesPage />
+                  </ProtectedPage>
+                ) : null
               }
             />
 
             <Route
               path={AppRoute.Settings}
               element={
-                <ProtectedPage user={user}>
-                  <SettingsPage />
-                </ProtectedPage>
+                userLoadingState === "fulfilled" ||
+                userLoadingState === "rejected" ? (
+                  <ProtectedPage user={user}>
+                    <SettingsPage />
+                  </ProtectedPage>
+                ) : null
               }
             />
           </Route>

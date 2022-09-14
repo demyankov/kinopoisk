@@ -6,7 +6,10 @@ import {
   defaultGenresList,
   GenresType,
 } from "../../generalData/defaultGenresList";
-import { filterIsLoadingSelector } from "../../store/filter/filter.selector";
+import {
+  filterConfigureSelector,
+  filterIsLoadingSelector,
+} from "../../store/filter/filter.selector";
 import {
   filterActions,
   FilterConfigureType,
@@ -14,6 +17,7 @@ import {
 import { useAppDispatch } from "../../store/rootStore";
 import { checkEmptyField } from "../../utils/checkEmptyField";
 import { currentYear } from "../../utils/currentYear";
+import { isFilterChanged } from "../../utils/isFilterChanged";
 import { numberError } from "../../utils/numberError";
 import { setAppSearchParams } from "../../utils/setAppSearchParams";
 import { useOutside } from "../../utils/useOutside";
@@ -38,7 +42,6 @@ export function FiltersPopup(): JSX.Element {
   const [searchParams, setSearchParams] = useSearchParams();
   const dispatch = useAppDispatch();
   const isLoading = useSelector(filterIsLoadingSelector);
-
   const initialFilterState = useMemo((): FilterConfigureType => {
     return {
       movieName: searchParams.get("movieName") || "death",
@@ -162,6 +165,7 @@ export function FiltersPopup(): JSX.Element {
       <ButtonWrapper>
         <Button
           width="100%"
+          disabled={!isFilterChanged(filterParams)}
           onClick={() => {
             setSearchParams("");
             setFilterParams(initialFilterState);

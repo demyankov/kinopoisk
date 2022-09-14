@@ -18,6 +18,26 @@ export const ImageWrapper = styled.div`
     height: 100%;
     width: 100%;
   }
+
+  @keyframes imageHover {
+    0% {
+      transform: scale(0.98);
+      transform: rotate(-1deg);
+    }
+
+    50% {
+      transform: scale(0.98);
+      transform: rotate(1deg);
+    }
+    100% {
+      transform: scale(1);
+      transform: rotate(0deg);
+    }
+  }
+  &:hover {
+    animation: imageHover 0.3s infinite ease-in-out;
+    animation-iteration-count: 1;
+  }
 `;
 
 export const MovieName = styled.h5``;

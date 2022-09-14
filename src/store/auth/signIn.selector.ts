@@ -11,3 +11,8 @@ export const signInErrorSelector = (
 ): RootState["signIn"]["error"] => {
   return state.signIn.error;
 };
+export const signInLoadingSelector = (
+  state: RootState
+): RootState["signIn"]["loadingState"] => {
+  return state.signIn.loadingState;
+};
