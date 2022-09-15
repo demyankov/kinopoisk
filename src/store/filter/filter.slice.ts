@@ -60,7 +60,7 @@ export const filterSlice = createSlice({
       state.sortConfigure = action.payload;
     },
     changeFilter: (state, action) => {
-      state.filterConfigure = { ...state, ...action.payload };
+      state.filterConfigure = { ...state.filterConfigure, ...action.payload };
     },
   },
 });

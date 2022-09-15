@@ -1,6 +1,6 @@
-import { Ref, RefObject } from "react";
+import { RefObject } from "react";
 import { LocalStorage } from "../../enums/localStorage";
-import { AppDispatch, rootStore } from "../rootStore";
+import { AppDispatch } from "../rootStore";
 import { themeActions } from "./theme.slice";
 
 export const appRebootThemeAction =

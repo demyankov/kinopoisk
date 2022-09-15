@@ -6,11 +6,11 @@ import {
   ImageWrapper,
   InfoSection,
   MovieName,
-  Raiting,
-  RaitingImdb,
+  Rating,
+  RatingImdb,
   Wrapper,
   Runtime,
-  RaitingWrapper,
+  RatingWrapper,
   InteractionWrapper,
   InteractionButton,
   Poster,
@@ -98,13 +98,13 @@ export function SelectedMoviePage() {
           <MovieName>{movie.Title}</MovieName>
         </div>
 
-        <RaitingWrapper>
-          <Raiting>{movie.imdbRating}</Raiting>
-          <RaitingImdb>
+        <RatingWrapper>
+          <Rating>{movie.imdbRating}</Rating>
+          <RatingImdb>
             <img src={Imdb} alt="IMDB" /> {movie.imdbRating}
-          </RaitingImdb>
+          </RatingImdb>
           <Runtime>{movie.Runtime}</Runtime>
-        </RaitingWrapper>
+        </RatingWrapper>
         <P>{movie.Plot}</P>
         <MovieDescription movie={movie} />
       </InfoSection>

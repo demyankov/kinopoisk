@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 
-export const MovieRaiting = styled.div<{ isFavourite?: boolean }>`
+export const MovieRating = styled.div<{ isFavourite?: boolean }>`
   padding: var(--spacing-9);
   position: absolute;
   top: var(--spacing-7);

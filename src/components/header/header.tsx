@@ -21,16 +21,44 @@ import { exitFromAccount } from "../../store/auth/auth.slice";
 import { useNavigate } from "react-router-dom";
 import { BurgerButton } from "../burgerButton/burgerButton";
 import { sideBarAction } from "../../store/sideBar/sideBar.slice";
-import { filterConfigureSelector } from "../../store/filter/filter.selector";
+import {
+  filterConfigureSelector,
+  filterIsLoadingSelector,
+} from "../../store/filter/filter.selector";
 import { isFilterChanged } from "../../utils/isFilterChanged";
+import debounce from "lodash.debounce";
+import React, { useEffect, useState } from "react";
+import { filterActions } from "../../store/filter/filter.slice";
+import { setAppSearchParams } from "../../utils/setAppSearchParams";
 
 export function Header(): JSX.Element {
   const { refOpen } = useOutside();
   const url = useLocation();
   const user = useSelector(signInUserSelector);
   const filterConfigure = useSelector(filterConfigureSelector);
+  const [movieName, setMovieName] = useState<string>("");
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const isLoading = useSelector(filterIsLoadingSelector);
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const changeMovieName = (e: React.ChangeEvent<HTMLInputElement>) => {
+    console.log(e?.target?.value || "sd");
+    if (e.target.value) {
+      const filter = { ...filterConfigure, movieName: e?.target?.value };
+      dispatch(filterActions.clearMovies());
+      if (!isLoading) {
+        dispatch(filterActions.setIsLoading(true));
+      }
+      dispatch(filterActions.setCurrentPage(1));
+      setAppSearchParams(setSearchParams, filter);
+      dispatch(filterActions.changeFilter(filter));
+    }
+  };
+
+  useEffect(() => {
+    setMovieName(filterConfigure.movieName);
+  }, [filterConfigure.movieName]);
 
   return (
     <HeaderWrapper>
@@ -41,7 +69,12 @@ export function Header(): JSX.Element {
           onClick={() => navigate(AppRoute.Main)}
         />
       </ImageWrapper>
-      <Input id="mainInput" placeholder="Search">
+      <Input
+        value={movieName}
+        id="mainInput"
+        placeholder="Search"
+        onChange={debounce(changeMovieName, 1500)}
+      >
         {url.pathname === AppRoute.Main ? (
           <OpenFilter>
             {isFilterChanged(filterConfigure) ? (
@@ -64,11 +97,11 @@ export function Header(): JSX.Element {
               dispatch(exitFromAccount());
             }}
           >
-            Выйти
+            Logout
           </SignOutLink>
         </>
       ) : (
-        <SignInLink to={AppRoute.Auth}>Войти</SignInLink>
+        <SignInLink to={AppRoute.Auth}>Login</SignInLink>
       )}
     </HeaderWrapper>
   );

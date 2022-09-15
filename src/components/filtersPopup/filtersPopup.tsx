@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { useSelector } from "react-redux";
 import { useSearchParams } from "react-router-dom";
-import { contriesList } from "../../generalData/countries";
+import { countriesList } from "../../generalData/countries";
 import {
   defaultGenresList,
   GenresType,
@@ -19,6 +19,7 @@ import { checkEmptyField } from "../../utils/checkEmptyField";
 import { currentYear } from "../../utils/currentYear";
 import { isFilterChanged } from "../../utils/isFilterChanged";
 import { numberError } from "../../utils/numberError";
+import { setAppFilterParams } from "../../utils/setAppFilterParams";
 import { setAppSearchParams } from "../../utils/setAppSearchParams";
 import { useOutside } from "../../utils/useOutside";
 import { Button } from "../button/button";
@@ -56,22 +57,19 @@ export function FiltersPopup(): JSX.Element {
 
   const [filterParams, setFilterParams] =
     useState<FilterConfigureType>(initialFilterState);
+  const filterConfigureStore = useSelector(filterConfigureSelector);
 
   useEffect(() => {
     dispatch(filterActions.changeFilter(filterParams));
     setAppSearchParams(setSearchParams, filterParams);
   }, [dispatch, initialFilterState]);
 
-  const setAppFilterParams =
-    (payload: string) =>
-    (
-      e:
-        | React.ChangeEvent<HTMLInputElement>
-        | React.ChangeEvent<HTMLSelectElement>
-    ) =>
-      setFilterParams((prevParams) => {
-        return { ...prevParams, [payload]: e.target.value };
-      });
+  useEffect(() => {
+    setFilterParams((prev) => ({
+      ...prev,
+      movieName: filterConfigureStore.movieName,
+    }));
+  }, [filterConfigureStore.movieName]);
 
   return (
     <PopupWrapper ref={refForm} className={isOpened ? "active" : undefined}>
@@ -84,7 +82,7 @@ export function FiltersPopup(): JSX.Element {
       <SortBySwitcher firstLabel="Rating" secondLabel="Year" />
       <Input
         value={filterParams.movieName}
-        onChange={setAppFilterParams("movieName")}
+        onChange={setAppFilterParams("movieName", setFilterParams)}
         label="Full or shot movie name"
         placeholder="Your text"
         error={checkEmptyField(filterParams.movieName)}
@@ -127,7 +125,7 @@ export function FiltersPopup(): JSX.Element {
           placeholder="Year"
           type="number"
           value={filterParams.year}
-          onChange={setAppFilterParams("year")}
+          onChange={setAppFilterParams("year", setFilterParams)}
           error={numberError(filterParams.year, 1950, currentYear)}
         />
       </InputGroup>
@@ -138,7 +136,7 @@ export function FiltersPopup(): JSX.Element {
           justifyContent="end"
           type="number"
           value={filterParams.ratingFrom}
-          onChange={setAppFilterParams("ratingFrom")}
+          onChange={setAppFilterParams("ratingFrom", setFilterParams)}
           error={numberError(filterParams.ratingFrom)}
         />
         <Input
@@ -146,7 +144,7 @@ export function FiltersPopup(): JSX.Element {
           justifyContent="end"
           type="number"
           value={filterParams.ratingTo}
-          onChange={setAppFilterParams("ratingTo")}
+          onChange={setAppFilterParams("ratingTo", setFilterParams)}
           error={numberError(filterParams.ratingTo)}
         />
         {filterParams.ratingTo &&
@@ -158,9 +156,9 @@ export function FiltersPopup(): JSX.Element {
       </InputGroup>
       <Select
         label="Country"
-        options={contriesList.sort()}
+        options={countriesList.sort()}
         value={filterParams.country}
-        onChange={setAppFilterParams("country")}
+        onChange={setAppFilterParams("country", setFilterParams)}
       />
       <ButtonWrapper>
         <Button
@@ -168,8 +166,13 @@ export function FiltersPopup(): JSX.Element {
           disabled={!isFilterChanged(filterParams)}
           onClick={() => {
             setSearchParams("");
-            setFilterParams(initialFilterState);
-            dispatch(filterActions.changeFilter(initialFilterState));
+            setFilterParams({ ...initialFilterState, movieName: "death" });
+            dispatch(
+              filterActions.changeFilter({
+                ...initialFilterState,
+                movieName: "death",
+              })
+            );
           }}
         >
           Clear filter

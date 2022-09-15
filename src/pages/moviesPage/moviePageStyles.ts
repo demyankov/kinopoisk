@@ -6,7 +6,6 @@ export const CardsWrapper = styled.div`
   align-items: flex-start;
   gap: var(--spacing-4);
   margin-bottom: var(--spacing-1);
-  justify-content: space-around;
 `;
 
 export const ShowMoreButtonWrapper = styled.div`

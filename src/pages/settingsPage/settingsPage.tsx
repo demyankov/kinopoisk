@@ -1,13 +1,13 @@
-import { useReducer, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { setPassword, SetPasswordType } from "../../api/setPassword";
 import { Button } from "../../components/button/button";
 import { Input } from "../../components/input/input";
-import { SuccessfullMessage } from "../../components/styles/successfullMessage";
+import { SuccessfulMessage } from "../../components/styles/successfulMessage";
 import { signInUserSelector } from "../../store/auth/signIn.selector";
 import { useAppDispatch } from "../../store/rootStore";
 import { appRebootThemeAction } from "../../store/theme/appRebootThemeAction";
-import { appSaveThemeAction } from "../../store/theme/appsaveThemeAction copy";
+import { appSaveThemeAction } from "../../store/theme/appSaveThemeAction";
 import { themeSelector } from "../../store/theme/theme.selector";
 import { themeActions } from "../../store/theme/theme.slice";
 import {
@@ -17,7 +17,7 @@ import {
   SettingsSubItem,
   Theme,
   ThemeSwitcher,
-} from "./setingsPageStyles";
+} from "./settingsPageStyles";
 
 export function SettingsPage(): JSX.Element {
   const user = useSelector(signInUserSelector);
@@ -60,9 +60,9 @@ export function SettingsPage(): JSX.Element {
         </SettingsItem>
       </SettingsItemWrapper>
       {isPasswordChanged ? (
-        <SuccessfullMessage>
+        <SuccessfulMessage>
           The password has been successfully changed
-        </SuccessfullMessage>
+        </SuccessfulMessage>
       ) : null}
       <SettingsItemWrapper>
         <h3>Password</h3>

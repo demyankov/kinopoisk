@@ -2,7 +2,7 @@ import { MovieDetailsType } from "../../types/movieDetailsType";
 import { CardWrapper, ImageWrapper, MovieName, MovieGenre } from "./cardStyles";
 import { NavLink } from "react-router-dom";
 import { AppRoute } from "../../enums/AppRoute";
-import { MovieRaiting } from "../styles/movieRaitingStyle";
+import { MovieRating } from "../styles/movieRatingStyle";
 import { useSelector } from "react-redux";
 import { favouriteSelector } from "../../store/favouriteMovies/favourite.selector";
 import { signInUserSelector } from "../../store/auth/signIn.selector";
@@ -39,9 +39,9 @@ export function Card({ movie }: { movie: MovieDetailsType }): JSX.Element {
         </NavLink>
       </ImageWrapper>
 
-      <MovieRaiting isFavourite={user.username ? isFavourite : false}>
+      <MovieRating isFavourite={user.username ? isFavourite : false}>
         {movie.imdbRating || "--"}
-      </MovieRaiting>
+      </MovieRating>
       <MovieName>{movie.Title}</MovieName>
       <MovieGenre>
         {movie?.Genre?.split(",").map((genre, key) => (

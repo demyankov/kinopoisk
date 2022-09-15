@@ -1,4 +1,4 @@
-export const contriesList: Array<string> = [
+export const countriesList: Array<string> = [
   "United States",
   "United Kingdom",
   "Germany",

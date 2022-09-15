@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { MovieRaiting } from "../../components/styles/movieRaitingStyle";
+import { MovieRating } from "../../components/styles/movieRatingStyle";
 
 export const Wrapper = styled.div`
   display: flex;
@@ -46,21 +46,21 @@ export const ImageWrapper = styled.div`
 `;
 export const MovieName = styled.h2``;
 
-export const RaitingWrapper = styled.div`
+export const RatingWrapper = styled.div`
   display: flex;
   gap: var(--spacing-7);
 `;
 
-export const Raiting = styled(MovieRaiting)`
+export const Rating = styled(MovieRating)`
   position: static;
 `;
 
-export const RaitingImdb = styled(Raiting)`
+export const RatingImdb = styled(Rating)`
   background-color: var(--background-color-second);
   display: flex;
   align-items: center;
   gap: var(--spacing-8);
 `;
-export const Runtime = styled(Raiting)`
+export const Runtime = styled(Rating)`
   background-color: var(--background-color-second);
 `;
