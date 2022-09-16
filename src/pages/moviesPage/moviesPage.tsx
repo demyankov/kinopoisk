@@ -93,8 +93,8 @@ export function MoviesPage(): JSX.Element {
     <>
       <FiltersPopup />
       <CardsWrapper>
-        {moviesFiltered.map((movie) => {
-          return <Card key={movie.imdbID} movie={movie} />;
+        {moviesFiltered.map((movie, id) => {
+          return <Card key={movie.imdbID} movie={movie} tabindex={+id + 1} />;
         })}
         {isLoading ? <AppLoader /> : null}
         {/* {!isScroll && !filterMovies(sortMoviesList, filterConfigure).length ? (
@@ -102,7 +102,9 @@ export function MoviesPage(): JSX.Element {
         ) : null} */}
       </CardsWrapper>
       <ShowMoreButtonWrapper>
-        <ShowMoreButton>
+        <ShowMoreButton
+          onClick={() => dispatch(filterActions.setIsLoading(true))}
+        >
           Show More <RingsLoader />
         </ShowMoreButton>
       </ShowMoreButtonWrapper>

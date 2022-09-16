@@ -20,7 +20,7 @@ import { MovieGenre } from "../../components/card/cardStyles";
 import ToFavouriteIcon from "../../components/images/favouriteIcon.svg";
 import ToShareIcon from "../../components/images/toShareIcon.svg";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { getMovieDetails } from "../../api/getMovieDetails";
 import { AppLoader } from "../../components/loaders/appLoader";
 import { useSelector } from "react-redux";
@@ -37,27 +37,40 @@ import { Error } from "../../components/styles/error";
 import { AxiosError } from "axios";
 import { signInUserSelector } from "../../store/auth/signIn.selector";
 import { urlDefaultPoster } from "../../generalData/urlDefaultPoster";
+import { filterMovies } from "../../utils/filterMovies";
+import { moviesSelector } from "../../store/filter/filter.selector";
+import { AppRoute } from "../../enums/AppRoute";
 
 export function SelectedMoviePage() {
   const { movieId } = useParams<{ movieId: string }>();
-  const [movie, setMovie] = useState<getMoviesDetailsResponseType>();
+  // const [movie, setMovie] = useState<getMoviesDetailsResponseType>();
   const [error, setError] = useState<string>();
   const favouriteMovies = useSelector(favouriteSelector);
-  const errorFavourite = useSelector(favouriteErrorSelector);
   const [isFavourite, setIsFavourite] = useState<boolean>(false);
   const dispatch = useAppDispatch();
   const user = useSelector(signInUserSelector);
+  const movies = useSelector(moviesSelector);
+  const [movie, setMovie] = useState<getMoviesDetailsResponseType>();
+  const navigate = useNavigate();
 
   useEffect(() => {
-    getMovieDetails(movieId)
-      .then((response) => {
-        setMovie(response);
-        if (user.username) {
-          setIsFavourite(favouriteMovies.includes(response.imdbID));
-        }
-      })
-      .catch((e: AxiosError) => setError(e.message));
+    try {
+      const currentMovie = movies.filter(
+        (movie) => movie.imdbID === movieId
+      )[0];
+      if (user.username && currentMovie) {
+        setIsFavourite(favouriteMovies.includes(currentMovie.imdbID));
+      }
+      if (currentMovie) {
+        setMovie(currentMovie);
+      } else {
+        navigate(AppRoute.NotFound);
+      }
+    } catch {
+      navigate(AppRoute.NotFound);
+    }
   }, [movieId]);
+
   return movie ? (
     <Wrapper>
       <ImageSection>
@@ -80,7 +93,6 @@ export function SelectedMoviePage() {
             >
               <img src={ToFavouriteIcon} alt="To Favourite Icon" />
             </InteractionButton>
-            <Error>{errorFavourite}</Error>
             <InteractionButton>
               <img src={ToShareIcon} alt="To Share Icon" />
             </InteractionButton>

@@ -4,6 +4,46 @@ export const CardWrapper = styled.div`
   position: relative;
   flex-basis: calc(17%);
   min-width: 200px;
+  min-height: 100%;
+  overflow: hidden;
+  transition: 0.2s ease-in-out;
+
+  & > div:first-of-type::before {
+    content: "";
+    background: linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.1),
+      rgba(255, 255, 255, 0.5)
+    );
+    height: 100%;
+    width: 50px;
+    position: absolute;
+    top: 0;
+    left: -150%;
+    transform: skewX(-45deg);
+  }
+
+  &:focus {
+    outline: none;
+  }
+  &:focus > div:first-of-type::before {
+    left: 150%;
+    transition: 0.5s ease-in-out;
+
+    outline: none;
+  }
+
+  &:focus > div:first-of-type {
+    /* outline: solid 1px #fff;
+    transform: scale(1.02); */
+    background: #000;
+  }
+
+  /* .shine-button:focus {
+    background: #83bec5;
+    color: #fff !important;
+    outline: none;
+} */
 `;
 
 export const ImageWrapper = styled.div`

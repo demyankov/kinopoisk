@@ -8,28 +8,20 @@ import { favouriteSelector } from "../../store/favouriteMovies/favourite.selecto
 import { signInUserSelector } from "../../store/auth/signIn.selector";
 import { urlDefaultPoster } from "../../generalData/urlDefaultPoster";
 
-export function Card({ movie }: { movie: MovieDetailsType }): JSX.Element {
-  // const [movieDetails, setMovieDetails] = useState<MovieDetailsType>();
-  // const [errors, setErrors] = useState<AxiosError>();
+export function Card({
+  movie,
+  tabindex = 0,
+}: {
+  movie: MovieDetailsType;
+  tabindex?: number;
+}): JSX.Element {
   const isFavourite: boolean = useSelector(favouriteSelector).includes(
     movie.imdbID
   );
   const user = useSelector(signInUserSelector);
 
-  // useEffect(() => {
-  //   getMovieDetails(movieId)
-  //     .then((response) => {
-  //       setMovieDetails(response);
-  //     })
-  //     .catch((error: AxiosError) => {
-  //       if (error.isAxiosError) {
-  //         setErrors(error);
-  //       }
-  //     });
-  // }, []);
-
   return movie ? (
-    <CardWrapper>
+    <CardWrapper tabIndex={tabindex}>
       <ImageWrapper>
         <NavLink to={`${AppRoute.Movie}/${movie.imdbID}`}>
           <img

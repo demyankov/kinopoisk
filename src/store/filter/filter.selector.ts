@@ -21,8 +21,9 @@ export const filterCurrentPageSelector = (
   state: RootState
 ): RootState["filter"]["currentPage"] => state.filter.currentPage;
 
-const moviesSelector = (state: RootState): RootState["filter"]["movies"] =>
-  state.filter.movies;
+export const moviesSelector = (
+  state: RootState
+): RootState["filter"]["movies"] => state.filter.movies;
 
 export const filterSortSelector = (
   state: RootState
