@@ -6,7 +6,6 @@ import { SPACING, TYPOGRAPHY, SIDEBARWIDTH, appTheme } from "./variables";
 export const getRebootCSS = (themeVariant: ThemeVariant) => css`
   :root {
     --theme-switcher-width: 4rem;
-
     --bs-font-sans-serif: "Inter", system-ui, -apple-system, "Segoe UI", Roboto,
       "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif,
       "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
@@ -14,7 +13,7 @@ export const getRebootCSS = (themeVariant: ThemeVariant) => css`
     --bs-font-monospace: SFMono-Regular, Menlo, Monaco, Consolas,
       "Liberation Mono", "Courier New", monospace;
     --max-width: ${Breakpoints.Desktop};
-
+    --min-width: 20rem;
     --font-color-base: ${appTheme[themeVariant].colors.fontBase};
     --font-color-invert: ${appTheme[themeVariant].colors.fontInvert};
     --font-color-second: ${appTheme[themeVariant].colors.fontSecond};
@@ -64,8 +63,9 @@ export const getRebootCSS = (themeVariant: ThemeVariant) => css`
     --spacing-8: ${SPACING.mobile.L8};
     --spacing-9: ${SPACING.mobile.L9};
     --spacing-10: ${SPACING.mobile.L10};
-    --sideBarWidth: ${SIDEBARWIDTH.desktop};
+    --sideBarWidth: ${SIDEBARWIDTH.mobile};
   }
+
   @media (min-width: ${Breakpoints.Tablet}) {
     --body-font-size: ${TYPOGRAPHY.tablet.body.fontSize};
     --body-line-height: ${TYPOGRAPHY.tablet.body.lineHeight};
@@ -126,6 +126,7 @@ export const getRebootCSS = (themeVariant: ThemeVariant) => css`
     --spacing-8: ${SPACING.desktop.L8};
     --spacing-9: ${SPACING.desktop.L9};
     --spacing-10: ${SPACING.desktop.L10};
+    --sideBarWidth: ${SIDEBARWIDTH.desktop};
   }
   *,
   *::before,
@@ -139,6 +140,7 @@ export const getRebootCSS = (themeVariant: ThemeVariant) => css`
   }
   html {
     min-height: 100vh;
+    min-width: var(--min-width);
   }
 
   body {

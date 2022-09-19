@@ -1,12 +1,17 @@
 import styled from "@emotion/styled";
+import { Breakpoints } from "../../enums/breakpoints";
 
 export const CardWrapper = styled.div`
   position: relative;
   flex-basis: calc(17%);
-  min-width: 200px;
+  min-width: 15rem;
   min-height: 100%;
   overflow: hidden;
   transition: 0.2s ease-in-out;
+
+  @media (max-width: ${Breakpoints.Mobile}) {
+    min-width: 19rem;
+  }
 
   & > div:first-of-type::before {
     content: "";
@@ -27,31 +32,27 @@ export const CardWrapper = styled.div`
     outline: none;
   }
   &:focus > div:first-of-type::before {
-    left: 150%;
+    left: 120%;
     transition: 0.5s ease-in-out;
-
     outline: none;
   }
 
   &:focus > div:first-of-type {
-    /* outline: solid 1px #fff;
-    transform: scale(1.02); */
+    transform: scale(1.02);
     background: #000;
   }
-
-  /* .shine-button:focus {
-    background: #83bec5;
-    color: #fff !important;
-    outline: none;
-} */
 `;
 
 export const ImageWrapper = styled.div`
   width: 100%;
-  height: 300px;
+  height: 18.75rem;
   border-radius: 1rem;
   overflow: hidden;
   margin-bottom: var(--spacing-6);
+
+  @media (max-width: ${Breakpoints.Mobile}) {
+    height: 23rem;
+  }
 
   img {
     object-fit: cover;

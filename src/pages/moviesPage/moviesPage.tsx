@@ -39,7 +39,7 @@ export function MoviesPage(): JSX.Element {
     setAppSearchParams(setSearchParams);
     document.addEventListener("scroll", scrollHandler);
     return () => document.removeEventListener("scroll", scrollHandler);
-  }, []);
+  }, [dispatch]);
 
   const scrollHandler = (e: any): void => {
     if (
@@ -74,6 +74,7 @@ export function MoviesPage(): JSX.Element {
               responseItem.status === "fulfilled" ? responseItem.value : null
             );
             dispatch(filterActions.addMovies(fulfilledResponse));
+            console.log(fulfilledResponse);
           });
           dispatch(filterActions.setCurrentPage(currentPage + 1));
           setPageCount(Math.ceil(+response.totalResults / 10));

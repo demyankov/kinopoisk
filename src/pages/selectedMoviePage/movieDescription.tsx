@@ -10,22 +10,25 @@ export function MovieDescription({
 }) {
   return (
     <DescriptionWrapper>
-      <SecondaryP>Year</SecondaryP>
-      <P>{movie.Year}</P>
-      <SecondaryP>Released</SecondaryP>
-      <P>{movie.Released}</P>
-      <SecondaryP>BoxOffice</SecondaryP>
-      <P>{movie.BoxOffice}</P>
-      <SecondaryP>Country</SecondaryP>
-      <P>{movie.Country}</P>
-      <SecondaryP>Production</SecondaryP>
-      <P>{movie.Production}</P>
-      <SecondaryP>Actors</SecondaryP>
-      <P>{movie.Actors}</P>
-      <SecondaryP>Director</SecondaryP>
-      <P>{movie.Director}</P>
-      <SecondaryP>Writers</SecondaryP>
-      <P>{movie.Writer}</P>
+      <P>{movie.Plot}</P>
+      <div>
+        <SecondaryP>Year</SecondaryP>
+        <P>{movie.Year}</P>
+        <SecondaryP>Released</SecondaryP>
+        <P>{movie.Released}</P>
+        <SecondaryP>BoxOffice</SecondaryP>
+        <P>{movie.BoxOffice}</P>
+        <SecondaryP>Country</SecondaryP>
+        <P>{movie.Country}</P>
+        <SecondaryP>Production</SecondaryP>
+        <P>{movie.Production}</P>
+        <SecondaryP>Actors</SecondaryP>
+        <P>{movie.Actors}</P>
+        <SecondaryP>Director</SecondaryP>
+        <P>{movie.Director}</P>
+        <SecondaryP>Writers</SecondaryP>
+        <P>{movie.Writer}</P>
+      </div>
     </DescriptionWrapper>
   );
 }

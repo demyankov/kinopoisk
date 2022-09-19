@@ -1,29 +1,53 @@
 import styled from "@emotion/styled";
 import { MovieRating } from "../../components/styles/movieRatingStyle";
+import { Breakpoints } from "../../enums/breakpoints";
 
 export const Wrapper = styled.div`
-  display: flex;
+  display: grid;
+  grid-template-areas:
+    "CurrentMovieImage CurrentMovieHeader"
+    "CurrentMovieImage CurrentMovieDescription";
+  grid-template-columns: 1fr 3fr;
   gap: var(--spacing-4);
+
+  @media (max-width: ${Breakpoints.Mobile}) {
+    grid-template-areas: "CurrentMovieHeader" "CurrentMovieImage" "CurrentMovieDescription";
+    grid-template-columns: auto;
+  }
 `;
+
 export const ImageSection = styled.div`
+  grid-area: CurrentMovieImage;
+  width: 100%;
+  display: flex;
+  justify-content: center;
   min-width: 15rem;
-  flex-basis: 30%;
+
+  & > div {
+    @media (max-width: ${Breakpoints.Mobile}) {
+      min-width: 19rem;
+      width: 90%;
+    }
+  }
 `;
+
 export const Poster = styled.img`
   object-fit: cover;
   width: 100%;
   height: 100%;
 `;
+
 export const InteractionWrapper = styled.div`
   display: flex;
+  flex: 1;
   border-radius: var(--spacing-8);
   border: 2px solid var(--background-color);
   overflow: hidden;
 `;
 
 export const InteractionButton = styled.button<{ isFavourite?: boolean }>`
-  flex: 1;
   gap: 2px;
+  flex: 1;
   border-radius: none;
   border-color: var(--background-color);
   background-color: ${(props) =>
@@ -33,8 +57,8 @@ export const InteractionButton = styled.button<{ isFavourite?: boolean }>`
   padding: var(--spacing-7);
 `;
 
-export const InfoSection = styled.div`
-  flex: 5;
+export const HeaderMovieDescription = styled.div`
+  grid-area: CurrentMovieHeader;
   display: flex;
   flex-direction: column;
   gap: var(--spacing-4);

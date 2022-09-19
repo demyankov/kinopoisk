@@ -104,6 +104,7 @@ export const TYPOGRAPHY = {
 export const SIDEBARWIDTH = {
   desktop: "15rem",
   tablet: "13rem",
+  mobile: "13rem",
 };
 
 export const SPACING = {

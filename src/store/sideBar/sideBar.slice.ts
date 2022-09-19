@@ -9,6 +9,9 @@ const sideBarSlice = createSlice({
     toggleSideBar: (state) => {
       state.isOpened = !state.isOpened;
     },
+    sideBarClose: (state) => {
+      state.isOpened = false;
+    },
   },
 });
 

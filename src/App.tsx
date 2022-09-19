@@ -29,7 +29,7 @@ function App(): JSX.Element {
   const user = useSelector(signInUserSelector);
   const themeVariant = useSelector(themeSelector);
   const userLoadingState = useSelector(signInLoadingSelector);
-  console.log(userLoadingState);
+
   return (
     <div className="App">
       <Global styles={getRebootCSS(themeVariant)} />

@@ -22,6 +22,11 @@ export const SideBarWrapper = styled.nav<{ isOpened: boolean }>`
     transition: all 0.5s ease-in-out;
     background-color: var(--background-color);
   }
+
+  @media (max-width: ${Breakpoints.Mobile}) {
+    top: 7rem;
+    width: 100%;
+  }
 `;
 
 export const SideBarLink = styled(NavLink)`

@@ -8,7 +8,7 @@ export const PopupWrapper = styled.form`
   justify-content: space-between;
   z-index: 9999;
   top: 0;
-  right: -100%;
+  right: -32rem;
   padding: var(--spacing-8) var(--spacing-6);
   max-width: 32rem;
   border-bottom-left-radius: var(--spacing-7);

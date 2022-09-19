@@ -30,6 +30,7 @@ import debounce from "lodash.debounce";
 import React, { useEffect, useState } from "react";
 import { filterActions } from "../../store/filter/filter.slice";
 import { setAppSearchParams } from "../../utils/setAppSearchParams";
+import BurgerIcon from "../images/burgerIcon.svg";
 
 export function Header(): JSX.Element {
   const { refOpen } = useOutside();
@@ -86,7 +87,7 @@ export function Header(): JSX.Element {
         ) : null}
       </Input>
       <BurgerButton onClick={() => dispatch(sideBarAction.toggleSideBar())}>
-        ХХХ
+        <img src={BurgerIcon} alt="Burger menu" />
       </BurgerButton>
       {user.username ? (
         <>

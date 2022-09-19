@@ -20,7 +20,7 @@ export function SideBar({ links }: { links: Array<SideBarType> }): JSX.Element {
               <SideBarLink
                 to={link.href}
                 onClick={() => {
-                  dispatch(sideBarAction.toggleSideBar());
+                  dispatch(sideBarAction.sideBarClose());
                 }}
               >
                 <>

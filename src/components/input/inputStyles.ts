@@ -3,7 +3,9 @@ import styled from "@emotion/styled";
 export const InputWrapper = styled.div<{
   justifyContent: string | undefined;
 }>`
+  grid-area: Input;
   position: relative;
+  min-height: 100%;
   width: 100%;
   flex: "1";
   display: flex;
@@ -15,7 +17,7 @@ export const InputWrapper = styled.div<{
 
 export const InputPositionWrapper = styled.span`
   position: relative;
-  height: auto;
+  min-height: 100%;
 `;
 
 export const ShowPasswordIcon = styled.span`
