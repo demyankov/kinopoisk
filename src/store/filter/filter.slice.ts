@@ -28,6 +28,7 @@ export const filterSlice = createSlice({
     isLoading: true as boolean,
     currentPage: 1 as number,
     filterConfigure: initialFilterConfigure,
+    mainInputValue: "",
     sortConfigure: "Rating" as "Rating" | "Year",
   },
   reducers: {
@@ -42,6 +43,9 @@ export const filterSlice = createSlice({
     },
     setCurrentPage: (state, action) => {
       state.currentPage = action.payload;
+    },
+    setMainInputValue: (state, action) => {
+      state.mainInputValue = action.payload;
     },
 
     addMovies: (state, action) => {

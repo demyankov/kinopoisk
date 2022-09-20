@@ -1,5 +1,6 @@
 import { AppRoute } from "../../enums/AppRoute";
 import { Input } from "../input/input";
+import { useUpdateEffect } from "react-use";
 import {
   HeaderWrapper,
   ImageWrapper,
@@ -23,11 +24,15 @@ import { sideBarAction } from "../../store/sideBar/sideBar.slice";
 import {
   filterConfigureSelector,
   filterIsLoadingSelector,
+  setMainInputValue,
 } from "../../store/filter/filter.selector";
 import { isFilterChanged } from "../../utils/isFilterChanged";
 import debounce from "lodash.debounce";
-import React, { useEffect, useState } from "react";
-import { filterActions } from "../../store/filter/filter.slice";
+import React, { useCallback, useState } from "react";
+import {
+  filterActions,
+  FilterConfigureType,
+} from "../../store/filter/filter.slice";
 import { setAppSearchParams } from "../../utils/setAppSearchParams";
 import BurgerIcon from "../images/burgerIcon.svg";
 
@@ -36,27 +41,31 @@ export function Header(): JSX.Element {
   const url = useLocation();
   const user = useSelector(signInUserSelector);
   const filterConfigure = useSelector(filterConfigureSelector);
-  const [movieName, setMovieName] = useState<string>("");
+  const movieName = useSelector(setMainInputValue);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const isLoading = useSelector(filterIsLoadingSelector);
   const [searchParams, setSearchParams] = useSearchParams();
+  const formattedMovieName = movieName.trim();
 
-  const changeMovieName = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.value) {
-      const filter = { ...filterConfigure, movieName: e?.target?.value };
-      dispatch(filterActions.clearMovies());
-      if (!isLoading) {
+  const debouncedMovie = useCallback(
+    debounce((filter: FilterConfigureType) => {
+      if (filter.movieName) {
+        dispatch(filterActions.clearMovies());
         dispatch(filterActions.setIsLoading(true));
+        dispatch(filterActions.setCurrentPage(1));
+        setAppSearchParams(setSearchParams, filter);
+        dispatch(filterActions.changeFilter(filter));
       }
-      dispatch(filterActions.setCurrentPage(1));
-      setAppSearchParams(setSearchParams, filter);
-      dispatch(filterActions.changeFilter(filter));
+    }, 1000),
+    []
+  );
+
+  useUpdateEffect(() => {
+    if (filterConfigure.movieName !== movieName) {
+      debouncedMovie({ ...filterConfigure, movieName: formattedMovieName });
     }
-  };
-  useEffect(() => {
-    setMovieName(filterConfigure.movieName);
-  }, [filterConfigure.movieName]);
+  }, [formattedMovieName]);
 
   return (
     <HeaderWrapper>
@@ -71,10 +80,10 @@ export function Header(): JSX.Element {
         value={movieName}
         id="mainInput"
         placeholder="Search"
-        onChange={(e) => (
-          debounce(changeMovieName(e) as any, 1500),
-          setMovieName(e.target.value)
-        )}
+        autoComplete="off"
+        onChange={({ target: { value } }) =>
+          dispatch(filterActions.setMainInputValue(value))
+        }
       >
         {url.pathname === AppRoute.Main ? (
           <OpenFilter>

@@ -29,6 +29,10 @@ export const filterSortSelector = (
   state: RootState
 ): RootState["filter"]["sortConfigure"] => state.filter.sortConfigure;
 
+export const setMainInputValue = (
+  state: RootState
+): RootState["filter"]["mainInputValue"] => state.filter.mainInputValue;
+
 export const filterResultSelector = createSelector(
   [moviesSelector, filterConfigureSelector, filterSortSelector],
   <T extends MovieDetailsType>(

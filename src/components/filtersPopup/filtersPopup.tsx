@@ -201,6 +201,7 @@ export function FiltersPopup(): JSX.Element {
             dispatch(filterActions.setCurrentPage(1));
             setAppSearchParams(setSearchParams, filterParams);
             dispatch(filterActions.changeFilter(filterParams));
+            dispatch(filterActions.setMainInputValue(filterParams.movieName));
             dispatch(filterActions.close());
           }}
         >

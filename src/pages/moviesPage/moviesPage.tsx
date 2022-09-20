@@ -58,7 +58,7 @@ export function MoviesPage(): JSX.Element {
       filterConfigure.movieName
     ) {
       const abortController = new AbortController();
-
+      console.log("зашел");
       getMovies({
         abortController,
         s: filterConfigure.movieName,
