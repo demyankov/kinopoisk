@@ -1,4 +1,5 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { SyntheticEventData } from "react-dom/test-utils";
 import { useSelector } from "react-redux";
 import { useSearchParams } from "react-router-dom";
 import { countriesList } from "../../generalData/countries";
@@ -9,6 +10,7 @@ import {
 import {
   filterConfigureSelector,
   filterIsLoadingSelector,
+  filterSelectorIsOpened,
 } from "../../store/filter/filter.selector";
 import {
   filterActions,
@@ -39,7 +41,8 @@ import {
 import { SortBySwitcher } from "./sortBySwitcher/sortBySwitcher";
 
 export function FiltersPopup(): JSX.Element {
-  const { refForm, isOpened } = useOutside();
+  const { refForm } = useOutside();
+  const filterIsOpened = useSelector(filterSelectorIsOpened);
   const [searchParams, setSearchParams] = useSearchParams();
   const dispatch = useAppDispatch();
   const isLoading = useSelector(filterIsLoadingSelector);
@@ -72,7 +75,10 @@ export function FiltersPopup(): JSX.Element {
   }, [filterConfigureStore.movieName]);
 
   return (
-    <PopupWrapper ref={refForm} className={isOpened ? "active" : undefined}>
+    <PopupWrapper
+      ref={refForm}
+      className={filterIsOpened ? "active" : undefined}
+    >
       <PopUpHeader>
         <h3>Filters</h3>
         <CloseSearchForm onClick={() => dispatch(filterActions.close())}>
@@ -121,7 +127,6 @@ export function FiltersPopup(): JSX.Element {
       <InputGroup>
         <Input
           label="Year"
-          justifyContent="end"
           placeholder="Year"
           type="number"
           value={filterParams.year}
@@ -133,7 +138,6 @@ export function FiltersPopup(): JSX.Element {
         <Input
           label="Rating"
           placeholder="From"
-          justifyContent="end"
           type="number"
           value={filterParams.ratingFrom}
           onChange={setAppFilterParams("ratingFrom", setFilterParams)}
@@ -148,10 +152,10 @@ export function FiltersPopup(): JSX.Element {
           error={numberError(filterParams.ratingTo)}
         />
         {filterParams.ratingTo &&
-        +filterParams.ratingFrom > +filterParams.ratingTo ? (
-          <Error position="absolute">
-            "Enter the correct rating parameters"
-          </Error>
+        +filterParams.ratingFrom > +filterParams.ratingTo &&
+        !numberError(filterParams.ratingFrom) &&
+        !numberError(filterParams.ratingTo) ? (
+          <Error>"Enter the correct rating parameters"</Error>
         ) : null}
       </InputGroup>
       <Select

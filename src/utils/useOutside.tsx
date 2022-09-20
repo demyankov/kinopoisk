@@ -8,18 +8,24 @@ export function useOutside() {
   const isOpened = useSelector(filterSelectorIsOpened);
   const dispatch = useAppDispatch();
 
-  const refForm = useRef<HTMLFormElement>(null);
   const refOpen = useRef<HTMLImageElement>(null);
+  const refForm = useRef<HTMLFormElement>(null);
 
   useEffect(() => {
-    const handleClickOutsideOpen: EventListener = (event) => {
-      if (refOpen.current && refOpen.current.contains(event.target as Node)) {
+    const handleClickOutsideOpen = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      if (refOpen.current && refOpen.current.contains(target as Node)) {
         dispatch(filterActions.open());
       }
     };
 
-    const handleClickOutsideClose: EventListener = (event) => {
-      if (refForm.current && !refForm.current.contains(event.target as Node)) {
+    const handleClickOutsideClose = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      if (
+        refForm.current &&
+        !(target.tagName === "SPAN") &&
+        !refForm.current.contains(target)
+      ) {
         dispatch(filterActions.close());
       }
     };
@@ -37,6 +43,7 @@ export function useOutside() {
         document.removeEventListener("click", handleClickOutsideOpen);
       }
     };
-  }, [isOpened, dispatch]);
-  return { refForm, refOpen, isOpened };
+  }, [isOpened]);
+
+  return { refForm, refOpen };
 }

@@ -1,5 +1,4 @@
 import styled from "@emotion/styled";
-import { Link } from "react-router-dom";
 import { Breakpoints } from "../../enums/breakpoints";
 import { Button } from "../button/button";
 
@@ -64,18 +63,11 @@ export const UserName = styled.p`
   }
 `;
 
-export const SignInLink = styled(Link)`
+export const SignLink = styled(Button)`
   grid-area: HeaderAuth;
   color: var(--font-color-base);
   line-height: var(--spacing-6);
 
-  @media (max-width: ${Breakpoints.Tablet}) {
-    display: none;
-  }
-`;
-
-export const SignOutLink = styled(Button)`
-  grid-area: HeaderAuth;
   @media (max-width: ${Breakpoints.Tablet}) {
     display: none;
   }

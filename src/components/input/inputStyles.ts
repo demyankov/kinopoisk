@@ -17,7 +17,7 @@ export const InputWrapper = styled.div<{
 
 export const InputPositionWrapper = styled.span`
   position: relative;
-  min-height: 100%;
+  /* min-height: 100%; */
 `;
 
 export const ShowPasswordIcon = styled.span`

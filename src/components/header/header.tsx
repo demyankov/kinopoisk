@@ -4,8 +4,7 @@ import {
   HeaderWrapper,
   ImageWrapper,
   OpenFilter,
-  SignInLink,
-  SignOutLink,
+  SignLink,
   UserName,
 } from "./headerStyles";
 import logo from "../images/pixema.svg";
@@ -44,7 +43,6 @@ export function Header(): JSX.Element {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const changeMovieName = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(e?.target?.value || "sd");
     if (e.target.value) {
       const filter = { ...filterConfigure, movieName: e?.target?.value };
       dispatch(filterActions.clearMovies());
@@ -56,7 +54,6 @@ export function Header(): JSX.Element {
       dispatch(filterActions.changeFilter(filter));
     }
   };
-
   useEffect(() => {
     setMovieName(filterConfigure.movieName);
   }, [filterConfigure.movieName]);
@@ -74,7 +71,10 @@ export function Header(): JSX.Element {
         value={movieName}
         id="mainInput"
         placeholder="Search"
-        onChange={debounce(changeMovieName, 1500)}
+        onChange={(e) => (
+          debounce(changeMovieName(e) as any, 1500),
+          setMovieName(e.target.value)
+        )}
       >
         {url.pathname === AppRoute.Main ? (
           <OpenFilter>
@@ -92,17 +92,17 @@ export function Header(): JSX.Element {
       {user.username ? (
         <>
           <UserName>{user.username}</UserName>
-          <SignOutLink
+          <SignLink
             onClick={() => {
               removeTokensFromLocalStorage();
               dispatch(exitFromAccount());
             }}
           >
             Logout
-          </SignOutLink>
+          </SignLink>
         </>
       ) : (
-        <SignInLink to={AppRoute.Auth}>Login</SignInLink>
+        <SignLink onClick={() => navigate(AppRoute.Auth)}>SignIn</SignLink>
       )}
     </HeaderWrapper>
   );

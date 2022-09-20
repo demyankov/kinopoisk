@@ -39,7 +39,9 @@ export function Input({
           id={id}
           placeholder={placeholder ? placeholder : undefined}
           autoComplete="on"
-          type={isShowPassword ? "text" : "password"}
+          type={
+            type !== "password" ? type : isShowPassword ? "text" : "password"
+          }
           {...otherProps}
         />
         {type === "password" ? (
