@@ -21,7 +21,7 @@ export const ButtonWrapper = styled.button<{ width: string }>`
   }
 
   &:disabled {
-    border: 2px solid var(--background-color-disabled);
+    border: 2px solid var(--background-color-medium);
     background-color: var(--background-color-disabled);
   }
 `;

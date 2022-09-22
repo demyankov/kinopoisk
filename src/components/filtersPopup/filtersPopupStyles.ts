@@ -1,21 +1,38 @@
 import styled from "@emotion/styled";
+import { Breakpoints } from "../../enums/breakpoints";
 
 export const PopupWrapper = styled.form`
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-6);
   position: fixed;
-  justify-content: space-between;
   z-index: 9999;
   top: 0;
   right: -32rem;
-  padding: var(--spacing-8) var(--spacing-6);
   max-width: 32rem;
   border-bottom-left-radius: var(--spacing-7);
   border-top-left-radius: var(--spacing-7);
   background-color: var(--background-color-medium);
   min-height: 100%;
   transition: all 0.6s ease;
+
+  & > div {
+    height: 100vh;
+    padding: var(--spacing-8) var(--spacing-6);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-6);
+    justify-content: space-between;
+    overflow-y: auto;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  & > div::-webkit-scrollbar {
+    width: 0;
+  }
+
+  @media (max-width: ${Breakpoints.Mobile}) {
+    width: 100%;
+    min-height: auto;
+  }
 
   &.active {
     right: 0;

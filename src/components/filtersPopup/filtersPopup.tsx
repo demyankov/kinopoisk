@@ -79,135 +79,137 @@ export function FiltersPopup(): JSX.Element {
       ref={refForm}
       className={filterIsOpened ? "active" : undefined}
     >
-      <PopUpHeader>
-        <h3>Filters</h3>
-        <CloseSearchForm onClick={() => dispatch(filterActions.close())}>
-          Х
-        </CloseSearchForm>
-      </PopUpHeader>
-      <SortBySwitcher firstLabel="Rating" secondLabel="Year" />
-      <Input
-        value={filterParams.movieName}
-        onChange={setAppFilterParams("movieName", setFilterParams)}
-        label="Full or shot movie name"
-        placeholder="Your text"
-        error={checkEmptyField(filterParams.movieName)}
-      />
       <div>
-        <p>Genres</p>
-        <Genres>
-          <ul>
-            {filterParams.genres.length ? (
-              filterParams.genres.map((genre, i) => (
-                <GenreItem key={i}>
-                  <span>{genre}</span>
-                  <DeleteGenre
-                    id={genre}
-                    onClick={({ currentTarget }) => {
-                      setFilterParams((prevParams) => {
-                        return {
-                          ...prevParams,
-                          genres: prevParams["genres"].filter(
-                            (el) => el !== currentTarget.id
-                          ),
-                        };
-                      });
-                    }}
-                  >
-                    x
-                  </DeleteGenre>
-                </GenreItem>
-              ))
-            ) : (
-              <p>Genres not selected</p>
-            )}
-          </ul>
-        </Genres>
-      </div>
-      <InputGroup>
+        <PopUpHeader>
+          <h3>Filters</h3>
+          <CloseSearchForm onClick={() => dispatch(filterActions.close())}>
+            Х
+          </CloseSearchForm>
+        </PopUpHeader>
+        <SortBySwitcher firstLabel="Rating" secondLabel="Year" />
         <Input
-          label="Year"
-          placeholder="Year"
-          type="number"
-          value={filterParams.year}
-          onChange={setAppFilterParams("year", setFilterParams)}
-          error={numberError(filterParams.year, 1950, currentYear)}
+          value={filterParams.movieName}
+          onChange={setAppFilterParams("movieName", setFilterParams)}
+          label="Full or shot movie name"
+          placeholder="Your text"
+          error={checkEmptyField(filterParams.movieName)}
         />
-      </InputGroup>
-      <InputGroup>
-        <Input
-          label="Rating"
-          placeholder="From"
-          type="number"
-          value={filterParams.ratingFrom}
-          onChange={setAppFilterParams("ratingFrom", setFilterParams)}
-          error={numberError(filterParams.ratingFrom)}
+        <div>
+          <p>Genres</p>
+          <Genres>
+            <ul>
+              {filterParams.genres.length ? (
+                filterParams.genres.map((genre, i) => (
+                  <GenreItem key={i}>
+                    <span>{genre}</span>
+                    <DeleteGenre
+                      id={genre}
+                      onClick={({ currentTarget }) => {
+                        setFilterParams((prevParams) => {
+                          return {
+                            ...prevParams,
+                            genres: prevParams["genres"].filter(
+                              (el) => el !== currentTarget.id
+                            ),
+                          };
+                        });
+                      }}
+                    >
+                      x
+                    </DeleteGenre>
+                  </GenreItem>
+                ))
+              ) : (
+                <p>Genres not selected</p>
+              )}
+            </ul>
+          </Genres>
+        </div>
+        <InputGroup>
+          <Input
+            label="Year"
+            placeholder="Year"
+            type="number"
+            value={filterParams.year}
+            onChange={setAppFilterParams("year", setFilterParams)}
+            error={numberError(filterParams.year, 1950, currentYear)}
+          />
+        </InputGroup>
+        <InputGroup>
+          <Input
+            label="Rating"
+            placeholder="From"
+            type="number"
+            value={filterParams.ratingFrom}
+            onChange={setAppFilterParams("ratingFrom", setFilterParams)}
+            error={numberError(filterParams.ratingFrom)}
+          />
+          <Input
+            placeholder="To"
+            justifyContent="end"
+            type="number"
+            value={filterParams.ratingTo}
+            onChange={setAppFilterParams("ratingTo", setFilterParams)}
+            error={numberError(filterParams.ratingTo)}
+          />
+          {filterParams.ratingTo &&
+          +filterParams.ratingFrom > +filterParams.ratingTo &&
+          !numberError(filterParams.ratingFrom) &&
+          !numberError(filterParams.ratingTo) ? (
+            <Error>"Enter the correct rating parameters"</Error>
+          ) : null}
+        </InputGroup>
+        <Select
+          label="Country"
+          options={countriesList.sort()}
+          value={filterParams.country}
+          onChange={setAppFilterParams("country", setFilterParams)}
         />
-        <Input
-          placeholder="To"
-          justifyContent="end"
-          type="number"
-          value={filterParams.ratingTo}
-          onChange={setAppFilterParams("ratingTo", setFilterParams)}
-          error={numberError(filterParams.ratingTo)}
-        />
-        {filterParams.ratingTo &&
-        +filterParams.ratingFrom > +filterParams.ratingTo &&
-        !numberError(filterParams.ratingFrom) &&
-        !numberError(filterParams.ratingTo) ? (
-          <Error>"Enter the correct rating parameters"</Error>
-        ) : null}
-      </InputGroup>
-      <Select
-        label="Country"
-        options={countriesList.sort()}
-        value={filterParams.country}
-        onChange={setAppFilterParams("country", setFilterParams)}
-      />
-      <ButtonWrapper>
-        <Button
-          width="100%"
-          disabled={!isFilterChanged(filterParams)}
-          onClick={() => {
-            setSearchParams("");
-            setFilterParams({ ...initialFilterState, movieName: "death" });
-            dispatch(
-              filterActions.changeFilter({
-                ...initialFilterState,
-                movieName: "death",
-              })
-            );
-          }}
-        >
-          Clear filter
-        </Button>
-        <Button
-          width="100%"
-          disabled={
-            !filterParams.movieName ||
-            (filterParams.ratingTo &&
-              +filterParams.ratingFrom > +filterParams.ratingTo) ||
-            numberError(filterParams.year, 1950, currentYear) ||
-            numberError(filterParams.ratingFrom) ||
-            numberError(filterParams.ratingTo)
-              ? true
-              : false
-          }
-          onClick={() => {
-            dispatch(filterActions.clearMovies());
-            if (!isLoading) {
-              dispatch(filterActions.setIsLoading(true));
+        <ButtonWrapper>
+          <Button
+            width="100%"
+            disabled={!isFilterChanged(filterParams)}
+            onClick={() => {
+              setSearchParams("");
+              setFilterParams({ ...initialFilterState, movieName: "death" });
+              dispatch(
+                filterActions.changeFilter({
+                  ...initialFilterState,
+                  movieName: "death",
+                })
+              );
+            }}
+          >
+            Clear filter
+          </Button>
+          <Button
+            width="100%"
+            disabled={
+              !filterParams.movieName ||
+              (filterParams.ratingTo &&
+                +filterParams.ratingFrom > +filterParams.ratingTo) ||
+              numberError(filterParams.year, 1950, currentYear) ||
+              numberError(filterParams.ratingFrom) ||
+              numberError(filterParams.ratingTo)
+                ? true
+                : false
             }
-            dispatch(filterActions.setCurrentPage(1));
-            setAppSearchParams(setSearchParams, filterParams);
-            dispatch(filterActions.changeFilter(filterParams));
-            dispatch(filterActions.setMainInputValue(filterParams.movieName));
-            dispatch(filterActions.close());
-          }}
-        >
-          Show results
-        </Button>
-      </ButtonWrapper>
+            onClick={() => {
+              dispatch(filterActions.clearMovies());
+              if (!isLoading) {
+                dispatch(filterActions.setIsLoading(true));
+              }
+              dispatch(filterActions.setCurrentPage(1));
+              setAppSearchParams(setSearchParams, filterParams);
+              dispatch(filterActions.changeFilter(filterParams));
+              dispatch(filterActions.setMainInputValue(filterParams.movieName));
+              dispatch(filterActions.close());
+            }}
+          >
+            Show results
+          </Button>
+        </ButtonWrapper>
+      </div>
     </PopupWrapper>
   );
 }

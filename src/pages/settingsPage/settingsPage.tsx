@@ -12,6 +12,7 @@ import { themeSelector } from "../../store/theme/theme.selector";
 import { themeActions } from "../../store/theme/theme.slice";
 import {
   ButtonWrapper,
+  FilterForm,
   SettingsItem,
   SettingsItemWrapper,
   SettingsSubItem,
@@ -39,7 +40,7 @@ export function SettingsPage(): JSX.Element {
   };
 
   return (
-    <form>
+    <FilterForm>
       <SettingsItemWrapper>
         <h3>Profile</h3>
         <SettingsItem>
@@ -80,7 +81,7 @@ export function SettingsPage(): JSX.Element {
             onChange={({ currentTarget: { value } }) =>
               setCurrentPassword(value)
             }
-          ></Input>
+          />
           <SettingsSubItem>
             <Input
               id="newPassword"
@@ -90,7 +91,7 @@ export function SettingsPage(): JSX.Element {
               type="password"
               value={newPassword}
               onChange={({ currentTarget: { value } }) => setNewPassword(value)}
-            ></Input>
+            />
             <Input
               id="confirmPassword"
               label="Confirm password"
@@ -103,7 +104,7 @@ export function SettingsPage(): JSX.Element {
               onChange={({ currentTarget: { value } }) =>
                 setConfirmNewPassword(value)
               }
-            ></Input>
+            />
           </SettingsSubItem>
         </SettingsItem>
       </SettingsItemWrapper>
@@ -198,6 +199,6 @@ export function SettingsPage(): JSX.Element {
           Save
         </Button>
       </ButtonWrapper>
-    </form>
+    </FilterForm>
   );
 }

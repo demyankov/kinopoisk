@@ -148,11 +148,6 @@ export const SPACING = {
   },
 };
 
-// export enum ThemeVariant {
-//   Dark = "dark",
-//   Light = "light",
-// }
-
 const darkTheme = {
   colors: {
     fontBase: "#fff",

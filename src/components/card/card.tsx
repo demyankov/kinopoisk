@@ -2,11 +2,12 @@ import { MovieDetailsType } from "../../types/movieDetailsType";
 import { CardWrapper, ImageWrapper, MovieName, MovieGenre } from "./cardStyles";
 import { NavLink } from "react-router-dom";
 import { AppRoute } from "../../enums/AppRoute";
-import { MovieRating } from "../styles/movieRatingStyle";
+import { FavoriteIconWrapper, MovieRating } from "../styles/movieRatingStyle";
 import { useSelector } from "react-redux";
 import { favouriteSelector } from "../../store/favouriteMovies/favourite.selector";
 import { signInUserSelector } from "../../store/auth/signIn.selector";
 import { urlDefaultPoster } from "../../generalData/urlDefaultPoster";
+import { IconFavorites } from "../images/iconComponents";
 
 export function Card({
   movie,
@@ -34,6 +35,12 @@ export function Card({
       <MovieRating isFavourite={user.username ? isFavourite : false}>
         {movie.imdbRating || "--"}
       </MovieRating>
+      {isFavourite ? (
+        <FavoriteIconWrapper>
+          <IconFavorites />
+        </FavoriteIconWrapper>
+      ) : null}
+
       <MovieName>{movie.Title}</MovieName>
       <MovieGenre>
         {movie?.Genre?.split(",").map((genre, key) => (

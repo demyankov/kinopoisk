@@ -4,6 +4,7 @@ import { useSearchParams } from "react-router-dom";
 import { getMovieDetails } from "../../api/getMovieDetails";
 import { getMovies } from "../../api/getMovies";
 import { Card } from "../../components/card/card";
+import { EmptyContentPage } from "../../components/emptyContentPage/emptyContentPage";
 import { FiltersPopup } from "../../components/filtersPopup/filtersPopup";
 import { AppLoader } from "../../components/loaders/appLoader";
 import { RingsLoader } from "../../components/loaders/ringsLoader";
@@ -58,7 +59,6 @@ export function MoviesPage(): JSX.Element {
       filterConfigure.movieName
     ) {
       const abortController = new AbortController();
-      console.log("зашел");
       getMovies({
         abortController,
         s: filterConfigure.movieName,
@@ -74,7 +74,6 @@ export function MoviesPage(): JSX.Element {
               responseItem.status === "fulfilled" ? responseItem.value : null
             );
             dispatch(filterActions.addMovies(fulfilledResponse));
-            console.log(fulfilledResponse);
           });
           dispatch(filterActions.setCurrentPage(currentPage + 1));
           setPageCount(Math.ceil(+response.totalResults / 10));
@@ -94,13 +93,14 @@ export function MoviesPage(): JSX.Element {
     <>
       <FiltersPopup />
       <CardsWrapper>
-        {moviesFiltered.map((movie, id) => {
-          return <Card key={movie.imdbID} movie={movie} tabindex={+id + 1} />;
-        })}
-        {isLoading ? <AppLoader /> : null}
-        {/* {!isScroll && !filterMovies(sortMoviesList, filterConfigure).length ? (
+        {!isLoading && !moviesFiltered.length ? (
           <EmptyContentPage />
-        ) : null} */}
+        ) : (
+          moviesFiltered.map((movie, id) => {
+            return <Card key={movie.imdbID} movie={movie} tabindex={+id + 1} />;
+          })
+        )}
+        {isLoading ? <AppLoader /> : null}
       </CardsWrapper>
       <ShowMoreButtonWrapper>
         <ShowMoreButton

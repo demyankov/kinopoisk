@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import { MainLayout } from "./mainLayout/mainLayout";
 import { Global } from "@emotion/react";
@@ -66,7 +66,9 @@ function App(): JSX.Element {
                 ) : null
               }
             />
+            <Route path={AppRoute.NotFound} element={<NotFound />} />
           </Route>
+
           <Route path={AppRoute.Auth} element={<Auth />}>
             <Route index element={<SignInForm />} />
             <Route path={AppRoute.SignUp} element={<SignUpForm />} />
@@ -85,7 +87,6 @@ function App(): JSX.Element {
             />
             <Route path={AppRoute.NewPassword} element={<NewPassword />} />
           </Route>
-          <Route path={AppRoute.NotFound} element={<NotFound />} />
           <Route
             path="*"
             element={<Navigate to={AppRoute.NotFound} replace />}

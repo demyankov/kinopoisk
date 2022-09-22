@@ -5,7 +5,7 @@ export const InputWrapper = styled.div<{
 }>`
   grid-area: Input;
   position: relative;
-  min-height: 100%;
+  /* min-height: 100%; */
   width: 100%;
   flex: "1";
   display: flex;

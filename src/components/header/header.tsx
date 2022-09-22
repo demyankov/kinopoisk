@@ -28,7 +28,7 @@ import {
 } from "../../store/filter/filter.selector";
 import { isFilterChanged } from "../../utils/isFilterChanged";
 import debounce from "lodash.debounce";
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import {
   filterActions,
   FilterConfigureType,
@@ -47,6 +47,13 @@ export function Header(): JSX.Element {
   const isLoading = useSelector(filterIsLoadingSelector);
   const [searchParams, setSearchParams] = useSearchParams();
   const formattedMovieName = movieName.trim();
+
+  const location = useLocation();
+  useEffect(() => {
+    if (location.pathname.length > 1) {
+      dispatch(filterActions.setMainInputValue(""));
+    }
+  }, [location.pathname]);
 
   const debouncedMovie = useCallback(
     debounce((filter: FilterConfigureType) => {

@@ -16,6 +16,7 @@ export const Container = styled.div`
   grid-template-columns: var(--sideBarWidth) 1fr;
   max-width: var(--max-width);
   min-width: var(--min-width);
+  min-height: 100vh;
   padding: 0 var(--spacing-9) var(--spacing-4) var(--spacing-9);
   margin: 0 auto;
 

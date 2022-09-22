@@ -1,6 +1,6 @@
 import React from "react";
 import { Error } from "../styles/error";
-import { Label, SelectWrapper, StyledSelect } from "./selectStyles";
+import { SelectWrapper, StyledSelect } from "./selectStyles";
 
 import { SelectType } from "./selectType";
 
@@ -12,7 +12,7 @@ export function Select({
 }: SelectType): JSX.Element {
   return (
     <SelectWrapper>
-      <Label>{label}</Label>
+      <label>{label}</label>
       <StyledSelect {...otherProps}>
         <option value="">Not selected</option>
         {options.map((option, id) => (

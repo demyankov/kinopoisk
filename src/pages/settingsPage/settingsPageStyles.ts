@@ -1,4 +1,13 @@
 import styled from "@emotion/styled";
+import { Breakpoints } from "../../enums/breakpoints";
+
+export const FilterForm = styled.form`
+  @media (max-width: ${Breakpoints.Mobile}) {
+    & > div:nth-last-child(2) > div {
+      flex-direction: row;
+    }
+  }
+`;
 
 export const SettingsItemWrapper = styled.div`
   margin-bottom: var(--spacing-5);
@@ -18,6 +27,10 @@ export const SettingsItem = styled.div`
 
   & > div {
     flex: 1;
+  }
+
+  @media (max-width: ${Breakpoints.Mobile}) {
+    flex-direction: column;
   }
 `;
 
@@ -115,4 +128,12 @@ export const ButtonWrapper = styled.div`
   display: flex;
   justify-content: flex-end;
   gap: var(--spacing-4);
+
+  @media (max-width: ${Breakpoints.Mobile}) {
+    justify-content: space-between;
+
+    button {
+      flex: 1;
+    }
+  }
 `;
