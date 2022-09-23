@@ -1,5 +1,6 @@
 import { useRef, useState } from "react";
 import { useSelector } from "react-redux";
+import { deleteUser } from "../../api/deleteUser";
 import { setPassword, SetPasswordType } from "../../api/setPassword";
 import { Button } from "../../components/button/button";
 import { Input } from "../../components/input/input";
@@ -199,6 +200,15 @@ export function SettingsPage(): JSX.Element {
           Save
         </Button>
       </ButtonWrapper>
+      <Button
+        onClick={() =>
+          deleteUser(user.id).then((response) =>
+            console.log("Пользователь удален:", response)
+          )
+        }
+      >
+        Delete User
+      </Button>
     </FilterForm>
   );
 }
