@@ -1,7 +1,7 @@
 import { createSelector } from "@reduxjs/toolkit";
 import { MovieDetailsType } from "../../types/movieDetailsType";
-import { filterMovies } from "../../utils/filterMovies";
-import { sortMovies } from "../../utils/sortMovies";
+import { filterMovies } from "../../utils/filterMovies/filterMovies";
+import { sortMovies } from "../../utils/sortMovies/sortMovies";
 import { RootState } from "../rootStore";
 import { FilterConfigureType } from "./filter.slice";
 

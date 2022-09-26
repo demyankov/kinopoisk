@@ -23,12 +23,11 @@ import { BurgerButton } from "../burgerButton/burgerButton";
 import { sideBarAction } from "../../store/sideBar/sideBar.slice";
 import {
   filterConfigureSelector,
-  filterIsLoadingSelector,
   setMainInputValue,
 } from "../../store/filter/filter.selector";
-import { isFilterChanged } from "../../utils/isFilterChanged";
+import { isFilterChanged } from "../../utils/isFilterChanged/isFilterChanged";
 import debounce from "lodash.debounce";
-import React, { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect } from "react";
 import {
   filterActions,
   FilterConfigureType,
@@ -44,7 +43,6 @@ export function Header(): JSX.Element {
   const movieName = useSelector(setMainInputValue);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const isLoading = useSelector(filterIsLoadingSelector);
   const [searchParams, setSearchParams] = useSearchParams();
   const formattedMovieName = movieName.trim();
 
@@ -53,7 +51,7 @@ export function Header(): JSX.Element {
     if (location.pathname.length > 1) {
       dispatch(filterActions.setMainInputValue(""));
     }
-  }, [location.pathname]);
+  }, [location.pathname, dispatch]);
 
   const debouncedMovie = useCallback(
     debounce((filter: FilterConfigureType) => {

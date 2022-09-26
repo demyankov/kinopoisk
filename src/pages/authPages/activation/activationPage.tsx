@@ -5,6 +5,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { ActivateUser } from "../../../api/activationUser";
 import { AxiosError } from "axios";
+import { Error } from "../../../components/styles/error";
 
 export function ActivationAccount(): JSX.Element {
   const navigate = useNavigate();
@@ -15,25 +16,22 @@ export function ActivationAccount(): JSX.Element {
   useEffect(() => {
     if (uid && token) {
       ActivateUser({ uid: uid, token: token })
-        .then((response) => {
+        .then(() => {
           setIsActivated(true);
-          console.log(response.data);
         })
         .catch((error) => {
+          setIsActivated(false);
           setError(error);
-          console.log(error.message);
-          console.log(error.request.response);
         });
     }
   }, [uid, token]);
-  console.log(uid, "--------", token);
-  console.log("isActivated", isActivated);
-  console.log("error", error?.message);
+
   return (
     <Form>
       {isActivated ? (
         <>
-          <h3>Accoun is successfully activated</h3>
+          <h3>Account is successfully activated</h3>
+          <Error>{error?.message}</Error>
           <Button
             width="100%"
             onClick={() => {

@@ -1,5 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from "react";
-import { SyntheticEventData } from "react-dom/test-utils";
+import { useEffect, useMemo, useState } from "react";
 import { useSelector } from "react-redux";
 import { useSearchParams } from "react-router-dom";
 import { countriesList } from "../../generalData/countries";
@@ -17,10 +16,10 @@ import {
   FilterConfigureType,
 } from "../../store/filter/filter.slice";
 import { useAppDispatch } from "../../store/rootStore";
-import { checkEmptyField } from "../../utils/checkEmptyField";
-import { currentYear } from "../../utils/currentYear";
-import { isFilterChanged } from "../../utils/isFilterChanged";
-import { numberError } from "../../utils/numberError";
+import { checkEmptyField } from "../../utils/checkEmptyField/checkEmptyField";
+import { currentYear } from "../../utils/currentYear/currentYear";
+import { isFilterChanged } from "../../utils/isFilterChanged/isFilterChanged";
+import { numberError } from "../../utils/numberError/numberError";
 import { setAppFilterParams } from "../../utils/setAppFilterParams";
 import { setAppSearchParams } from "../../utils/setAppSearchParams";
 import { useOutside } from "../../utils/useOutside";

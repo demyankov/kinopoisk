@@ -1,10 +1,9 @@
-import { defaultGenresList } from "../generalData/defaultGenresList";
-import { FilterConfigureType } from "../store/filter/filter.slice";
+import { defaultGenresList } from "../../generalData/defaultGenresList";
+import { FilterConfigureType } from "../../store/filter/filter.slice";
 
 export const isFilterChanged = (filterConfigure: FilterConfigureType) => {
   return (
     filterConfigure.country ||
-    filterConfigure.ratingFrom ||
     filterConfigure.ratingTo ||
     filterConfigure.ratingFrom ||
     filterConfigure.year ||

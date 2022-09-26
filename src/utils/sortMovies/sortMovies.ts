@@ -1,4 +1,4 @@
-import { MovieDetailsType } from "../types/movieDetailsType";
+import { MovieDetailsType } from "../../types/movieDetailsType";
 import cloneDeep from "lodash.clonedeep";
 
 export const sortMovies = (

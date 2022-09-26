@@ -1,5 +1,5 @@
-import { FilterConfigureType } from "../store/filter/filter.slice";
-import { MovieDetailsType } from "../types/movieDetailsType";
+import { FilterConfigureType } from "../../store/filter/filter.slice";
+import { MovieDetailsType } from "../../types/movieDetailsType";
 
 export const filterMovies = <T extends MovieDetailsType>(
   moviesArray: Array<T>,
@@ -18,6 +18,7 @@ export const filterMovies = <T extends MovieDetailsType>(
     ) {
       return movie;
     }
+    return null;
   });
   return filteredArray;
 };
