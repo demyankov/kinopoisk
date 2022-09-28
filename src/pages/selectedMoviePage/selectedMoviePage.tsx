@@ -78,15 +78,14 @@ export function SelectedMoviePage() {
                 <img src={ToFavouriteIcon} alt="To Favourite Icon" />
               </InteractionButton>
               <InteractionButton>
-                <img src={ToShareIcon} alt="To Share Icon" />
+                <EmailShareButton
+                  url="http://www.gmail.com"
+                  subject={`${user.username} invite you to Pixema `}
+                  body={`${user.email}`}
+                >
+                  <img src={ToShareIcon} alt="To Share Icon" />
+                </EmailShareButton>
               </InteractionButton>
-              <EmailShareButton
-                url="http://www.gmail.com"
-                subject={`${user.username} invite you to Pixema `}
-                body={`${user.email}`}
-              >
-                Share
-              </EmailShareButton>
             </InteractionWrapper>
           ) : null}
         </div>

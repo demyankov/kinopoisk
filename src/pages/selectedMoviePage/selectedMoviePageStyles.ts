@@ -40,21 +40,24 @@ export const Poster = styled.img`
 export const InteractionWrapper = styled.div`
   display: flex;
   flex: 1;
+  gap: 4px;
   border-radius: var(--spacing-8);
-  border: 2px solid var(--background-color);
   overflow: hidden;
 `;
 
 export const InteractionButton = styled.button<{ isFavourite?: boolean }>`
-  gap: 2px;
   flex: 1;
-  border-radius: none;
-  border-color: var(--background-color);
+  border: none;
   background-color: ${(props) =>
     props.isFavourite
       ? "var(--background-color-bright)"
       : "var(--background-color-second)"};
   padding: var(--spacing-7);
+
+  & > button {
+    width: 100%;
+    height: 100%;
+  }
 `;
 
 export const HeaderMovieDescription = styled.div`
