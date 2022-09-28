@@ -1,6 +1,9 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, SerializedError } from "@reduxjs/toolkit";
+import { getMovies } from "../../api/getMovies";
 import { GenresType } from "../../generalData/defaultGenresList";
 import { MovieDetailsType } from "../../types/movieDetailsType";
+import { uniqMovies } from "../../utils/uniqMovies";
+import { getMoviesAction } from "./filter.actions";
 
 export interface FilterConfigureType {
   movieName: string;
@@ -30,6 +33,8 @@ export const filterSlice = createSlice({
     filterConfigure: initialFilterConfigure,
     mainInputValue: "",
     sortConfigure: "Rating" as "Rating" | "Year",
+    pageCount: 1 as number,
+    error: null as SerializedError | null,
   },
   reducers: {
     open: (state) => {
@@ -47,16 +52,19 @@ export const filterSlice = createSlice({
     setMainInputValue: (state, action) => {
       state.mainInputValue = action.payload;
     },
-
-    addMovies: (state, action) => {
-      const uniqMovies = action.payload.filter(
-        (newMovie: MovieDetailsType) =>
-          !state.movies.filter(
-            (movie: MovieDetailsType) => movie.imdbID === newMovie.imdbID
-          ).length
-      );
-      state.movies = [...state.movies, ...uniqMovies];
+    setPageCount: (state, action) => {
+      state.pageCount = action.payload;
     },
+
+    // addMovies: (state, action) => {
+    //   const uniqMovies = action.payload.filter(
+    //     (newMovie: MovieDetailsType) =>
+    //       !state.movies.filter(
+    //         (movie: MovieDetailsType) => movie.imdbID === newMovie.imdbID
+    //       ).length
+    //   );
+    //   state.movies = [...state.movies, ...uniqMovies];
+    // },
     clearMovies: (state) => {
       state.movies = [];
     },
@@ -66,6 +74,25 @@ export const filterSlice = createSlice({
     changeFilter: (state, action) => {
       state.filterConfigure = { ...state.filterConfigure, ...action.payload };
     },
+  },
+  extraReducers(builder) {
+    builder
+      .addCase(getMoviesAction.fulfilled, (state, action) => {
+        const fulfilledResponse = action.payload.map((responseItem) =>
+          responseItem.status === "fulfilled" ? responseItem.value : null
+        ) as MovieDetailsType[];
+        console.log(action.payload);
+        const newMovies = uniqMovies(fulfilledResponse, state.movies);
+
+        state.movies = [...state.movies, ...newMovies];
+        state.currentPage += 1;
+        state.isLoading = false;
+        // state.pageCount = Math.ceil(+action.payload.totalResults / 10);
+      })
+      .addCase(getMoviesAction.rejected, (state, action) => {
+        state.error = action.error;
+        state.isLoading = false;
+      });
   },
 });
 

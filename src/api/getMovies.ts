@@ -1,5 +1,5 @@
 import { ApiKey } from "../enums/apiKey";
-import { getMoviesResponseType } from "../types/getMoviesResponseType";
+import { GetMoviesResponseType } from "../types/getMoviesResponseType";
 import { querrySearchParamsType } from "../types/querrySearchParamsType";
 
 export const apiPath = `${process.env.REACT_APP_API_PATH}`;
@@ -9,7 +9,7 @@ export async function getMovies({
   ...params
 }: {
   abortController?: AbortController;
-} & querrySearchParamsType): Promise<getMoviesResponseType> {
+} & querrySearchParamsType): Promise<GetMoviesResponseType> {
   const querryParams = (Object.keys(params) as (keyof typeof params)[])
     .reduce((acc, key) => {
       if (typeof params[key] !== "undefined") {
@@ -27,7 +27,7 @@ export async function getMovies({
   );
 
   if (response.status === 200) {
-    return (await response.json()) as getMoviesResponseType;
+    return (await response.json()) as GetMoviesResponseType;
   }
 
   return Promise.reject({

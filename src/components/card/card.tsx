@@ -12,9 +12,11 @@ import { IconFavorites } from "../images/iconComponents";
 export function Card({
   movie,
   tabindex = 0,
+  isTrends = false,
 }: {
   movie: MovieDetailsType;
   tabindex?: number;
+  isTrends?: boolean;
 }): JSX.Element {
   const isFavourite: boolean = useSelector(favouriteSelector).includes(
     movie.imdbID
@@ -32,10 +34,8 @@ export function Card({
         </NavLink>
       </ImageWrapper>
 
-      <MovieRating isFavourite={user.username ? isFavourite : false}>
-        {movie.imdbRating || "--"}
-      </MovieRating>
-      {isFavourite ? (
+      <MovieRating isTrends={isTrends}>{movie.imdbRating || "--"}</MovieRating>
+      {isFavourite && user.id ? (
         <FavoriteIconWrapper>
           <IconFavorites />
         </FavoriteIconWrapper>

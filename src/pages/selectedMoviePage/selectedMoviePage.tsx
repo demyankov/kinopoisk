@@ -22,30 +22,24 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { AppLoader } from "../../components/loaders/appLoader";
 import { useSelector } from "react-redux";
-import {
-  favouriteErrorSelector,
-  favouriteSelector,
-} from "../../store/favouriteMovies/favourite.selector";
+import { favouriteSelector } from "../../store/favouriteMovies/favourite.selector";
 import { useAppDispatch } from "../../store/rootStore";
 import {
   removeFromFavourite,
   addInFavourite,
 } from "../../store/favouriteMovies/appFavouriteActions";
-import { Error } from "../../components/styles/error";
 import { signInUserSelector } from "../../store/auth/signIn.selector";
 import { urlDefaultPoster } from "../../generalData/urlDefaultPoster";
-import { moviesSelector } from "../../store/filter/filter.selector";
 import { AppRoute } from "../../enums/AppRoute";
 import { getMovieDetails } from "../../api/getMovieDetails";
+import { EmailShareButton } from "react-share";
 
 export function SelectedMoviePage() {
   const { movieId } = useParams<{ movieId: string }>();
-  const [error, setError] = useState<string>();
   const favouriteMovies = useSelector(favouriteSelector);
   const [isFavourite, setIsFavourite] = useState<boolean>(false);
   const dispatch = useAppDispatch();
   const user = useSelector(signInUserSelector);
-  const movies = useSelector(moviesSelector);
   const [movie, setMovie] = useState<getMoviesDetailsResponseType>();
   const navigate = useNavigate();
 
@@ -86,13 +80,19 @@ export function SelectedMoviePage() {
               <InteractionButton>
                 <img src={ToShareIcon} alt="To Share Icon" />
               </InteractionButton>
+              <EmailShareButton
+                url="http://www.gmail.com"
+                subject={`${user.username} invite you to Pixema `}
+                body={`${user.email}`}
+              >
+                Share
+              </EmailShareButton>
             </InteractionWrapper>
           ) : null}
         </div>
       </ImageSection>
       <HeaderMovieDescription>
         <div>
-          <Error>{error}</Error>
           <MovieGenre>
             {movie.Genre.split(",").map((genre, key) => (
               <li key={key}>{genre}</li>

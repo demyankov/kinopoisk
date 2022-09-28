@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { useSearchParams } from "react-router-dom";
+import { useLocation, useSearchParams } from "react-router-dom";
 import { getMovieDetails } from "../../api/getMovieDetails";
 import { getMovies } from "../../api/getMovies";
 import { Card } from "../../components/card/card";
@@ -8,6 +8,8 @@ import { EmptyContentPage } from "../../components/emptyContentPage/emptyContent
 import { FiltersPopup } from "../../components/filtersPopup/filtersPopup";
 import { AppLoader } from "../../components/loaders/appLoader";
 import { RingsLoader } from "../../components/loaders/ringsLoader";
+import { AppRoute } from "../../enums/AppRoute";
+import { getMoviesAction } from "../../store/filter/filter.actions";
 import {
   filterConfigureSelector,
   filterIsLoadingSelector,
@@ -32,6 +34,8 @@ export function MoviesPage(): JSX.Element {
   const filterConfigure = useSelector(filterConfigureSelector);
   const dispatch = useAppDispatch();
   const [searchParams, setSearchParams] = useSearchParams();
+  const location = useLocation();
+  const [isTrends, setIsTrends] = useState<boolean>(false);
 
   useEffect(() => {
     dispatch(filterActions.setCurrentPage(1));
@@ -41,6 +45,20 @@ export function MoviesPage(): JSX.Element {
     document.addEventListener("scroll", scrollHandler);
     return () => document.removeEventListener("scroll", scrollHandler);
   }, [dispatch]);
+
+  useEffect(() => {
+    if (location.pathname.includes(AppRoute.Trends)) {
+      dispatch(
+        filterActions.changeFilter({ ...filterConfigure, ratingFrom: "7.0001" })
+      );
+      setIsTrends(true);
+    } else if (filterConfigure.ratingFrom === "7.0001") {
+      dispatch(
+        filterActions.changeFilter({ ...filterConfigure, ratingFrom: "" })
+      );
+      setIsTrends(false);
+    }
+  }, [location.pathname, dispatch]);
 
   const scrollHandler = (e: any): void => {
     if (
@@ -54,34 +72,17 @@ export function MoviesPage(): JSX.Element {
   };
 
   useEffect(() => {
-    if (
-      ((isLoading && currentPage <= pageCount) || filterConfigure.year) &&
-      filterConfigure.movieName
-    ) {
+    if ((isLoading || filterConfigure.year) && filterConfigure.movieName) {
       const abortController = new AbortController();
-      getMovies({
-        abortController,
-        s: filterConfigure.movieName,
-        r: "json",
-        page: currentPage,
-        y: filterConfigure.year || "",
-      })
-        .then((response) => {
-          Promise.allSettled(
-            response["Search"].map((movie) => getMovieDetails(movie.imdbID))
-          ).then((response) => {
-            const fulfilledResponse = response.map((responseItem) =>
-              responseItem.status === "fulfilled" ? responseItem.value : null
-            );
-            dispatch(filterActions.addMovies(fulfilledResponse));
-          });
-          dispatch(filterActions.setCurrentPage(currentPage + 1));
-          setPageCount(Math.ceil(+response.totalResults / 10));
+      dispatch(
+        getMoviesAction({
+          abortController,
+          s: filterConfigure.movieName,
+          r: "json",
+          page: currentPage,
+          y: filterConfigure.year || "",
         })
-        .catch((errors) => setErrors(errors))
-        .finally(() => {
-          dispatch(filterActions.setIsLoading(false));
-        });
+      );
       return () => {
         abortController.abort();
         dispatch(filterActions.setIsLoading(false));
@@ -97,7 +98,14 @@ export function MoviesPage(): JSX.Element {
           <EmptyContentPage />
         ) : (
           moviesFiltered.map((movie, id) => {
-            return <Card key={movie.imdbID} movie={movie} tabindex={+id + 1} />;
+            return (
+              <Card
+                isTrends={isTrends}
+                key={movie.imdbID}
+                movie={movie}
+                tabindex={+id + 1}
+              />
+            );
           })
         )}
         {isLoading ? <AppLoader /> : null}

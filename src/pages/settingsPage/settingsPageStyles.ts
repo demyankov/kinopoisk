@@ -3,7 +3,7 @@ import { Breakpoints } from "../../enums/breakpoints";
 
 export const FilterForm = styled.form`
   @media (max-width: ${Breakpoints.Mobile}) {
-    & > div:nth-last-child(2) > div {
+    & > div:nth-last-of-type(2) > div {
       flex-direction: row;
     }
   }

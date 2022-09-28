@@ -1,5 +1,3 @@
-import React, { useEffect } from "react";
-
 import { MainLayout } from "./mainLayout/mainLayout";
 import { Global } from "@emotion/react";
 import { getRebootCSS } from "./components/styles/reboot";
@@ -16,7 +14,6 @@ import { SelectedMoviePage } from "./pages/selectedMoviePage/selectedMoviePage";
 import NotFound from "./pages/notFound/notFound";
 import { FavouriteMoviesPage } from "./pages/favouriteMoviesPage/favouriteMovies";
 import { ActivationAccount } from "./pages/authPages/activation/activationPage";
-import { EmptyContentPage } from "./components/emptyContentPage/emptyContentPage";
 import { ProtectedPage } from "./utils/protectedPage";
 import { useSelector } from "react-redux";
 import {
@@ -41,7 +38,7 @@ function App(): JSX.Element {
               path={`${AppRoute.Movie}/:movieId`}
               element={<SelectedMoviePage />}
             />
-            <Route path={AppRoute.Trends} element={<EmptyContentPage />} />
+            <Route path={AppRoute.Trends} element={<MoviesPage />} />
 
             <Route
               path={AppRoute.Favourites}
@@ -54,7 +51,6 @@ function App(): JSX.Element {
                 ) : null
               }
             />
-
             <Route
               path={AppRoute.Settings}
               element={
@@ -68,7 +64,6 @@ function App(): JSX.Element {
             />
             <Route path={AppRoute.NotFound} element={<NotFound />} />
           </Route>
-
           <Route path={AppRoute.Auth} element={<Auth />}>
             <Route index element={<SignInForm />} />
             <Route path={AppRoute.SignUp} element={<SignUpForm />} />
