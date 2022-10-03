@@ -20,7 +20,7 @@ import { removeTokensFromLocalStorage } from "../../utils/localStorage";
 import { useAppDispatch } from "../../store/rootStore";
 import { exitFromAccount } from "../../store/auth/auth.slice";
 import { useNavigate } from "react-router-dom";
-import { BurgerButton } from "../burgerButton/burgerButton";
+import { BurgerButton } from "../BurgerButton/BurgerButton";
 import { sideBarAction } from "../../store/sideBar/sideBar.slice";
 import {
   filterConfigureSelector,

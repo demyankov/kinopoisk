@@ -1,4 +1,4 @@
-import { BurgerWrapper } from "./burgerButtonStyles";
+import { BurgerWrapper } from "./BurgerButtonStyles";
 import { BurgerButtonType } from "./BurgerButtonType";
 
 export function BurgerButton({
