@@ -56,19 +56,30 @@ export const UserName = styled.p`
   align-items: center;
   color: var(--font-color-base);
   line-height: var(--spacing-6);
-  min-height: 100%;
+`;
 
+export const SignLinkwrapper = styled.div`
+  display: flex;
+  gap: var(--spacing-8);
   @media (max-width: ${Breakpoints.Tablet}) {
     display: none;
   }
 `;
 
+export const SignLinkwrapperSideBar = styled.div`
+  flex: 1;
+  display: none;
+  flex-direction: column;
+  gap: var(--spacing-8);
+  justify-content: end;
+  align-items: flex-start;
+  margin-bottom: var(--spacing-2);
+  @media (max-width: ${Breakpoints.Tablet}) {
+    display: flex;
+  }
+`;
 export const SignLink = styled(Button)`
   grid-area: HeaderAuth;
   color: var(--font-color-base);
   line-height: var(--spacing-6);
-
-  @media (max-width: ${Breakpoints.Tablet}) {
-    display: none;
-  }
 `;

@@ -55,16 +55,6 @@ export const filterSlice = createSlice({
     setPageCount: (state, action) => {
       state.pageCount = action.payload;
     },
-
-    // addMovies: (state, action) => {
-    //   const uniqMovies = action.payload.filter(
-    //     (newMovie: MovieDetailsType) =>
-    //       !state.movies.filter(
-    //         (movie: MovieDetailsType) => movie.imdbID === newMovie.imdbID
-    //       ).length
-    //   );
-    //   state.movies = [...state.movies, ...uniqMovies];
-    // },
     clearMovies: (state) => {
       state.movies = [];
     },
@@ -81,9 +71,7 @@ export const filterSlice = createSlice({
         const fulfilledResponse = action.payload.map((responseItem) =>
           responseItem.status === "fulfilled" ? responseItem.value : null
         ) as MovieDetailsType[];
-        console.log(action.payload);
         const newMovies = uniqMovies(fulfilledResponse, state.movies);
-
         state.movies = [...state.movies, ...newMovies];
         state.currentPage += 1;
         state.isLoading = false;

@@ -6,6 +6,7 @@ import {
   ImageWrapper,
   OpenFilter,
   SignLink,
+  SignLinkwrapper,
   UserName,
 } from "./headerStyles";
 import logo from "../images/pixema.svg";
@@ -103,21 +104,23 @@ export function Header(): JSX.Element {
       <BurgerButton onClick={() => dispatch(sideBarAction.toggleSideBar())}>
         <img src={BurgerIcon} alt="Burger menu" />
       </BurgerButton>
-      {user.username ? (
-        <>
-          <UserName>{user.username}</UserName>
-          <SignLink
-            onClick={() => {
-              removeTokensFromLocalStorage();
-              dispatch(exitFromAccount());
-            }}
-          >
-            Logout
-          </SignLink>
-        </>
-      ) : (
-        <SignLink onClick={() => navigate(AppRoute.Auth)}>SignIn</SignLink>
-      )}
+      <SignLinkwrapper>
+        {user.username ? (
+          <>
+            <UserName>{user.username}</UserName>
+            <SignLink
+              onClick={() => {
+                removeTokensFromLocalStorage();
+                dispatch(exitFromAccount());
+              }}
+            >
+              Logout
+            </SignLink>
+          </>
+        ) : (
+          <SignLink onClick={() => navigate(AppRoute.Auth)}>SignIn</SignLink>
+        )}
+      </SignLinkwrapper>
     </HeaderWrapper>
   );
 }

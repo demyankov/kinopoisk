@@ -5,10 +5,22 @@ import { useSelector } from "react-redux";
 import { sideBarSelector } from "../../store/sideBar/sideBar.selector";
 import { useAppDispatch } from "../../store/rootStore";
 import { sideBarAction } from "../../store/sideBar/sideBar.slice";
+import { signInUserSelector } from "../../store/auth/signIn.selector";
+import {
+  SignLink,
+  SignLinkwrapperSideBar,
+  UserName,
+} from "../header/headerStyles";
+import { exitFromAccount } from "../../store/auth/auth.slice";
+import { removeTokensFromLocalStorage } from "../../utils/localStorage";
+import { AppRoute } from "../../enums/AppRoute";
+import { useNavigate } from "react-router-dom";
 
 export function SideBar({ links }: { links: Array<SideBarType> }): JSX.Element {
   const isOpened = useSelector(sideBarSelector);
   const dispatch = useAppDispatch();
+  const user = useSelector(signInUserSelector);
+  const navigate = useNavigate();
 
   return (
     <SideBarWrapper isOpened={isOpened}>
@@ -32,6 +44,23 @@ export function SideBar({ links }: { links: Array<SideBarType> }): JSX.Element {
           );
         })}
       </Ul>
+      <SignLinkwrapperSideBar>
+        {user.username ? (
+          <>
+            <UserName>{user.username}</UserName>
+            <SignLink
+              onClick={() => {
+                removeTokensFromLocalStorage();
+                dispatch(exitFromAccount());
+              }}
+            >
+              Logout
+            </SignLink>
+          </>
+        ) : (
+          <SignLink onClick={() => navigate(AppRoute.Auth)}>SignIn</SignLink>
+        )}
+      </SignLinkwrapperSideBar>
       <SecondaryP>© All Rights Reserved</SecondaryP>
     </SideBarWrapper>
   );

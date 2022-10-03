@@ -26,6 +26,7 @@ export const SideBarWrapper = styled.nav<{ isOpened: boolean }>`
   @media (max-width: ${Breakpoints.Mobile}) {
     top: 7rem;
     width: 100%;
+    max-height: 87vh;
   }
 `;
 
