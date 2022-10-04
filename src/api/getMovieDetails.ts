@@ -1,17 +1,16 @@
 import axios from "axios";
-import { ApiKey } from "../enums/apiKey";
+
 import { MovieDetailsType } from "../types/movieDetailsType";
 
-export const apiPath = `${process.env.REACT_APP_API_PATH}`;
+const apiPath = `${process.env.REACT_APP_API_PATH}`;
+const apiKey = `${process.env.REACT_APP_API_KEY}`;
 
-export async function getMovieDetails(
-  movieId: string = ""
-): Promise<MovieDetailsType> {
+export async function getMovieDetails(movieId = ""): Promise<MovieDetailsType> {
   const querryParams = new URLSearchParams();
   querryParams.append("i", movieId);
   querryParams.append("plot", "full");
 
   return await axios
-    .get(`${apiPath}/?apikey=${ApiKey.key}&${querryParams}`)
+    .get(`${apiPath}/?apikey=${apiKey}&${querryParams}`)
     .then(({ data }) => data);
 }

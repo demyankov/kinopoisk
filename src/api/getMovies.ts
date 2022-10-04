@@ -1,8 +1,8 @@
-import { ApiKey } from "../enums/apiKey";
 import { GetMoviesResponseType } from "../types/getMoviesResponseType";
 import { querrySearchParamsType } from "../types/querrySearchParamsType";
 
-export const apiPath = `${process.env.REACT_APP_API_PATH}`;
+const apiKey = `${process.env.REACT_APP_API_KEY}`;
+const apiPath = `${process.env.REACT_APP_API_PATH}`;
 
 export async function getMovies({
   abortController,
@@ -19,12 +19,9 @@ export async function getMovies({
     }, new URLSearchParams())
     .toString();
 
-  const response = await fetch(
-    `${apiPath}/?apikey=${ApiKey.key}&${querryParams}`,
-    {
-      signal: abortController?.signal,
-    }
-  );
+  const response = await fetch(`${apiPath}/?apikey=${apiKey}&${querryParams}`, {
+    signal: abortController?.signal,
+  });
 
   if (response.status === 200) {
     return (await response.json()) as GetMoviesResponseType;

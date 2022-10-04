@@ -15,9 +15,9 @@ export function FavouriteMoviesPage(): JSX.Element {
 
   useEffect(() => {
     movieIdList.map((id) => {
-      getMovieDetails(id).then((response) => {
-        setFavouriteMovies((prev) => [...prev, response]);
-      });
+      getMovieDetails(id).then((response) =>
+        setFavouriteMovies((prev) => [...prev, response])
+      );
     });
   }, []);
 

@@ -1,5 +1,4 @@
 import { createSlice, SerializedError } from "@reduxjs/toolkit";
-import { getMovies } from "../../api/getMovies";
 import { GenresType } from "../../generalData/defaultGenresList";
 import { MovieDetailsType } from "../../types/movieDetailsType";
 import { uniqMovies } from "../../utils/uniqMovies";

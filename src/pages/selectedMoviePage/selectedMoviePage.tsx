@@ -14,6 +14,7 @@ import {
   InteractionWrapper,
   InteractionButton,
   Poster,
+  InteractionButtonWrapper,
 } from "./selectedMoviePageStyles";
 import { MovieGenre } from "../../components/Card/cardStyles";
 import ToShareIcon from "../../components/Images/toShareIcon.svg";
@@ -52,7 +53,11 @@ export function SelectedMoviePage() {
         setMovie(movie);
       })
       .catch(() => navigate(AppRoute.NotFound));
-  }, [movieId]);
+  }, [movieId, isFavourite]);
+
+  useEffect(() => {
+    setIsFavourite(movie ? favouriteMovies.includes(movie.imdbID) : false);
+  }, [movie]);
 
   return movie ? (
     <Wrapper>
@@ -77,15 +82,15 @@ export function SelectedMoviePage() {
               >
                 <IconFavorites></IconFavorites>
               </InteractionButton>
-              <InteractionButton>
+              <InteractionButtonWrapper>
                 <EmailShareButton
-                  url="http://www.gmail.com"
+                  url="https://github.com/demyankov/kinopoisk"
                   subject={`${user.username} invite you to Pixema `}
-                  body={`${user.email}`}
+                  body={`You can send email to ${user.username} ${user.email}`}
                 >
                   <img src={ToShareIcon} alt="To Share Icon" />
                 </EmailShareButton>
-              </InteractionButton>
+              </InteractionButtonWrapper>
             </InteractionWrapper>
           ) : null}
         </div>

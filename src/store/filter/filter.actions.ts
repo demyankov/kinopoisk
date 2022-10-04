@@ -15,12 +15,10 @@ export const getMoviesAction = createAsyncThunk(
       abortController,
       ...params,
     }).then(
-      async (response) => {
-        const movies = await Promise.allSettled(
+      (response) =>
+        Promise.allSettled(
           response["Search"].map((movie) => getMovieDetails(movie.imdbID))
-        );
-        return movies;
-      }
+        )
       //   setPageCount(Math.ceil(+response.totalResults / 10));
     )
 );

@@ -53,7 +53,12 @@ export const InteractionButton = styled.button<{ isFavourite?: boolean }>`
       ? "var(--background-color-bright)"
       : "var(--background-color-second)"};
   padding: var(--spacing-7);
+`;
 
+export const InteractionButtonWrapper = styled.div`
+  flex: 1;
+  background-color: var(--background-color-second);
+  padding: var(--spacing-7);
   & > button {
     width: 100%;
     height: 100%;

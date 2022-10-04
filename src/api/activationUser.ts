@@ -10,6 +10,5 @@ interface ActivateUsertype {
 export async function ActivateUser(
   querryParams: ActivateUsertype
 ): Promise<AxiosResponse> {
-  console.log(querryParams);
   return await axios.post(apiPath, querryParams);
 }
