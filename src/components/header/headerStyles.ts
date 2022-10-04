@@ -71,9 +71,8 @@ export const SignLinkwrapperSideBar = styled.div`
   display: none;
   flex-direction: column;
   gap: var(--spacing-8);
-  justify-content: end;
   align-items: flex-start;
-  margin-bottom: var(--spacing-2);
+  margin-top: var(--spacing-2);
   @media (max-width: ${Breakpoints.Tablet}) {
     display: flex;
   }
