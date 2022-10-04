@@ -1,5 +1,4 @@
 import { RefObject } from "react";
-import { LocalStorage } from "../../enums/localStorage";
 import { getSavedtheme } from "../../utils/getSavedTheme";
 import { AppDispatch } from "../rootStore";
 import { themeActions } from "./theme.slice";

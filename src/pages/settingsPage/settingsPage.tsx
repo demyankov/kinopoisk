@@ -141,7 +141,7 @@ export function SettingsPage(): JSX.Element {
             !currentPassword &&
             !newPassword &&
             !confirmNewPassword &&
-            getSavedtheme() === theme
+            (getSavedtheme() === theme || !getSavedtheme())
           }
           onClick={() => {
             clearPasswordField();
