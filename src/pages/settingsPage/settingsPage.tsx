@@ -10,6 +10,8 @@ import { appRebootThemeAction } from "../../store/theme/appRebootThemeAction";
 import { appSaveThemeAction } from "../../store/theme/appSaveThemeAction";
 import { themeSelector } from "../../store/theme/theme.selector";
 import { themeActions } from "../../store/theme/theme.slice";
+import { getSavedtheme } from "../../utils/getSavedTheme";
+import { initialState } from "../../utils/localStorage";
 import {
   ButtonWrapper,
   FilterForm,
@@ -135,12 +137,18 @@ export function SettingsPage(): JSX.Element {
       </SettingsItemWrapper>
       <ButtonWrapper>
         <Button
+          disabled={
+            !currentPassword &&
+            !newPassword &&
+            !confirmNewPassword &&
+            getSavedtheme() === theme
+          }
           onClick={() => {
             clearPasswordField();
             dispatch(appRebootThemeAction(refSwitcher));
           }}
         >
-          Cancel
+          Reset
         </Button>
         <Button
           onClick={() => {

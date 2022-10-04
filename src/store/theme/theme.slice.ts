@@ -1,23 +1,19 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { LocalStorage } from "../../enums/localStorage";
+import { getSavedtheme } from "../../utils/getSavedTheme";
 
 export type ThemeVariant = "Dark" | "Light";
 
 export const themeSlice = createSlice({
   name: "theme",
   initialState: {
-    themeVariant: (localStorage.getItem(LocalStorage.Theme) ||
-      "Dark") as ThemeVariant,
-    initialThemeVariant: (localStorage.getItem(LocalStorage.Theme) ||
-      "Dark") as ThemeVariant,
+    themeVariant: (getSavedtheme() || "Dark") as ThemeVariant,
+    initialThemeVariant: (getSavedtheme() || "Dark") as ThemeVariant,
   },
   reducers: {
     toggleTheme: (state) => {
       state.themeVariant = state.themeVariant === "Dark" ? "Light" : "Dark";
     },
-    // saveTheme: (state) => {
-    //   state.initialThemeVariant = state.themeVariant;
-    // },
     rebootTheme: (state, action) => {
       state.themeVariant = action.payload;
     },

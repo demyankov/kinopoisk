@@ -8,7 +8,6 @@ export const ButtonWrapper = styled.button<{ width: string }>`
   font-weight: var(--subheadline-3-font-weight);
   line-height: var(--subheadline-3-line-height);
   background-color: var(--background-color-bright);
-  border: none;
   border: 2px solid var(--background-color);
 
   &:hover {
@@ -21,7 +20,7 @@ export const ButtonWrapper = styled.button<{ width: string }>`
   }
 
   &:disabled {
-    border: 2px solid var(--background-color-medium);
     background-color: var(--background-color-disabled);
+    border: 2px solid var(--background-color);
   }
 `;
