@@ -1,7 +1,7 @@
 import { Form } from "../authPageStyles";
-import { Button } from "../../../components/button/button";
+import { Button } from "../../../components/Button/Button";
 import { AppRoute } from "../../../enums/AppRoute";
-import { P } from "../../../components/styles/P";
+import { P } from "../../../components/Styles/P";
 import { useNavigate } from "react-router-dom";
 
 export function SignUpSuccess({ email }: { email: string }): JSX.Element {

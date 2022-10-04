@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Form, SignLink } from "../authPageStyles";
-import { Button } from "../../../components/button/button";
-import { Input } from "../../../components/input/input";
+import { Button } from "../../../components/Button/Button";
+import { Input } from "../../../components/Input/Input";
 import { AppRoute } from "../../../enums/AppRoute";
 import { signUp } from "../../../api/signUp";
 import {

@@ -1,5 +1,5 @@
 import { AppRoute } from "../../enums/AppRoute";
-import { Input } from "../input/input";
+import { Input } from "../Input/Input";
 import { useUpdateEffect } from "react-use";
 import {
   HeaderWrapper,
@@ -9,9 +9,9 @@ import {
   SignLinkwrapper,
   UserName,
 } from "./headerStyles";
-import logo from "../images/pixema.svg";
-import SvgOpenFilter from "../images/openFilter.svg";
-import SvgOpenFilterDefault from "../images/openFilterDefault.svg";
+import logo from "../Images/pixema.svg";
+import SvgOpenFilter from "../Images/openFilter.svg";
+import SvgOpenFilterDefault from "../Images/openFilterDefault.svg";
 import { useOutside } from "../../utils/useOutside";
 import { useLocation, useSearchParams } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -34,7 +34,7 @@ import {
   FilterConfigureType,
 } from "../../store/filter/filter.slice";
 import { setAppSearchParams } from "../../utils/setAppSearchParams";
-import BurgerIcon from "../images/burgerIcon.svg";
+import BurgerIcon from "../Images/burgerIcon.svg";
 
 export function Header(): JSX.Element {
   const { refOpen } = useOutside();

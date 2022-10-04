@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { Icon404 } from "../../components/images/iconComponents";
+import { Icon404 } from "../../components/Images/IconComponents";
 import { themeSelector } from "../../store/theme/theme.selector";
 import { Wrapper } from "./notFoundStyles";
 

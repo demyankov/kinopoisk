@@ -1,11 +1,11 @@
 import { Form } from "../authPageStyles";
-import { Button } from "../../../components/button/button";
+import { Button } from "../../../components/Button/Button";
 import { AppRoute } from "../../../enums/AppRoute";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { ActivateUser } from "../../../api/activationUser";
 import { AxiosError } from "axios";
-import { Error } from "../../../components/styles/error";
+import { Error } from "../../../components/Styles/error";
 
 export function ActivationAccount(): JSX.Element {
   const navigate = useNavigate();

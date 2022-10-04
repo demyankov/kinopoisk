@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { getMovieDetails } from "../../api/getMovieDetails";
-import { Card } from "../../components/card/card";
-import { EmptyContentPage } from "../../components/emptyContentPage/emptyContentPage";
+import { Card } from "../../components/Card/Card";
+import { EmptyContentPage } from "../../components/EmptyContentPage/EmptyContentPage";
 import { favouriteSelector } from "../../store/favouriteMovies/favourite.selector";
 import { MovieDetailsType } from "../../types/movieDetailsType";
 import { CardsWrapper } from "./favouriteMoviesPageStyles";

@@ -23,10 +23,10 @@ import { numberError } from "../../utils/numberError/numberError";
 import { setAppFilterParams } from "../../utils/setAppFilterParams";
 import { setAppSearchParams } from "../../utils/setAppSearchParams";
 import { useOutside } from "../../utils/useOutside";
-import { Button } from "../button/button";
-import { Input } from "../input/input";
-import { Select } from "../select/select";
-import { Error } from "../styles/error";
+import { Button } from "../Button/Button";
+import { Input } from "../Input/Input";
+import { Select } from "../Select/Select";
+import { Error } from "../Styles/error";
 import {
   ButtonWrapper,
   CloseSearchForm,
@@ -37,7 +37,7 @@ import {
   PopUpHeader,
   PopupWrapper,
 } from "./filtersPopupStyles";
-import { SortBySwitcher } from "./sortBySwitcher/sortBySwitcher";
+import { SortBySwitcher } from "./SortBySwitcher/SortBySwitcher";
 
 export function FiltersPopup(): JSX.Element {
   const { refForm } = useOutside();

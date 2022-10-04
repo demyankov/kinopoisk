@@ -1,6 +1,6 @@
 import { SideBarLink, SideBarWrapper, Ul } from "./sideBarStyles";
 import { SideBarType } from "../../generalData/sideBarList";
-import { SecondaryP } from "../styles/secondaryP";
+import { SecondaryP } from "../Styles/secondaryP";
 import { useSelector } from "react-redux";
 import { sideBarSelector } from "../../store/sideBar/sideBar.selector";
 import { useAppDispatch } from "../../store/rootStore";
@@ -10,7 +10,7 @@ import {
   SignLink,
   SignLinkwrapperSideBar,
   UserName,
-} from "../header/headerStyles";
+} from "../Header/headerStyles";
 import { exitFromAccount } from "../../store/auth/auth.slice";
 import { removeTokensFromLocalStorage } from "../../utils/localStorage";
 import { AppRoute } from "../../enums/AppRoute";

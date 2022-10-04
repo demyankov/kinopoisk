@@ -1,6 +1,6 @@
 import { MainLayout } from "./mainLayout/mainLayout";
 import { Global } from "@emotion/react";
-import { getRebootCSS } from "./components/styles/reboot";
+import { getRebootCSS } from "./components/Styles/reboot";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { AppRoute } from "./enums/AppRoute";
 import { SettingsPage } from "./pages/settingsPage/settingsPage";

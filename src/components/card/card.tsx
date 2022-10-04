@@ -2,12 +2,12 @@ import { MovieDetailsType } from "../../types/movieDetailsType";
 import { CardWrapper, ImageWrapper, MovieName, MovieGenre } from "./cardStyles";
 import { NavLink } from "react-router-dom";
 import { AppRoute } from "../../enums/AppRoute";
-import { FavoriteIconWrapper, MovieRating } from "../styles/movieRatingStyle";
+import { FavoriteIconWrapper, MovieRating } from "../Styles/movieRatingStyle";
 import { useSelector } from "react-redux";
 import { favouriteSelector } from "../../store/favouriteMovies/favourite.selector";
 import { signInUserSelector } from "../../store/auth/signIn.selector";
 import { urlDefaultPoster } from "../../generalData/urlDefaultPoster";
-import { IconFavorites } from "../images/iconComponents";
+import { IconFavorites } from "../Images/IconComponents";
 
 export function Card({
   movie,

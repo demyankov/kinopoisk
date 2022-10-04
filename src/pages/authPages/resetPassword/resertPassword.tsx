@@ -1,8 +1,8 @@
 import { AxiosError } from "axios";
 import { useState } from "react";
 import { resetPassword } from "../../../api/resetPassword";
-import { Button } from "../../../components/button/button";
-import { Input } from "../../../components/input/input";
+import { Button } from "../../../components/Button/Button";
+import { Input } from "../../../components/Input/Input";
 import { Form } from "../authPageStyles";
 import { ResertPasswordLink } from "./resertPasswordLink";
 

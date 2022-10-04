@@ -1,6 +1,6 @@
 import { getMoviesDetailsResponseType } from "../../types/getMoviesDetailsResponseType";
 import { MovieDescription } from "./movieDescription";
-import Imdb from "../../components/images/Imdb.svg";
+import Imdb from "../../components/Images/Imdb.svg";
 import {
   ImageSection,
   ImageWrapper,
@@ -15,12 +15,11 @@ import {
   InteractionButton,
   Poster,
 } from "./selectedMoviePageStyles";
-import { MovieGenre } from "../../components/card/cardStyles";
-import ToFavouriteIcon from "../../components/images/favouriteIcon.svg";
-import ToShareIcon from "../../components/images/toShareIcon.svg";
+import { MovieGenre } from "../../components/Card/cardStyles";
+import ToShareIcon from "../../components/Images/toShareIcon.svg";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { AppLoader } from "../../components/loaders/appLoader";
+import { AppLoader } from "../../components/Loaders/AppLoader";
 import { useSelector } from "react-redux";
 import { favouriteSelector } from "../../store/favouriteMovies/favourite.selector";
 import { useAppDispatch } from "../../store/rootStore";
@@ -33,6 +32,7 @@ import { urlDefaultPoster } from "../../generalData/urlDefaultPoster";
 import { AppRoute } from "../../enums/AppRoute";
 import { getMovieDetails } from "../../api/getMovieDetails";
 import { EmailShareButton } from "react-share";
+import { IconFavorites } from "../../components/Images/IconComponents";
 
 export function SelectedMoviePage() {
   const { movieId } = useParams<{ movieId: string }>();
@@ -75,7 +75,7 @@ export function SelectedMoviePage() {
                     : dispatch(addInFavourite(movie.imdbID));
                 }}
               >
-                <img src={ToFavouriteIcon} alt="To Favourite Icon" />
+                <IconFavorites></IconFavorites>
               </InteractionButton>
               <InteractionButton>
                 <EmailShareButton

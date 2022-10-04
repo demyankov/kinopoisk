@@ -1,5 +1,5 @@
-import { P } from "../../components/styles/P";
-import { SecondaryP } from "../../components/styles/secondaryP";
+import { P } from "../../components/Styles/P";
+import { SecondaryP } from "../../components/Styles/secondaryP";
 import { getMoviesDetailsResponseType } from "../../types/getMoviesDetailsResponseType";
 import { DescriptionWrapper } from "./movieDescriptionStyles";
 

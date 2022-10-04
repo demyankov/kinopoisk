@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Error } from "../styles/error";
+import { Error } from "../Styles/error";
 import {
   InputPositionWrapper,
   InputWrapper,

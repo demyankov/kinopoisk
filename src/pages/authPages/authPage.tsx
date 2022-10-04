@@ -1,5 +1,5 @@
 import { Outlet, useNavigate } from "react-router-dom";
-import logo from "../../components/images/pixema.svg";
+import logo from "../../components/Images/pixema.svg";
 import { AppRoute } from "../../enums/AppRoute";
 import { Header, Main, Wrapper } from "./authPageStyles";
 

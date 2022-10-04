@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { Link } from "react-router-dom";
-import back from "../../components/images/mainBackground.jpg";
+import back from "../../components/Images/mainBackground.jpg";
 
 export const Wrapper = styled.div`
   height: 100%;

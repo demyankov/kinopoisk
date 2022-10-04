@@ -2,8 +2,8 @@ import { AxiosError } from "axios";
 import React, { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { resetPasswordConfirm } from "../../../api/resetPasswordConfirm";
-import { Button } from "../../../components/button/button";
-import { Input } from "../../../components/input/input";
+import { Button } from "../../../components/Button/Button";
+import { Input } from "../../../components/Input/Input";
 import { AppRoute } from "../../../enums/AppRoute";
 import { Form } from "../authPageStyles";
 

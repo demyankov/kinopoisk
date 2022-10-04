@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { MovieRating } from "../../components/styles/movieRatingStyle";
+import { MovieRating } from "../../components/Styles/movieRatingStyle";
 import { Breakpoints } from "../../enums/breakpoints";
 
 export const Wrapper = styled.div`

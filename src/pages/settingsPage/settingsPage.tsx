@@ -1,9 +1,9 @@
 import { useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { setPassword, SetPasswordType } from "../../api/setPassword";
-import { Button } from "../../components/button/button";
-import { Input } from "../../components/input/input";
-import { SuccessfulMessage } from "../../components/styles/successfulMessage";
+import { Button } from "../../components/Button/Button";
+import { Input } from "../../components/Input/Input";
+import { SuccessfulMessage } from "../../components/Styles/successfulMessage";
 import { signInUserSelector } from "../../store/auth/signIn.selector";
 import { useAppDispatch } from "../../store/rootStore";
 import { appRebootThemeAction } from "../../store/theme/appRebootThemeAction";

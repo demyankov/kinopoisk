@@ -1,5 +1,5 @@
-import { BurgerWrapper } from "./BurgerButtonStyles";
-import { BurgerButtonType } from "./BurgerButtonType";
+import { BurgerWrapper } from "./burgerButtonStyles";
+import { BurgerButtonType } from "./burgerButtonType";
 
 export function BurgerButton({
   children,

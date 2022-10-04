@@ -1,5 +1,5 @@
 import React from "react";
-import { Error } from "../styles/error";
+import { Error } from "../Styles/error";
 import { SelectWrapper, StyledSelect } from "./selectStyles";
 
 import { SelectType } from "./selectType";

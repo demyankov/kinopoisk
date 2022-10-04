@@ -4,7 +4,7 @@ import {
   IconTrends,
   IconFavorites,
   IconSettings,
-} from "../components/images/iconComponents";
+} from "../components/Images/IconComponents";
 
 export interface SideBarType {
   icon: () => JSX.Element;

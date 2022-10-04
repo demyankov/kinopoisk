@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { Breakpoints } from "../../enums/breakpoints";
-import { Button } from "../button/button";
+import { Button } from "../Button/Button";
 
 export const HeaderWrapper = styled.header`
   grid-area: Header;

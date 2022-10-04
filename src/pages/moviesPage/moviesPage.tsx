@@ -1,13 +1,11 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useLocation, useSearchParams } from "react-router-dom";
-import { getMovieDetails } from "../../api/getMovieDetails";
-import { getMovies } from "../../api/getMovies";
-import { Card } from "../../components/card/card";
-import { EmptyContentPage } from "../../components/emptyContentPage/emptyContentPage";
-import { FiltersPopup } from "../../components/filtersPopup/filtersPopup";
-import { AppLoader } from "../../components/loaders/appLoader";
-import { RingsLoader } from "../../components/loaders/ringsLoader";
+import { Card } from "../../components/Card/Card";
+import { EmptyContentPage } from "../../components/EmptyContentPage/EmptyContentPage";
+import { FiltersPopup } from "../../components/FiltersPopup/FiltersPopup";
+import { AppLoader } from "../../components/Loaders/AppLoader";
+import { RingsLoader } from "../../components/Loaders/RingsLoader";
 import { AppRoute } from "../../enums/AppRoute";
 import { getMoviesAction } from "../../store/filter/filter.actions";
 import {
@@ -28,8 +26,6 @@ import {
 export function MoviesPage(): JSX.Element {
   const moviesFiltered = useSelector(filterResultSelector);
   const currentPage = useSelector(filterCurrentPageSelector);
-  const [pageCount, setPageCount] = useState<number>(1);
-  const [errors, setErrors] = useState();
   const isLoading = useSelector(filterIsLoadingSelector);
   const filterConfigure = useSelector(filterConfigureSelector);
   const dispatch = useAppDispatch();
